@@ -16,12 +16,12 @@ public class GameVersionFormCommitController {
     @GetMapping("version")
     public String greetingForm(Model model) {
         model.addAttribute("version", new VersionConfig());
-        return "version";
+        return "form/version";
     }
 
     @PostMapping("submit")
     public String greetingSubmit(@ModelAttribute VersionConfig greeting) {
-        return "result";
+        return "form/result";
     }
 
 }
