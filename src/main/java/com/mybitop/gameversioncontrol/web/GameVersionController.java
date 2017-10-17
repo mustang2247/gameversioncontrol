@@ -3,14 +3,18 @@ package com.mybitop.gameversioncontrol.web;
 
 import com.mybitop.gameversioncontrol.entity.VersionConfig;
 import com.mybitop.gameversioncontrol.service.GameVersionService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/version")
 public class GameVersionController {
+
+    private static final Logger logger = LoggerFactory.getLogger( GameVersionController.class );
 
     @Autowired
     GameVersionService accountService;
@@ -20,15 +24,19 @@ public class GameVersionController {
         return accountService.findAccountList();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public VersionConfig getAccountById(@PathVariable("id") int id) {
-        return accountService.findAccount(id);
+    @RequestMapping(value = "/{appid}", method = RequestMethod.GET)
+    @ResponseBody
+    public VersionConfig getAccountById(@PathVariable("appid") String appid,
+                                        @RequestParam(value = "channelid", required = true) String channelid,
+                                        @RequestParam(value = "appVersion", required = true) String appVersion) {
+        logger.info("appid:  " + appid + "  channelid: " + channelid + "  appversion: " + appVersion);
+        return accountService.findAccount(appid, channelid, appVersion);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String updateAccount(@PathVariable("id") int id, @RequestParam(value = "name", required = true) String name,
                                 @RequestParam(value = "money", required = true) double money) {
-        int t = accountService.update(name, money, id);
+        int t = 0;//accountService.update(name, money, id);
         if (t == 1) {
             return "success";
         } else {
@@ -52,7 +60,7 @@ public class GameVersionController {
     public String postAccount(@RequestParam(value = "name") String name,
                               @RequestParam(value = "money") double money) {
 
-        int t = accountService.add(name, money);
+        int t = 1;//accountService.add(name, money);
         if (t == 1) {
             return "success";
         } else {

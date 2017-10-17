@@ -2,9 +2,11 @@ package com.mybitop.gameversioncontrol.service;
 
 import com.mybitop.gameversioncontrol.dao.GameVersionMapper;
 import com.mybitop.gameversioncontrol.entity.VersionConfig;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,20 +17,49 @@ public class GameVersionService {
     @Autowired
     private GameVersionMapper accountMapper;
 
-    public int add(String name, double money) {
-        return accountMapper.add(name, money);
+    public int add(VersionConfig version) {
+        return accountMapper.add(version.getAppid(),
+                version.getAppname(),
+                version.getChannelid(),
+                version.getChannelname(),
+                version.getAppVersion(),
+                version.getCreatetime(),
+                version.getUpdatetime(),
+                version.getServerIp(),
+                version.getServerPort(),
+                version.getHotfix(),
+                version.getShields(),
+                version.getDefine1(),
+                version.getDefine2(),
+                version.getParams()
+        );
     }
 
-    public int update(String name, double money, int id) {
-        return accountMapper.update(name, money, id);
+    public int update(VersionConfig version) {
+        return accountMapper.update(version.getAppid(),
+                version.getAppname(),
+                version.getChannelid(),
+                version.getChannelname(),
+                version.getAppVersion(),
+                version.getCreatetime(),
+                version.getUpdatetime(),
+                version.getServerIp(),
+                version.getServerPort(),
+                version.getHotfix(),
+                version.getShields(),
+                version.getDefine1(),
+                version.getDefine2(),
+                version.getParams(),
+                version.getId()
+        );
     }
 
     public int delete(int id) {
         return accountMapper.delete(id);
     }
 
-    public VersionConfig findAccount(int id) {
-        return accountMapper.findAccount(id);
+    public VersionConfig findAccount(String appid, String channelid, String appVersion) {
+        return accountMapper.findAccount(appid, channelid, appVersion);
     }
 
     public List<VersionConfig> findAccountList() {
