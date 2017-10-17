@@ -33,6 +33,12 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
             <version>${spring.boot.version}</version>
         </dependency>
@@ -104,51 +110,16 @@
 
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <properties>
-                <envdir>dev/</envdir>
-                <log4j.level>DEBUG</log4j.level>
-                <log4j.appender>stdout</log4j.appender>
-                <profileActive>dev</profileActive>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>test</id>
-            <properties>
-                <envdir>test/</envdir>
-                <log4j.level>INFO</log4j.level>
-                <log4j.appender>dailyLog</log4j.appender>
-                <log.dir>./logs/bia</log.dir>
-                <profileActive>test</profileActive>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>qcloud</id>
-            <properties>
-                <envdir>qcloud/</envdir>
-                <log4j.level>INFO</log4j.level>
-                <log4j.appender>dailyLog</log4j.appender>
-                <log.dir>./logs/bia</log.dir>
-                <profileActive>qcloud</profileActive>
-            </properties>
-        </profile>
-
-    </profiles>
-
     <build>
-        <finalName>bianalysisdataclient</finalName>
+        <finalName>gameversioncontrol</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot-version}</version>
+                <version>${spring.boot.version}</version>
                 <configuration>
                     <fork>true</fork>
-                    <mainClass>com.bianalysis.data.client.Application</mainClass>
+                    <mainClass>com.mybitop.gameversioncontrol.GameversioncontrolApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
@@ -193,6 +164,41 @@
         </resources>
 
     </build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <envdir>dev/</envdir>
+                <log4j.level>DEBUG</log4j.level>
+                <log4j.appender>stdout</log4j.appender>
+                <profileActive>dev</profileActive>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>test</id>
+            <properties>
+                <envdir>test/</envdir>
+                <log4j.level>INFO</log4j.level>
+                <log4j.appender>dailyLog</log4j.appender>
+                <log.dir>./logs/bia</log.dir>
+                <profileActive>test</profileActive>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>qcloud</id>
+            <properties>
+                <envdir>qcloud/</envdir>
+                <log4j.level>INFO</log4j.level>
+                <log4j.appender>dailyLog</log4j.appender>
+                <log.dir>./logs/bia</log.dir>
+                <profileActive>qcloud</profileActive>
+            </properties>
+        </profile>
+
+    </profiles>
 
 
 </project>
