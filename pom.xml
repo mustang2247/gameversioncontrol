@@ -51,6 +51,12 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
             <version>${spring.boot.version}</version>
         </dependency>
@@ -98,7 +104,13 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.21</version>
+            <version>1.7.25</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.25</version>
         </dependency>
 
         <dependency>
@@ -182,7 +194,7 @@
                 <envdir>test/</envdir>
                 <log4j.level>INFO</log4j.level>
                 <log4j.appender>dailyLog</log4j.appender>
-                <log.dir>./logs/bia</log.dir>
+                <log.dir>./logs/gvc</log.dir>
                 <profileActive>test</profileActive>
             </properties>
         </profile>
@@ -193,7 +205,7 @@
                 <envdir>qcloud/</envdir>
                 <log4j.level>INFO</log4j.level>
                 <log4j.appender>dailyLog</log4j.appender>
-                <log.dir>./logs/bia</log.dir>
+                <log.dir>./logs/gvc</log.dir>
                 <profileActive>qcloud</profileActive>
             </properties>
         </profile>

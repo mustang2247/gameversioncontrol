@@ -2,16 +2,17 @@ package com.mybitop.gameversioncontrol.service;
 
 import com.mybitop.gameversioncontrol.dao.GameVersionMapper;
 import com.mybitop.gameversioncontrol.entity.VersionConfig;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 /**
  * 版本控制service
  */
+//@Service("concurrenmapcache.cacheService")
 @Service
 public class GameVersionService {
     @Autowired
@@ -58,11 +59,12 @@ public class GameVersionService {
         return accountMapper.delete(id);
     }
 
-    public VersionConfig findAccount(String appid, String channelid, String appVersion) {
-        return accountMapper.findAccount(appid, channelid, appVersion);
+//    @Cacheable(value = "concurrenmapcache")
+    public VersionConfig findVersionInfo(String appid, String channelid, String appVersion) {
+        return accountMapper.findVersionInfo(appid, channelid, appVersion);
     }
 
     public List<VersionConfig> findAccountList() {
-        return accountMapper.findAccountList();
+        return accountMapper.findVersionInfoList();
     }
 }

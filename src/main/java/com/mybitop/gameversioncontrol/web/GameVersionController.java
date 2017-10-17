@@ -30,7 +30,7 @@ public class GameVersionController {
                                         @RequestParam(value = "channelid", required = true) String channelid,
                                         @RequestParam(value = "appVersion", required = true) String appVersion) {
         logger.info("appid:  " + appid + "  channelid: " + channelid + "  appversion: " + appVersion);
-        return accountService.findAccount(appid, channelid, appVersion);
+        return accountService.findVersionInfo(appid, channelid, appVersion);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)

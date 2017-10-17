@@ -63,10 +63,10 @@ public interface GameVersionMapper {
 
     @Select("select * from versioncontrol where appid = #{appid} " +
             "and channelid = #{channelid} and appVersion = #{appVersion}")
-    VersionConfig findAccount(@Param("appid") String appid,
-                              @Param("channelid") String channelid,
-                              @Param("appVersion") String appVersion);
+    VersionConfig findVersionInfo(@Param("appid") String appid,
+                                  @Param("channelid") String channelid,
+                                  @Param("appVersion") String appVersion);
 
     @Select("select * from versioncontrol")
-    List<VersionConfig> findAccountList();
+    List<VersionConfig> findVersionInfoList();
 }
