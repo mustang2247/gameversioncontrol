@@ -65,6 +65,10 @@ public class GameVersionService {
         return accountMapper.findVersionInfo(appid, channelid, appVersion);
     }
 
+    public VersionConfig findVersionInfoById(int id) {
+        return accountMapper.findVersionInfoById(id);
+    }
+
     public List<VersionConfig> findAccountList() {
         return accountMapper.findVersionInfoList();
     }
