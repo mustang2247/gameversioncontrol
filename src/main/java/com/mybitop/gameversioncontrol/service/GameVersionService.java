@@ -3,8 +3,6 @@ package com.mybitop.gameversioncontrol.service;
 import com.mybitop.gameversioncontrol.dao.GameVersionMapper;
 import com.mybitop.gameversioncontrol.entity.VersionConfig;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,28 +10,32 @@ import java.util.List;
 /**
  * 版本控制service
  */
-//@Service("concurrenmapcache.cacheService")
 @Service
 public class GameVersionService {
     @Autowired
     private GameVersionMapper accountMapper;
 
     public int add(VersionConfig version) {
-        return accountMapper.add(version.getAppid(),
-                version.getAppname(),
-                version.getChannelid(),
-                version.getChannelname(),
-                version.getAppVersion(),
-                version.getCreatetime(),
-                version.getUpdatetime(),
-                version.getServerIp(),
-                version.getServerPort(),
-                version.getHotfix(),
-                version.getShields(),
-                version.getDefine1(),
-                version.getDefine2(),
-                version.getParams()
-        );
+
+        if(findVersionInfo(version.getAppid(), version.getChannelid(), version.getAppVersion()) != null){
+            return update(version);
+        }else {
+            return accountMapper.add(version.getAppid(),
+                    version.getAppname(),
+                    version.getChannelid(),
+                    version.getChannelname(),
+                    version.getAppVersion(),
+                    version.getCreatetime(),
+                    version.getUpdatetime(),
+                    version.getServerIp(),
+                    version.getServerPort(),
+                    version.getHotfix(),
+                    version.getShields(),
+                    version.getDefine1(),
+                    version.getDefine2(),
+                    version.getParams()
+            );
+        }
     }
 
     public int update(VersionConfig version) {
@@ -59,7 +61,6 @@ public class GameVersionService {
         return accountMapper.delete(id);
     }
 
-//    @Cacheable(value = "concurrenmapcache")
     public VersionConfig findVersionInfo(String appid, String channelid, String appVersion) {
         return accountMapper.findVersionInfo(appid, channelid, appVersion);
     }

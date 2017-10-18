@@ -1,4 +1,4 @@
-package com.mybitop.gameversioncontrol.web;
+package com.mybitop.gameversioncontrol.web.version;
 
 
 import com.mybitop.gameversioncontrol.entity.VersionConfig;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/version")
+@RequestMapping("/versionSelect")
 public class GameVersionController {
 
     private static final Logger logger = LoggerFactory.getLogger( GameVersionController.class );

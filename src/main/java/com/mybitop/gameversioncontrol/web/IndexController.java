@@ -3,11 +3,12 @@ package com.mybitop.gameversioncontrol.web;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller("/, /index")
+@Controller
 public class IndexController {
 
-    @GetMapping
+    @RequestMapping({"/","/index"})
     public String index(Model model) {
 //        model.addAttribute("version", new VersionConfig());
         return "index";
