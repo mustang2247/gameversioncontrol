@@ -40,16 +40,4 @@ public class GameVersionController {
         return accountService.findVersionInfoById(id);
     }
 
-//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-//    public String delete(@PathVariable(value = "id") int id) {
-//        int t = accountService.delete(id);
-//        if (t == 1) {
-//            return "success";
-//        } else {
-//            return "fail";
-//        }
-//
-//    }
-
-
 }
