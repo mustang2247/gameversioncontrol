@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/versionSelect")
 public class GameVersionController {
 
-    private static final Logger logger = LoggerFactory.getLogger( GameVersionController.class );
+    private static final Logger logger = LoggerFactory.getLogger(GameVersionController.class);
 
     @Autowired
     GameVersionService accountService;
@@ -27,8 +27,8 @@ public class GameVersionController {
     @RequestMapping(value = "/{appid}", method = RequestMethod.GET)
     @ResponseBody
     public VersionConfig getAccountByAppid(@PathVariable("appid") String appid,
-                                        @RequestParam(value = "channelid", required = true) String channelid,
-                                        @RequestParam(value = "appVersion", required = true) String appVersion) {
+                                           @RequestParam(value = "channelid", required = true) String channelid,
+                                           @RequestParam(value = "appVersion", required = true) String appVersion) {
         logger.info("appid:  " + appid + "  channelid: " + channelid + "  appversion: " + appVersion);
         return accountService.findVersionInfo(appid, channelid, appVersion);
     }

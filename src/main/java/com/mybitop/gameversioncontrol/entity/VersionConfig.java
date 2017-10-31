@@ -6,24 +6,24 @@ import java.util.Date;
  * 版本控制对象
  */
 public class VersionConfig {
-    private int id ;
-    private String appid ;
-    private String appname ;
-    private String channelid ;
-    private String channelname ;
+    private int id;
+    private String appid;
+    private String appname;
+    private String channelid;
+    private String channelname;
 
-    private String appVersion ;
-    private Date createtime ;
-    private Date updatetime ;
+    private String appVersion;
+    private Date createtime;
+    private Date updatetime;
 
-    private String serverIp ;
-    private String serverPort ;
-    private String hotfix ;//热更新信息
-    private String shields ;//屏蔽信息
+    private String serverIp;
+    private String serverPort;
+    private String hotfix;//热更新信息
+    private String shields;//屏蔽信息
 
-    private String define1 ;//用户自定义
-    private String define2 ;//用户自定义
-    private String params ;//热更新信息
+    private String define1;//用户自定义
+    private String define2;//用户自定义
+    private String params;//热更新信息
 
     public int getId() {
         return id;

@@ -17,9 +17,9 @@ public class GameVersionService {
 
     public int add(VersionConfig version) {
 
-        if(findVersionInfo(version.getAppid(), version.getChannelid(), version.getAppVersion()) != null){
+        if (findVersionInfo(version.getAppid(), version.getChannelid(), version.getAppVersion()) != null) {
             return update(version);
-        }else {
+        } else {
             return accountMapper.add(version.getAppid(),
                     version.getAppname(),
                     version.getChannelid(),

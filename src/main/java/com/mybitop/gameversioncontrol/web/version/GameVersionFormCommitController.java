@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class GameVersionFormCommitController {
-    private static final Logger logger = LoggerFactory.getLogger( GameVersionController.class );
+    private static final Logger logger = LoggerFactory.getLogger(GameVersionController.class);
 
     @Autowired
     GameVersionService accountService;
