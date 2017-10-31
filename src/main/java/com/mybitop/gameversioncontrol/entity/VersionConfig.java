@@ -1,11 +1,12 @@
 package com.mybitop.gameversioncontrol.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 版本控制对象
  */
-public class VersionConfig {
+public class VersionConfig implements Serializable{
     private int id;
     private String appid;
     private String appname;
