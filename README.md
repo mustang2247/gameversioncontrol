@@ -13,3 +13,15 @@ This is game version control server.
 1、整合apache shiro。
 2、完善后台管理。
 3、根据需求添加。
+
+
+## 增加更新提示
+data["productId"] = sdkConfig.channelInfo.productId;
+data["id"] = sdkConfig.channelInfo.id;
+data["packageName"] = sdkConfig.channelInfo.packageName;
+data["channel"] = sdkConfig.channelInfo.channel;
+data["version"] = version;
+string requsetValue = data.ToJson();
+
+HTTPRequest requset = new HTTPRequest(new Uri(serverUrl + "?" + "value=" + requsetValue));
+
