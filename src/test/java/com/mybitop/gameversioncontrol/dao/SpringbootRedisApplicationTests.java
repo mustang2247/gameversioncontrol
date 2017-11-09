@@ -1,5 +1,6 @@
 package com.mybitop.gameversioncontrol.dao;
 
+import com.mybitop.gameversioncontrol.mapper.impl.RedisService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -21,7 +22,7 @@ public class SpringbootRedisApplicationTests {
     }
 
     @Autowired
-    RedisDao redisDao;
+    RedisService redisDao;
     @Test
     public void testRedis(){
         redisDao.setKey("name","forezp");

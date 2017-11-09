@@ -1,5 +1,6 @@
-package com.mybitop.gameversioncontrol.dao;
+package com.mybitop.gameversioncontrol.mapper.impl;
 
+import com.mybitop.gameversioncontrol.mapper.IRedisMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.concurrent.TimeUnit;
 
 @Repository
-public class RedisDao {
+public class RedisService implements IRedisMapper {
     @Autowired
     private StringRedisTemplate template;
 
