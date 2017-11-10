@@ -37,7 +37,7 @@ public class GameVersionFormCommitController {
         return iVersioncontrol.findVersionInfo(appid, channelid, appVersion);
     }
 
-    @GetMapping("/getConfigById")
+    @GetMapping("getConfigById")
     public String versionForm(@RequestParam(value = "id", required = true) int id, Model model) {
         logger.info("getConfigById: " + id);
         model.addAttribute("versioning", iVersioncontrol.selectByPrimaryKey(id));
