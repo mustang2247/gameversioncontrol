@@ -14,12 +14,12 @@ public class HomeController {
 	
 	@RequestMapping({"/","/index"})
 	public String index(){
-		return "/index";
+		return "index";
 	}
 	
 	@RequestMapping(value="/login",method= RequestMethod.GET)
 	public String login(){
-		return "login";
+		return "user/login";
 	}
 	
 	// 登录提交地址和applicationontext-shiro.xml配置的loginurl一致。 (配置文件方式的说法)
@@ -49,7 +49,7 @@ public class HomeController {
 			}
 			map.put("msg", msg);
 			// 此方法不处理登录成功,由shiro进行处理.
-			return "/login";
+			return "user/login";
 		}
 	
 }
