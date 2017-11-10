@@ -22,7 +22,7 @@ public class VersioncontrolMapperImpl implements VersioncontrolMapper {
 
     @Override
     public int insert(Versioncontrol record) {
-        String sql = "insert into versioncontrol(" +
+        String sql = "insert into hotupdateconfig(" +
                 "appid, appname, channelid,channelname,appVersion,createtime,updatetime," +
                 "serverIp,serverPort,hotfix,shields,define1,define2,params) " +
                 "values(?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?)";
@@ -33,7 +33,7 @@ public class VersioncontrolMapperImpl implements VersioncontrolMapper {
 
     @Override
     public Versioncontrol selectByPrimaryKey(Integer id) {
-        List<Versioncontrol> list = jdbcTemplate.query("select * from versioncontrol where id = ?", new Object[]{id}, new BeanPropertyRowMapper(Versioncontrol.class));
+        List<Versioncontrol> list = jdbcTemplate.query("select * from hotupdateconfig where id = ?", new Object[]{id}, new BeanPropertyRowMapper(Versioncontrol.class));
         if(list!=null && list.size()>0){
             Versioncontrol hotupdatecheck = list.get(0);
             return hotupdatecheck;
@@ -44,7 +44,7 @@ public class VersioncontrolMapperImpl implements VersioncontrolMapper {
 
     @Override
     public int update(Versioncontrol record) {
-        String sql = "UPDATE versioncontrol SET " +
+        String sql = "UPDATE hotupdateconfig SET " +
                 "appid=?, appname=?, channelid=?,channelname=?,appVersion=?,createtime=?,updatetime=?," +
                 "serverIp=?,serverPort=?,hotfix=?,shields=?,define1=?,define2=?,params=? WHERE id=?";
         return jdbcTemplate.update(sql, record.getAppid(), record.getAppname(), record.getChannelid(), record.getChannelname(), record.getAppVersion(),
@@ -54,7 +54,7 @@ public class VersioncontrolMapperImpl implements VersioncontrolMapper {
 
     @Override
     public Versioncontrol findVersionInfo(String appid, String channelid, String appVersion) {
-        List<Versioncontrol> list = jdbcTemplate.query("select * from versioncontrol where appid = ? AND channelid = ? AND appVersion = ?", new Object[]{appid, channelid, appVersion}, new BeanPropertyRowMapper(Versioncontrol.class));
+        List<Versioncontrol> list = jdbcTemplate.query("select * from hotupdateconfig where appid = ? AND channelid = ? AND appVersion = ?", new Object[]{appid, channelid, appVersion}, new BeanPropertyRowMapper(Versioncontrol.class));
         if(list!=null && list.size()>0){
             Versioncontrol hotupdatecheck = list.get(0);
             return hotupdatecheck;
@@ -65,7 +65,7 @@ public class VersioncontrolMapperImpl implements VersioncontrolMapper {
 
     @Override
     public List<Versioncontrol> select() {
-        List<Versioncontrol> list = jdbcTemplate.query("select * from versioncontrol", new Object[]{}, new BeanPropertyRowMapper(Versioncontrol.class));
+        List<Versioncontrol> list = jdbcTemplate.query("select * from hotupdateconfig", new Object[]{}, new BeanPropertyRowMapper(Versioncontrol.class));
         if(list!=null && list.size()>0){
             return list;
         }else{
