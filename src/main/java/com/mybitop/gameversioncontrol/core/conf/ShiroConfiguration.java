@@ -99,13 +99,13 @@ public class ShiroConfiguration {
 //    }
 
 
-//    @Bean
-//    public SecurityManager securityManager() {
-//        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-//        //设置realm.
-//        securityManager.setRealm(realm(userInfoService));
-//        return securityManager;
-//    }
+    @Bean
+    public SecurityManager securityManager() {
+        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+        //设置realm.
+        securityManager.setRealm(realm(userInfoService));
+        return securityManager;
+    }
 
 
 
