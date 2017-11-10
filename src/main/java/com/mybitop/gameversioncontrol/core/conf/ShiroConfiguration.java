@@ -1,5 +1,6 @@
 package com.mybitop.gameversioncontrol.core.conf;
 
+import com.mybitop.gameversioncontrol.core.service.IUserInfoService;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
@@ -8,6 +9,7 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,6 +24,40 @@ import java.util.Map;
 @Configuration
 public class ShiroConfiguration {
 
+    @Autowired
+    private IUserInfoService userInfoService;
+
+    /**
+     * 身份认证realm;
+     * (这个需要自己写，账号密码校验；权限等)
+     *
+     * @return
+     */
+    @Bean
+    @Autowired
+    public Realm realm(IUserInfoService userInfoService) {
+        ShiroRealm userRealm = new ShiroRealm();
+        userRealm.setUserRepository(userInfoService);
+//        userRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+
+        return userRealm;
+    }
+
+    /**
+     * 配置shiro的url权限
+     *
+     * @return
+     */
+    @Bean
+    public ShiroFilterChainDefinition shiroFilterChainDefinition() {
+        DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
+        chainDefinition.addPathDefinition("/login.html", "authc"); // need to accept POSTs from the login form
+        chainDefinition.addPathDefinition("/logout", "logout");
+        chainDefinition.addPathDefinition("/account-info", "perms[write]");
+        chainDefinition.addPathDefinition("/account-info1", "roles[admin]");
+        return chainDefinition;
+    }
+
     /**
      * ShiroFilterFactoryBean 处理拦截资源文件问题。
      * 注意：单独一个ShiroFilterFactoryBean配置是或报错的，以为在
@@ -32,107 +68,82 @@ public class ShiroConfiguration {
      * 2、当设置多个过滤器时，全部验证通过，才视为通过
      * 3、部分过滤器可指定参数，如perms，roles
      */
-    @Bean
-    public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
-        System.out.println("ShiroConfiguration.shirFilter()");
-        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-
-        // 必须设置 SecurityManager
-        shiroFilterFactoryBean.setSecurityManager(securityManager);
-
-
-        //拦截器.
-        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-
-        //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
-        filterChainDefinitionMap.put("user/logout", "logout");
-
-        //<!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
-        //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
-        filterChainDefinitionMap.put("/**", "authc");
-
-        // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-        shiroFilterFactoryBean.setLoginUrl("user/login");
-        // 登录成功后要跳转的链接
-        shiroFilterFactoryBean.setSuccessUrl("index");
-        //未授权界面;
-        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
-
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-        return shiroFilterFactoryBean;
-    }
-
-
-    @Bean
-    public SecurityManager securityManager() {
-        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        //设置realm.
-        securityManager.setRealm(myShiroRealm());
-        return securityManager;
-    }
+//    @Bean
+//    public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
+//        System.out.println("ShiroConfiguration.shirFilter()");
+//        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+//
+//        // 必须设置 SecurityManager
+//        shiroFilterFactoryBean.setSecurityManager(securityManager);
+//
+//
+//        //拦截器.
+//        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
+//
+//        //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
+//        filterChainDefinitionMap.put("user/logout", "logout");
+//
+//        //<!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
+//        //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
+//        filterChainDefinitionMap.put("/**", "authc");
+//
+//        // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
+//        shiroFilterFactoryBean.setLoginUrl("user/login");
+//        // 登录成功后要跳转的链接
+//        shiroFilterFactoryBean.setSuccessUrl("index");
+//        //未授权界面;
+//        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
+//
+//        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+//        return shiroFilterFactoryBean;
+//    }
 
 
-    /**
-     * 身份认证realm;
-     * (这个需要自己写，账号密码校验；权限等)
-     *
-     * @return
-     */
-    @Bean
-    public ShiroRealm myShiroRealm() {
-        ShiroRealm myShiroRealm = new ShiroRealm();
-        myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+//    @Bean
+//    public SecurityManager securityManager() {
+//        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+//        //设置realm.
+//        securityManager.setRealm(realm(userInfoService));
+//        return securityManager;
+//    }
 
-        return myShiroRealm;
-    }
 
-    /**
-     * 凭证匹配器
-     * （由于我们的密码校验交给Shiro的SimpleAuthenticationInfo进行处理了
-     * 所以我们需要修改下doGetAuthenticationInfo中的代码;
-     * ）
-     *
-     * @return
-     */
-    @Bean
-    public HashedCredentialsMatcher hashedCredentialsMatcher() {
-        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
 
-        hashedCredentialsMatcher.setHashAlgorithmName("md5");//散列算法:这里使用MD5算法;
-        hashedCredentialsMatcher.setHashIterations(2);//散列的次数，比如散列两次，相当于 md5(md5(""));
 
-        return hashedCredentialsMatcher;
-    }
-
-    /**
-     * 开启shiro aop注解支持.
-     * 使用代理方式;所以需要开启代码支持;
-     *
-     * @param securityManager
-     * @return
-     */
-    @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
-        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
-        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
-        return authorizationAttributeSourceAdvisor;
-    }
+//    /**
+//     * 凭证匹配器
+//     * （由于我们的密码校验交给Shiro的SimpleAuthenticationInfo进行处理了
+//     * 所以我们需要修改下doGetAuthenticationInfo中的代码;
+//     * ）
+//     *
+//     * @return
+//     */
+//    @Bean
+//    public HashedCredentialsMatcher hashedCredentialsMatcher() {
+//        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+//
+//        hashedCredentialsMatcher.setHashAlgorithmName("md5");//散列算法:这里使用MD5算法;
+//        hashedCredentialsMatcher.setHashIterations(2);//散列的次数，比如散列两次，相当于 md5(md5(""));
+//
+//        return hashedCredentialsMatcher;
+//    }
+//
+//    /**
+//     * 开启shiro aop注解支持.
+//     * 使用代理方式;所以需要开启代码支持;
+//     *
+//     * @param securityManager
+//     * @return
+//     */
+//    @Bean
+//    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
+//        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+//        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
+//        return authorizationAttributeSourceAdvisor;
+//    }
 
     //===============================================================================
 
-    @Bean
-    public ShiroFilterChainDefinition shiroFilterChainDefinition() {
-        DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
 
-        // logged in users with the 'admin' role
-        chainDefinition.addPathDefinition("/admin/**", "authc, roles[admin]");
-
-        // logged in users with the 'document:read' permission
-        chainDefinition.addPathDefinition("/docs/**", "authc, perms[document:read]");
-
-        // all other paths require a logged in user
-        chainDefinition.addPathDefinition("/**", "authc");
-        return chainDefinition;
-    }
 
 }

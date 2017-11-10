@@ -4,26 +4,18 @@ import com.mybitop.gameversioncontrol.core.entity.Syspermission;
 import com.mybitop.gameversioncontrol.core.entity.Sysrole;
 import com.mybitop.gameversioncontrol.core.entity.Userinfo;
 import com.mybitop.gameversioncontrol.core.service.IUserInfoService;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
-import javax.annotation.Resource;
-
 /**
  * 身份校验核心类;
  */
 public class ShiroRealm extends AuthorizingRealm {
 
-
-
-    @Resource
     private IUserInfoService userInfoService;
 
     /**
@@ -39,7 +31,6 @@ public class ShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         System.out.println("ShiroRealm.doGetAuthenticationInfo()");
 
-
         //获取用户的输入的账号.
         String username = (String) token.getPrincipal();
         System.out.println(token.getCredentials());
@@ -49,10 +40,21 @@ public class ShiroRealm extends AuthorizingRealm {
         Userinfo userInfo = userInfoService.selectByUsername(username);
         System.out.println("----->>userInfo=" + userInfo);
         if (userInfo == null) {
-            return null;
+            throw new UnknownAccountException("账户不存在");
         }
 
-        //账号判断;
+        //账号判断
+        if (userInfo.getState() != null && userInfo.getState() == 2) {
+            throw new DisabledAccountException("账户被禁用");
+        }
+
+        // 从获得密码
+        String password = userInfo.getPassword();
+        if (password == null) {
+            throw new IncorrectCredentialsException("密码错误！");
+        }
+        // 清除user对象中的密码
+        userInfo.setPassword("");
 
         //加密方式;
         //交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配，如果觉得人家的不好可以自定义实现
@@ -103,6 +105,10 @@ public class ShiroRealm extends AuthorizingRealm {
         }
 
         return authorizationInfo;
+    }
+
+    public void setUserRepository(IUserInfoService userRepository) {
+        this.userInfoService = userRepository;
     }
 
 
