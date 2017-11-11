@@ -1,4 +1,4 @@
-package com.mybitop.gameversioncontrol.core.controller;
+package com.mybitop.gameversioncontrol.web.user;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;

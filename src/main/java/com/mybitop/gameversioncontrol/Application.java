@@ -51,7 +51,7 @@ public class Application implements CommandLineRunner {
 
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("status", HttpStatus.FORBIDDEN.value());
-        map.put("message", "No message available403");
+        map.put("message", "No message available 403");
         model.addAttribute("errors", map);
 
         return "error";
