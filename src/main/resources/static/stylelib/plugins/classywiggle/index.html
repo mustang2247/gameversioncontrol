@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <title>ClassyWiggle jQuery plugin | Class.PM</title>
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic" />
+        <link rel="stylesheet" href="css/documentation.css" />
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="js/jquery.classywiggle.min.js"></script>
+        <style>#wigglewrapper{width:270px;margin:auto;padding:10px}#wigglewrapper img{cursor:pointer;margin:3px}#wrapperbuttons{border-top:1px solid #ddd;padding:15px}#wrapperbuttons button{font-weight:700;line-height:1;font-size:.8em;color:#444;border:none;text-shadow:0 1px 1px rgba(255,255,255,0.85);background-image:0;background-color:#fff;-webkit-border-radius:23px;-moz-border-radius:23px;-o-border-radus:23px;border-radisu:23px;-webkit-box-shadow:0 1px 2px rgba(0,0,0,0.5);-moz-box-shadow:0 1px 2px rgba(0,0,0,0.5);box-shadow:0 1px 2px rgba(0,0,0,0.5);padding:8px 10px}#wrapperbuttons button:hover{cursor:pointer}</style>
+    </head>
+    <body>
+        <div id="page-container">
+            <div id="main-container">
+                <div id="page-content">
+                    <div class="content-header">
+                        <div class="header-section">
+                            <h1>ClassyWiggle<br><small>Wiggleicious!</small></h1>
+                        </div>
+                    </div>
+                    <ul class="breadcrumb breadcrumb-top">
+                        <li><a href="http://www.class.pm/"><i class="fa fa-home"></i> Class.PM</a></li>
+                        <li><a href="http://www.class.pm/#jquery">jQuery plugins</a></li>
+                        <li>ClassyWiggle</li>
+                    </ul>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="block">
+                                <div class="block-title">
+                                    <h2>Introduction</h2>
+                                </div>
+                                <div class="clearfix">
+                                    <p>ClassyWiggle is a <a href="http://www.jquery.com">jQuery</a> plugin that allows you to emulate the wiggle effect icons on an iPhone have when you press and hold down on them.</p>
+                                    <p>
+                                        <a href="http://www.class.pm/files/jquery-classywiggle.zip" class="btn btn-primary">
+                                            <i class="fa fa-folder-open"></i> Download it
+                                        </a>
+                                    </p>
+                                    <div class="alert alert-info">
+                                        <h4><i class="fa fa-info-circle"></i> License</h4>
+                                        This jQuery plugin is distributed under the <a href="http://www.class.pm/LICENSE-MIT">MIT license</a>. Enjoy!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="block">
+                                <div class="block-title">
+                                    <h2>Demo</h2>
+                                </div>
+                                <div class="clearfix">
+                                    <div id="wigglewrapper">
+                                        <img src="images/Calculator.png" alt="Calculator"/>
+                                        <img src="images/Calendar.png" alt="Calendar"/>
+                                        <img src="images/Camera.png" alt="Camera"/>
+                                        <img src="images/Clock.png" alt="Clock"/>
+                                        <img src="images/Contacts.png" alt="Contacts"/>
+                                        <img src="images/iPod.png" alt="iPod"/>
+                                        <img src="images/iTunes.png" alt="iTunes"/>
+                                        <img src="images/Mail.png" alt="Mail"/>
+                                        <img src="images/Maps.png" alt="Maps"/>
+                                        <img src="images/Music.png" alt="Music"/>
+                                        <img src="images/Notes.png" alt="Notes"/>
+                                        <img src="images/Phone.png" alt="Phone"/>
+                                        <img src="images/Safari.png" alt="Safari"/>
+                                        <img src="images/Settings.png" alt="Settings"/>
+                                        <img src="images/SMS.png" alt="SMS"/>
+                                        <img src="images/YouTube.png" alt="YouTube"/>
+                                        <div id="wrapperbuttons">
+                                            <button id="buttonStart">Start All</button>&nbsp;
+                                            <button id="buttonRandom">Random</button>&nbsp;
+                                            <button id="buttonStop">Stop All</button>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        $(document).ready(function() {
+                                            var interval = null;
+                                            $('#logowiggle').click(function() {
+                                                if ($(this).ClassyWiggle('isWiggling')) {
+                                                    $(this).ClassyWiggle('stop');
+                                                }
+                                                else {
+                                                    $(this).ClassyWiggle('start');
+                                                }
+                                            });
+                                            $('div#wigglewrapper img').click(function() {
+                                                if ($(this).ClassyWiggle('isWiggling')) {
+                                                    $(this).ClassyWiggle('stop');
+                                                }
+                                                else {
+                                                    $(this).ClassyWiggle('start');
+                                                }
+                                            });
+                                            $('button#buttonStart').click(function() {
+                                                $('div#wigglewrapper img').ClassyWiggle('start');
+                                            });
+                                            $('button#buttonStop').click(function() {
+                                                $('div#wigglewrapper img').ClassyWiggle('stop');
+                                                clearInterval(interval);
+                                            });
+                                            $('button#buttonRandom').click(function() {
+                                                var matchedElementSize = $('div#wigglewrapper img').size();
+                                                interval = setInterval(function() {
+                                                    $($('div#wigglewrapper img').get(Math.floor(Math.random() * matchedElementSize))).ClassyWiggle('start', {limit: 5});
+                                                }, 1000);
+                                            });
+                                        });
+                                    </script>
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="block">
+                                <div class="block-title">
+                                    <h2>Setup</h2>
+                                </div>
+                                <div class="clearfix">
+                                    <p>First you need to include the jQuery library, since ClassyWiggle is a plugin. You can download it from the <a href="http://www.jquery.com">jQuery website</a> or link it directly from the Google CDN.</p>
+                                    <pre>&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"&gt;&lt;/script&gt;</pre>
+                                    <p>Secondly, you need to include the jQuery ClassyWiggle javascript file into your page. You can do it by adding the code below to your page.</p>
+                                    <pre>&lt;script src="js/jquery.classywiggle.min.js"&gt;&lt;/script&gt;</pre>
+                                    <p>Next, you create the image tag that you want to apply wiggle on.</p>
+                                    <pre>&lt;img class="wiggle" src="images/image1.jpg" /&gt;
+&lt;img class="wiggle" src="images/image2.jpg" /&gt;</pre>
+                                    <p>As the last step, you trigger the <em>ClassyWiggle()</em> function on the element you just created. In this case, we trigger the function on the image with the class <em>wiggle</em>.</p>
+                                    <pre>$(document).ready(function() {
+    $('.wiggle').ClassyWiggle();
+});</pre>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="block">
+                                <div class="block-title">
+                                    <h2>Options</h2>
+                                </div>
+                                <div class="clearfix">
+                                    <ul class="fa-ul">
+                                        <li>
+                                            <h3>Parameters</h3>
+                                            <hr />
+                                        </li>
+                                        <li>
+                                            <span class="label label-danger">degrees</span> - an Array object which outlines the cycle of rotation for a wiggle increment
+                                        </li>
+                                        <li>
+                                            <span class="label label-danger">delay</span> - allows you to specify, in milliseconds, the delay between switching from one rotation degree to the next (see degrees); a higher number creates a slower "wiggle", default is <span class="label label-primary">35</span>
+                                        </li>
+                                        <li>
+                                            <span class="label label-danger">limit</span> - specify the maximum number of wiggles, default is <span class="label label-primary">null</span> which means infinite wiggles
+                                        </li>
+                                        <li>
+                                            <span class="label label-danger">randomStart</span> - boolean value which tells the plugin to start wiggling all matched elements at the same degree or a random one, default is <span class="label label-primary">true</span>
+                                        </li>
+                                        <li>
+                                            <h3>Callbacks</h3>
+                                            <hr />
+                                        </li>
+                                        <li>
+                                            <span class="label label-danger">onWiggle</span> - an event that is fired off with the end of each wiggle
+                                        </li>
+                                        <li>
+                                            <span class="label label-danger">onWiggleStart</span> - an event that is fired off when the wiggling effect first starts
+                                        </li>
+                                        <li>
+                                            <span class="label label-danger">onWiggleStop</span> - an event that is fired off when the wiggling effect is stopped
+                                        </li>
+                                        <li>
+                                            <h3>Methods</h3>
+                                            <hr />
+                                        </li>
+                                        <li>
+                                            <span class="label label-danger">start()</span> - starts the wiggle effect
+                                        </li>
+                                        <li>
+                                            <span class="label label-danger">stop()</span> - stops the wiggle effect
+                                        </li>
+                                        <li>
+                                            <span class="label label-danger">isWiggling()</span> - a method that can be used to determine if the matched element is currently "wiggling"
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="clearfix">
+                    <div class="pull-left">
+                        <span>2005 - 2014</span> © <a href="http://www.class.pm" target="_blank">Class.PM</a>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script>
+            (function(i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function() {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+            ga('create', 'UA-30825160-1', 'class.pm');
+            ga('send', 'pageview');
+        </script>
+    </body>
+</html>

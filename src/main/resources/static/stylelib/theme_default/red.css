@@ -1,0 +1,107 @@
+body { background-color: #f6f6f6; }
+
+
+/*------------------------------------------------------------
+* header
+*/
+#header { background-color: #fff; }
+
+#logo a span { color: #464646; }
+
+#logo a i { color: #666; }
+
+
+/*------------------------------------------------------------
+* b-pagenavbar
+*/
+.b-pagenavbar { background-color: #990000; }
+
+.b-menu li .bm-btn { color: #fff; }
+.b-menu li .bm-btn:hover,
+.b-menu li.open .bm-btn,
+.b-menu .active .bm-btn {
+    background-color: #660000;
+    border-left-color: #660000;
+}
+
+.b-menu .active .bm-btn {
+    border-right-color: #660000;
+}
+
+.b-menu li.m-first {
+    border-left-color: #880000;
+}
+
+.b-menu li.m-last {
+    border-right-color: #aa0000;
+}
+
+.b-menu li .bm-btn {
+    border-left-color: #aa0000;
+    border-right-color: #880000;
+}
+
+/*-------------------------------------------------------------
+* m-pagebox
+*/
+
+.m-pagebox .mp-title {
+    background-color: #990000;
+    color: #fff;
+}
+
+.m-pagebox .m-more {
+    background-color: #BCC3C8;
+    color: #666;
+}
+
+.m-pagebox .m-more:hover {
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+}
+
+
+/*-------------------------------------------------------------
+* b-side
+*/
+.b-sidenav li ul {
+    border-top: 3px solid #880000;
+}
+
+.b-sidenav li.active a {
+    color: #880000;
+}
+
+
+/*-------------------------------------------------------------
+* footer
+*/
+
+#footer {
+    background-color: #880000;
+}
+
+#footer .container {
+    background: transparent url(../images/footer-logo-w.png) 0 5px no-repeat;
+}
+
+.b-footer-copy,
+.b-footer-add,
+.b-footer-beian a {
+    color: #fff;
+}
+
+.b-footer-link .dropdown-toggle {
+        color: #fff;
+}
+
+.b-footer-link .dropdown-toggle .caret {
+    border-top-color: #fff;
+}
+
+.b-footer-link .dropdown-toggle:hover {
+    background-color: transparent;
+}
+
+
