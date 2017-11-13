@@ -19,32 +19,38 @@ public class GameVersionFormCommitController {
 
     private static final Logger logger = LoggerFactory.getLogger(GameVersionFormCommitController.class);
 
+    /**
+     * 配置文件
+     */
     @Autowired
-    IVersioncontrol iVersioncontrol;
+    IVersioncontrol versionConfig;
+    /**
+     * 检查热更新
+     */
     @Autowired
     private IHotupdatecheck hotupdatecheck;
 
     @ResponseBody
-    @RequestMapping(value = "list", method = RequestMethod.GET)
-    public List<Versioncontrol> getConfigs() {
-        return iVersioncontrol.select();
+    @RequestMapping(value = "getVersionConfigs", method = RequestMethod.GET)
+    public List<Versioncontrol> getVersionConfigs() {
+        return versionConfig.select();
     }
 
     @GetMapping("hotfixForm")
-    public String versionForm(Model model) {
-        model.addAttribute("versioning", iVersioncontrol.selectByPrimaryKey(1));
+    public String hotfixForm(Model model) {
+        model.addAttribute("versioning", versionConfig.selectByPrimaryKey(1));
 //        model.addAttribute("versioning", new VersionConfig());
         return "form/version";
     }
 
     @PostMapping("hotfixForm")
-    public String versionSubmit(@ModelAttribute Versioncontrol versionConfig) {
-        iVersioncontrol.insert(versionConfig);
+    public String hotfixSubmit(@ModelAttribute Versioncontrol versionConfig) {
+        this.versionConfig.insert(versionConfig);
         return "form/result";
     }
 
 
-    //==================================================================
+    //==============================热更新====================================
 
 
     /**
@@ -52,8 +58,8 @@ public class GameVersionFormCommitController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "list", method = RequestMethod.GET)
-    public String getAllConfigs(Model model) {
+    @RequestMapping(value = "getCheckConfigs", method = RequestMethod.GET)
+    public String getCheckConfigs(Model model) {
         List<Hotupdatecheck> checkList = hotupdatecheck.select();
         model.addAttribute("funTitle", "部署版本");
         if(checkList != null){
@@ -86,6 +92,26 @@ public class GameVersionFormCommitController {
     public String checkSubmit(@ModelAttribute Hotupdatecheck versionConfig) {
         hotupdatecheck.insert(versionConfig);
         return "check/result";
+    }
+
+    //==============================热更新线上====================================
+
+    /**
+     * 将热更新配置同步到线上
+     * @param id
+     * @param model
+     * @return
+     */
+    @GetMapping("checkFormOnline")
+    public String checkFormOnline(@RequestParam(value = "id", required = true) int id, Model model) {
+        Hotupdatecheck check = hotupdatecheck.selectByPrimaryKey(id);
+        if(check != null){
+            model.addAttribute("checkinfo", check);
+        }else {
+            model.addAttribute("checkinfo", new Hotupdatecheck());
+        }
+
+        return "check/check";
     }
 
 }
