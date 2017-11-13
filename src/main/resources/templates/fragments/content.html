@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<aside th:fragment="content">
+   <div class="b-pagecontent-create">
+      <button class="btn btn-large btn-warning"><i class="icon-plus icon-white"></i> 创建更新版本</button>
+      <button class="btn btn-large btn-warning"><i class="icon-plus icon-white"></i> 创建配置文件</button>
+      <button class="btn btn-large btn-primary"><i class="icon-pencil icon-white"></i> 同步线上</button>
+      <!-- //按钮说明，如果权限低就只在本部门显示“新增文章页面”，普通浏览用户此处DIV不显示 -->
+   </div>
+
+
+   <div class="b-pagecontent">
+      <h2>th:text="${funTitle}"</h2>
+      <ul class="b-list">
+         <li><span class="m-date">2014-01-16</span><span class="m-view">查看15</span><span
+                 class="m-name"><a href="">李秀芹</a></span><a href="">2013年合影下载</a></li>
+         <li><span class="m-date">2012-07-19</span><span class="m-view">查看05</span><span
+                 class="m-name"><a href="">李秀芹</a></span><a href="">“中国科技发展道路”高端学术论坛通知</a></li>
+         <li><span class="m-date">2011-12-15</span><span class="m-view">查看45</span><span
+                 class="m-name"><a href="">李秀芹</a></span><a href="">关于召开中国发展战略学研究会第三届三次理事会的通知</a></li>
+         <li><span class="m-date">2008-12-15</span><span class="m-view">查看65</span><span
+                 class="m-name"><a href="">李秀芹</a></span><a href="">关于召开创新战略专委会学术年会的通知</a></li>
+         <li><span class="m-date">2010-11-26</span><span class="m-view">查看05</span><span
+                 class="m-name"><a href="">李秀芹</a></span><a href="">关于征询网站建设意见函</a></li>
+
+      </ul>
+
+   </div><!-- //b-pagecontent:end -->
+</aside>
+
+</body>
+</html>
+

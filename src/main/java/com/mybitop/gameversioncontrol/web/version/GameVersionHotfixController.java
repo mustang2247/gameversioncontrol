@@ -16,17 +16,11 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/conf/")
-public class GameVersionFormCommitController {
-    private static final Logger logger = LoggerFactory.getLogger(GameVersionFormCommitController.class);
+public class GameVersionHotfixController {
+    private static final Logger logger = LoggerFactory.getLogger(GameVersionHotfixController.class);
 
     @Autowired
     IVersioncontrol iVersioncontrol;
-
-    @ResponseBody
-    @RequestMapping(value = "list", method = RequestMethod.GET)
-    public List<Versioncontrol> getConfigs() {
-        return iVersioncontrol.select();
-    }
 
     @RequestMapping(value = "getConfig", method = RequestMethod.GET)
     @ResponseBody
@@ -44,17 +38,6 @@ public class GameVersionFormCommitController {
         return "form/version";
     }
 
-    @GetMapping("form")
-    public String versionForm(Model model) {
-        model.addAttribute("versioning", iVersioncontrol.selectByPrimaryKey(1));
-//        model.addAttribute("versioning", new VersionConfig());
-        return "form/version";
-    }
 
-    @PostMapping("form")
-    public String versionSubmit(@ModelAttribute Versioncontrol versionConfig) {
-        iVersioncontrol.insert(versionConfig);
-        return "form/result";
-    }
 
 }

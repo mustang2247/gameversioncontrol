@@ -20,11 +20,6 @@ public class HotUpdateVersionCheckController {
     @Autowired
     private IHotupdatecheck hotupdatecheck;
 
-    @RequestMapping(value = "list", method = RequestMethod.GET)
-    public List<Hotupdatecheck> getAllConfigs() {
-        return hotupdatecheck.select();
-    }
-
     @RequestMapping(value = "getConfigByInfo", method = RequestMethod.GET)
     @ResponseBody
     public Hotupdatecheck getConfigByInfo(@RequestParam(value = "appid", required = true) String appid,
@@ -64,28 +59,5 @@ public class HotUpdateVersionCheckController {
         return hotupdatecheck.selectByPrimaryKey(id);
     }
 
-    @GetMapping("addcheckinfo")
-    public String addCheckInfo(Model model) {
-        model.addAttribute("checkinfo", new Hotupdatecheck());
-        return "check/check";
-    }
-
-    @GetMapping("checkinfo")
-    public String checkForm(@RequestParam(value = "id", required = true) int id, Model model) {
-        Hotupdatecheck check = hotupdatecheck.selectByPrimaryKey(id);
-        if(check != null){
-            model.addAttribute("checkinfo", check);
-        }else {
-            model.addAttribute("checkinfo", new Hotupdatecheck());
-        }
-
-        return "check/check";
-    }
-
-    @PostMapping("checkinfo")
-    public String checkSubmit(@ModelAttribute Hotupdatecheck versionConfig) {
-        hotupdatecheck.insert(versionConfig);
-        return "check/result";
-    }
 
 }
