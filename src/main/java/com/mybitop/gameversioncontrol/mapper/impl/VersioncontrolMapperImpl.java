@@ -2,6 +2,8 @@ package com.mybitop.gameversioncontrol.mapper.impl;
 
 import com.mybitop.gameversioncontrol.entity.Versioncontrol;
 import com.mybitop.gameversioncontrol.mapper.VersioncontrolMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,7 +13,7 @@ import java.util.List;
 
 @Repository
 public class VersioncontrolMapperImpl implements VersioncontrolMapper {
-
+    private static final Logger logger = LoggerFactory.getLogger(VersioncontrolMapperImpl.class);
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -54,7 +56,8 @@ public class VersioncontrolMapperImpl implements VersioncontrolMapper {
 
     @Override
     public Versioncontrol findVersionInfo(String appid, String channelid, String appVersion) {
-        List<Versioncontrol> list = jdbcTemplate.query("select * from hotupdateconfig where appid = ? AND channelid = ? AND appVersion = ?", new Object[]{appid, channelid, appVersion}, new BeanPropertyRowMapper(Versioncontrol.class));
+        logger.info("appid:  " + appid + "  channelid:    " + channelid + "  appVersion: " + appVersion);
+        List<Versioncontrol> list = jdbcTemplate.query("select * from hotupdateconfig where appid=? AND channelid=? AND appVersion=?", new Object[]{appid, channelid, appVersion}, new BeanPropertyRowMapper(Versioncontrol.class));
         if(list!=null && list.size()>0){
             Versioncontrol hotupdatecheck = list.get(0);
             return hotupdatecheck;

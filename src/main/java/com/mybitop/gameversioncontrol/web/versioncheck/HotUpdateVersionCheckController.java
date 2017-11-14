@@ -20,36 +20,34 @@ public class HotUpdateVersionCheckController {
     @Autowired
     private IHotupdatecheck hotupdatecheck;
 
-    @RequestMapping(value = "getConfigByInfo", method = RequestMethod.GET)
+    @RequestMapping(value = "getCheckInfo", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public Hotupdatecheck getConfigByInfo(@RequestParam(value = "appid", required = true) String appid,
+    public Hotupdatecheck getCheckInfo(@RequestParam(value = "appid", required = true) String appid,
                                            @RequestParam(value = "channelid", required = true) String channelid,
                                            @RequestParam(value = "appVersion", required = true) String appVersion) {
         logger.info("appid:  " + appid + "  channelid: " + channelid + "  appversion: " + appVersion);
         return hotupdatecheck.selectByConf(appid, channelid, appVersion);
     }
 
-    @RequestMapping(value = "getConfigByJson", method = RequestMethod.GET)
+    @RequestMapping(value = "getCheckInfoByJson", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public Hotupdatecheck getConfigByJson(@RequestParam(value = "value", required = true) String value) {
-        logger.info("value:  " + value);
-
-        if(value == null || value.isEmpty()) return null;
-
+    public Hotupdatecheck getCheckInfoByJson(@RequestParam(value = "data", required = true) String data) {
+        logger.info("value:  " + data);
+        if(data == null || data.isEmpty()) return null;
         String appid;
         String channelid;
         String appVersion;
         try {
-            JSONObject object = JSON.parseObject(value);
-            appid = object.getString("productId");
-            channelid = object.getString("id");
-            appVersion = object.getString("version");
+            JSONObject object = JSON.parseObject(data);
+            appid = String.valueOf(object.getString("productId"));
+            channelid = String.valueOf(object.getString("id"));
+            appVersion = String.valueOf(object.getString("version"));
+
+            return hotupdatecheck.selectByConf(appid, channelid, appVersion);
         }catch (Exception e){
             e.printStackTrace();
             return null;
         }
-
-        return hotupdatecheck.selectByConf(appid, channelid, appVersion);
     }
 
     @GetMapping("getCheckInfoById")
