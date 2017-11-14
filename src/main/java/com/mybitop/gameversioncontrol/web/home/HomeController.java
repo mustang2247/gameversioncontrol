@@ -1,11 +1,5 @@
 package com.mybitop.gameversioncontrol.web.home;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.*;
-import org.apache.shiro.authz.UnauthorizedException;
-import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.subject.Subject;
-import org.apache.shiro.util.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,8 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Collection;
-import java.util.Map;
 
 @Controller
 public class HomeController {
@@ -24,19 +16,19 @@ public class HomeController {
     public String index(HttpServletRequest request, Model model) {
         String name = "World";
 
-        Subject subject = SecurityUtils.getSubject();
-
-        PrincipalCollection principalCollection = subject.getPrincipals();
-
-        if (principalCollection != null && !principalCollection.isEmpty()) {
-            Collection<Map> principalMaps = subject.getPrincipals().byType(Map.class);
-            if (CollectionUtils.isEmpty(principalMaps)) {
-                name = subject.getPrincipal().toString();
-            }
-            else {
-                name = (String) principalMaps.iterator().next().get("username");
-            }
-        }
+//        Subject subject = SecurityUtils.getSubject();
+//
+//        PrincipalCollection principalCollection = subject.getPrincipals();
+//
+//        if (principalCollection != null && !principalCollection.isEmpty()) {
+//            Collection<Map> principalMaps = subject.getPrincipals().byType(Map.class);
+//            if (CollectionUtils.isEmpty(principalMaps)) {
+//                name = subject.getPrincipal().toString();
+//            }
+//            else {
+//                name = (String) principalMaps.iterator().next().get("username");
+//            }
+//        }
 
         model.addAttribute("name", name);
 
@@ -58,43 +50,43 @@ public class HomeController {
                 .getAttribute("shiroLoginFailure");
         logger.debug(exceptionClassName);
 
-        String message = "登录失败！";
-        if (exceptionClassName != null) {
-            if (UnknownAccountException.class.getName().equals(
-                    exceptionClassName)) {
-                message = "用户名/密码错误";
-                logger.error("账号不存在----" + username);
-            } else if (IncorrectCredentialsException.class.getName().equals(
-                    exceptionClassName)) {
-                message = "用户名/密码错误";
-                logger.error("用户名/密码错误----" + username);
-            } else if (ExcessiveAttemptsException.class.getName().equals(
-                    exceptionClassName)) {
-                message = "登录失败次数过多";
-                logger.error("登录失败次数过多----" + username);
-            } else if (LockedAccountException.class.getName().equals(
-                    exceptionClassName)) {
-                message = "账号已被锁定";
-                logger.error("账号已被锁定----" + username);
-            } else if (DisabledAccountException.class.getName().equals(
-                    exceptionClassName)) {
-                message = "账号已被禁用";
-                logger.error("账号已被禁用----" + username);
-            } else if (ExpiredCredentialsException.class.getName().equals(
-                    exceptionClassName)) {
-                message = "账号已过期";
-                logger.error("账号已过期----" + username);
-            } else if (UnauthorizedException.class.getName().equals(
-                    exceptionClassName)) {
-                message = "账号没有相应的授权";
-                logger.error("账号没有相应的授权----" + username);
-            } else {
-                message = "未知异常，请重试";
-                logger.error("未知错误-----" + username);
-            }
-        }
+//        String message = "登录失败！";
+//        if (exceptionClassName != null) {
+//            if (UnknownAccountException.class.getName().equals(
+//                    exceptionClassName)) {
+//                message = "用户名/密码错误";
+//                logger.error("账号不存在----" + username);
+//            } else if (IncorrectCredentialsException.class.getName().equals(
+//                    exceptionClassName)) {
+//                message = "用户名/密码错误";
+//                logger.error("用户名/密码错误----" + username);
+//            } else if (ExcessiveAttemptsException.class.getName().equals(
+//                    exceptionClassName)) {
+//                message = "登录失败次数过多";
+//                logger.error("登录失败次数过多----" + username);
+//            } else if (LockedAccountException.class.getName().equals(
+//                    exceptionClassName)) {
+//                message = "账号已被锁定";
+//                logger.error("账号已被锁定----" + username);
+//            } else if (DisabledAccountException.class.getName().equals(
+//                    exceptionClassName)) {
+//                message = "账号已被禁用";
+//                logger.error("账号已被禁用----" + username);
+//            } else if (ExpiredCredentialsException.class.getName().equals(
+//                    exceptionClassName)) {
+//                message = "账号已过期";
+//                logger.error("账号已过期----" + username);
+//            } else if (UnauthorizedException.class.getName().equals(
+//                    exceptionClassName)) {
+//                message = "账号没有相应的授权";
+//                logger.error("账号没有相应的授权----" + username);
+//            } else {
+//                message = "未知异常，请重试";
+//                logger.error("未知错误-----" + username);
+//            }
+//        }
 
-        request.setAttribute("message",message);
+//        request.setAttribute("message",message);
         request.setAttribute("username",username);
 
         return "login";
