@@ -53,8 +53,8 @@ public class HotupdatecheckMapperImpl implements HotupdatecheckMapper {
     }
 
     @Override
-    public Hotupdatecheck selectByConf(String appid, String channelid, String clientversion) {
-        List<Hotupdatecheck> list = jdbcTemplate.query("select * from hotupdatecheck where appid = ? AND channelid = ? AND appVersion = ?", new Object[]{appid, channelid, clientversion}, new BeanPropertyRowMapper(Hotupdatecheck.class));
+    public Hotupdatecheck selectByConf(String appid, String channelid) {
+        List<Hotupdatecheck> list = jdbcTemplate.query("select * from hotupdatecheck where appid = ? AND channelid = ?", new Object[]{appid, channelid}, new BeanPropertyRowMapper(Hotupdatecheck.class));
         if(list!=null && list.size()>0){
             Hotupdatecheck hotupdatecheck = list.get(0);
             return hotupdatecheck;
@@ -62,6 +62,17 @@ public class HotupdatecheckMapperImpl implements HotupdatecheckMapper {
             return null;
         }
     }
+
+//    @Override
+//    public Hotupdatecheck selectByConf(String appid, String channelid, String clientversion) {
+//        List<Hotupdatecheck> list = jdbcTemplate.query("select * from hotupdatecheck where appid = ? AND channelid = ? AND appVersion = ?", new Object[]{appid, channelid, clientversion}, new BeanPropertyRowMapper(Hotupdatecheck.class));
+//        if(list!=null && list.size()>0){
+//            Hotupdatecheck hotupdatecheck = list.get(0);
+//            return hotupdatecheck;
+//        }else{
+//            return null;
+//        }
+//    }
 
     @Override
     public int update(Hotupdatecheck record) {

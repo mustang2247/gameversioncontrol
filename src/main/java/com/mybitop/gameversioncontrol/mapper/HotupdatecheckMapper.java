@@ -14,7 +14,8 @@ public interface HotupdatecheckMapper {
 
     Hotupdatecheck selectByPrimaryKey(Integer id);
 
-    Hotupdatecheck selectByConf(String appid, String channelid, String clientversion);
+    Hotupdatecheck selectByConf(String appid, String channelid);
+//    Hotupdatecheck selectByConf(String appid, String channelid, String clientversion);
 
     int update(Hotupdatecheck record);
 }
