@@ -6,13 +6,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.http.HttpStatus;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 @SpringBootApplication
@@ -28,6 +21,7 @@ public class Application implements CommandLineRunner {
     public void run(String... strings) throws Exception {
         System.out.println("Starting");
     }
+
 
 //    /**
 //     * 配置springmvc异常处理器
