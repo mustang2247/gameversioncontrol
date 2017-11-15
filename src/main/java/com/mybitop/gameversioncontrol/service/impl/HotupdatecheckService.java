@@ -5,6 +5,8 @@ import com.mybitop.gameversioncontrol.mapper.HotupdatecheckMapper;
 import com.mybitop.gameversioncontrol.service.IHotupdatecheck;
 import com.mybitop.gameversioncontrol.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +17,13 @@ public class HotupdatecheckService implements IHotupdatecheck {
     @Autowired
     private HotupdatecheckMapper hotupdatecheckMapper;
 
+    @CacheEvict(value = Utils.CACHE_NAME_CHECK, key = "#id")
     @Override
     public int deleteByPrimaryKey(Integer id) {
         return hotupdatecheckMapper.deleteByPrimaryKey(id);
     }
 
+    @CachePut(value = Utils.CACHE_NAME_CHECK, key = "#record.appid + record.channelid + record.appVersion")
     @Override
     public int insert(Hotupdatecheck record) {
         return hotupdatecheckMapper.insert(record);
@@ -30,6 +34,7 @@ public class HotupdatecheckService implements IHotupdatecheck {
         return hotupdatecheckMapper.select();
     }
 
+    @CachePut(value = Utils.CACHE_NAME_CHECK, key = "#id")
     @Override
     public Hotupdatecheck selectByPrimaryKey(Integer id) {
         return hotupdatecheckMapper.selectByPrimaryKey(id);
@@ -43,6 +48,7 @@ public class HotupdatecheckService implements IHotupdatecheck {
      * @param clientversion
      * @return
      */
+    @CachePut(value = Utils.CACHE_NAME_CHECK, key = "#appid + #channelid + #clientversion")
     @Override
     public Hotupdatecheck selectByConf(String appid, String channelid, String clientversion) {
         Hotupdatecheck hotupdatecheck = hotupdatecheckMapper.selectByConf(appid, channelid);

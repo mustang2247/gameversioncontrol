@@ -5,6 +5,7 @@ import com.mybitop.gameversioncontrol.mapper.VersioncontrolMapper;
 import com.mybitop.gameversioncontrol.service.IVersioncontrol;
 import com.mybitop.gameversioncontrol.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ public class VersioncontrolService implements IVersioncontrol {
     @Autowired
     private VersioncontrolMapper versioncontrolMapper;
 
+    @CacheEvict(value = Utils.CACHE_NAME_CONF, key = "#id")
     @Override
     public int deleteByPrimaryKey(Integer id) {
         return versioncontrolMapper.deleteByPrimaryKey(id);
