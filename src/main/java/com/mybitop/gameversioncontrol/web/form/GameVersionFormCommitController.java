@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * 表单相关操作
+ */
 @Controller
 @RequestMapping("/form/")
 public class GameVersionFormCommitController {
@@ -30,27 +33,72 @@ public class GameVersionFormCommitController {
     @Autowired
     private IHotupdatecheck hotupdatecheck;
 
+    //==============================热更配置文件====================================
+
     @ResponseBody
     @RequestMapping(value = "getVersionConfigs", method = RequestMethod.GET)
     public List<Versioncontrol> getVersionConfigs() {
         return versionConfig.select();
     }
 
-    @GetMapping("hotfixForm")
-    public String hotfixForm(Model model) {
-        model.addAttribute("versioning", versionConfig.selectByPrimaryKey(1));
-//        model.addAttribute("versioning", new VersionConfig());
-        return "form/version";
+    /**
+     * 新建配置文件
+     * @param model
+     * @return
+     */
+    @GetMapping("hotfixNewForm")
+    public String hotfixNewForm(Model model) {
+        model.addAttribute("versioning", new Versioncontrol());
+        return "conf/configInfo";
     }
 
+    /**
+     * 修改配置文件
+     * @param id
+     * @param model
+     * @return
+     */
+    @GetMapping("hotfixUpdateForm")
+    public String hotfixUpdateForm(@RequestParam(value = "id", required = true) int id, Model model) {
+        Versioncontrol config = versionConfig.selectByPrimaryKey(id);
+        if (config != null){
+            model.addAttribute("versioning", config);
+        }else {
+            model.addAttribute("versioning", new Versioncontrol());
+        }
+        return "conf/configUpdateInfo";
+    }
+
+    /**
+     * 提交配置
+     * @param versionConfig
+     * @return
+     */
     @PostMapping("hotfixForm")
     public String hotfixSubmit(@ModelAttribute Versioncontrol versionConfig) {
         this.versionConfig.insert(versionConfig);
-        return "form/result";
+        return "conf/result";
+    }
+
+//    /**
+//     * 更新配置
+//     * @param versionConfig
+//     * @return
+//     */
+//    @PostMapping("hotfixUpdateForm")
+//    public String hotfixUpdateForm(@ModelAttribute Versioncontrol versionConfig) {
+//        this.versionConfig.update(versionConfig);
+//        return "conf/result";
+//    }
+
+    @GetMapping("deleteConfigInfoItem")
+    @ResponseBody
+    public String deleteConfigInfoItem(@RequestParam(value = "id", required = true) int id, Model model) {
+        return String.valueOf(versionConfig.deleteByPrimaryKey(id));
     }
 
 
-    //==============================热更新====================================
+    //==============================热更新检查====================================
 
 
     /**
@@ -70,14 +118,25 @@ public class GameVersionFormCommitController {
         return "home";
     }
 
-    @GetMapping("addcheckinfo")
+    /**
+     * 新增应用版本信息
+     * @param model
+     * @return
+     */
+    @GetMapping("addCheckinfo")
     public String addCheckInfo(Model model) {
         model.addAttribute("checkinfo", new Hotupdatecheck());
-        return "check/check";
+        return "check/checkInfo";
     }
 
-    @GetMapping("checkForm")
-    public String checkForm(@RequestParam(value = "id", required = true) int id, Model model) {
+    /**
+     * 修改应用版本信息
+     * @param id
+     * @param model
+     * @return
+     */
+    @GetMapping("updateCheckForm")
+    public String updateCheckForm(@RequestParam(value = "id", required = true) int id, Model model) {
         Hotupdatecheck check = hotupdatecheck.selectByPrimaryKey(id);
         if(check != null){
             model.addAttribute("checkinfo", check);
@@ -85,16 +144,27 @@ public class GameVersionFormCommitController {
             model.addAttribute("checkinfo", new Hotupdatecheck());
         }
 
-        return "check/check";
+        return "check/checkUpdateInfo";
     }
 
-    @PostMapping("checkForm")
+    /**
+     * 提交应用版本信息
+     * @param versionConfig
+     * @return
+     */
+    @PostMapping("checkInfoSubmit")
     public String checkSubmit(@ModelAttribute Hotupdatecheck versionConfig) {
         hotupdatecheck.insert(versionConfig);
         return "check/result";
     }
 
-    //==============================热更新线上====================================
+    @GetMapping("deleteCheckInfoItem")
+    @ResponseBody
+    public String deleteCheckInfoItem(@RequestParam(value = "id", required = true) int id, Model model) {
+        return String.valueOf(hotupdatecheck.deleteByPrimaryKey(id));
+    }
+
+    //==============================热更新线上同步====================================
 
     /**
      * 将热更新配置同步到线上
@@ -103,6 +173,7 @@ public class GameVersionFormCommitController {
      * @return
      */
     @GetMapping("checkFormOnline")
+    @ResponseBody
     public String checkFormOnline(@RequestParam(value = "id", required = true) int id, Model model) {
         Hotupdatecheck check = hotupdatecheck.selectByPrimaryKey(id);
         if(check != null){
@@ -111,7 +182,7 @@ public class GameVersionFormCommitController {
             model.addAttribute("checkinfo", new Hotupdatecheck());
         }
 
-        return "check/check";
+        return "commoit ok";
     }
 
 }

@@ -26,7 +26,7 @@ public class VersioncontrolService implements IVersioncontrol {
         return versioncontrolMapper.deleteByPrimaryKey(id);
     }
 
-    @CachePut(value = Utils.CACHE_NAME_CONF, key = "#record.appid + record.channelid + record.appVersion")
+    @CachePut(value = Utils.CACHE_NAME_CONF, key = "#record.appid + #record.channelid + #record.appVersion")
     @Override
     public int insert(Versioncontrol record) {
         if (findVersionInfo(record.getAppid(), record.getChannelid(), record.getAppVersion()) != null) {

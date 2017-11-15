@@ -7,11 +7,13 @@ import com.mybitop.gameversioncontrol.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Component
 public class HotupdatecheckService implements IHotupdatecheck {
 
     @Autowired
@@ -23,9 +25,17 @@ public class HotupdatecheckService implements IHotupdatecheck {
         return hotupdatecheckMapper.deleteByPrimaryKey(id);
     }
 
-    @CachePut(value = Utils.CACHE_NAME_CHECK, key = "#record.appid + record.channelid + record.appVersion")
     @Override
     public int insert(Hotupdatecheck record) {
+        if (selectByConf(record.getAppid(), record.getChannelid()) != null) {
+            return update(record);
+        } else {
+            return insertItem(record);
+        }
+    }
+
+    @CachePut(value = Utils.CACHE_NAME_CHECK, key = "#record.appid + record.channelid")
+    public int insertItem(Hotupdatecheck record) {
         return hotupdatecheckMapper.insert(record);
     }
 
@@ -48,10 +58,9 @@ public class HotupdatecheckService implements IHotupdatecheck {
      * @param clientversion
      * @return
      */
-    @CachePut(value = Utils.CACHE_NAME_CHECK, key = "#appid + #channelid + #clientversion")
     @Override
     public Hotupdatecheck selectByConf(String appid, String channelid, String clientversion) {
-        Hotupdatecheck hotupdatecheck = hotupdatecheckMapper.selectByConf(appid, channelid);
+        Hotupdatecheck hotupdatecheck = selectByConf(appid, channelid);
         try {
             hotupdatecheck.setUpdatestrategy(Utils.NOT_UPDATE);
             if (hotupdatecheck != null && hotupdatecheck.getForcecollection() != null &&
@@ -70,10 +79,10 @@ public class HotupdatecheckService implements IHotupdatecheck {
         return hotupdatecheck;
     }
 
-//    @Override
-//    public Hotupdatecheck selectByConf(String appid, String channelid, String clientversion) {
-//        return hotupdatecheckMapper.selectByConf(appid, channelid, clientversion);
-//    }
+    @CachePut(value = Utils.CACHE_NAME_CHECK, key = "#appid + #channelid")
+    public Hotupdatecheck selectByConf(String appid, String channelid) {
+        return hotupdatecheckMapper.selectByConf(appid, channelid);
+    }
 
     @Override
     public int update(Hotupdatecheck record) {

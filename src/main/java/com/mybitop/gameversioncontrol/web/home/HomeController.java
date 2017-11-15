@@ -1,16 +1,33 @@
 package com.mybitop.gameversioncontrol.web.home;
 
+import com.mybitop.gameversioncontrol.entity.Hotupdatecheck;
+import com.mybitop.gameversioncontrol.entity.Versioncontrol;
+import com.mybitop.gameversioncontrol.service.IHotupdatecheck;
+import com.mybitop.gameversioncontrol.service.IVersioncontrol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class HomeController {
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+    /**
+     * 检查热更新
+     */
+    @Autowired
+    private IHotupdatecheck hotupdatecheck;
+    /**
+     * 配置文件
+     */
+    @Autowired
+    IVersioncontrol versionConfig;
 
     @RequestMapping({"/", "/index"})
     public String index(HttpServletRequest request, Model model) {
@@ -30,7 +47,21 @@ public class HomeController {
 //            }
 //        }
 
-        model.addAttribute("name", name);
+        model.addAttribute("checkTitle", "部署版本");
+        model.addAttribute("confTitle", "热更新配置");
+        List<Hotupdatecheck> checkList = hotupdatecheck.select();
+        List<Versioncontrol> confList = versionConfig.select();
+        if(checkList != null){
+            model.addAttribute("checkList", checkList);
+        }else {
+            model.addAttribute("checkList", null);
+        }
+
+        if(confList != null){
+            model.addAttribute("confList", confList);
+        }else {
+            model.addAttribute("confList", null);
+        }
 
         return "home";
     }

@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * 版本检查开放接口
+ */
 @Controller
 @RequestMapping("/check/")
 public class HotUpdateVersionCheckController {
