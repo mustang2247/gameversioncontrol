@@ -4,7 +4,7 @@
  * @param name
  */
 function addCheckInfo() {
-    $.get("/form/addCheckinfo");
+    $(window).attr('location',"/form/addCheckinfo");
 }
 
 /**
@@ -13,5 +13,5 @@ function addCheckInfo() {
  * @param name
  */
 function hotfixNewForm() {
-    $.get("/form/hotfixNewForm");
+    $(window).attr('location',"/form/hotfixNewForm");
 }
