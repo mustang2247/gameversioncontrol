@@ -67,6 +67,8 @@ public class HotupdatecheckService implements IHotupdatecheck {
                     !hotupdatecheck.getForcecollection().isEmpty()) {
                 if (hotupdatecheck.getUpdatestrategy() == Utils.FORCE_UPDATE) {
                     hotupdatecheck.setUpdatestrategy(Utils.FORCE_UPDATE);
+                }else if (hotupdatecheck.getUpdatestrategy() == Utils.NOT_UPDATE) {
+                    hotupdatecheck.setUpdatestrategy(Utils.NOT_UPDATE);
                 } else if (hotupdatecheck.getForcecollection().indexOf(clientversion) != -1) {
                     hotupdatecheck.setUpdatestrategy(Utils.FORCE_UPDATE);
                 } else if (hotupdatecheck.getPromptcollection().indexOf(clientversion) != -1) {
