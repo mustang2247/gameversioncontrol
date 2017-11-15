@@ -46,7 +46,8 @@ public class VersioncontrolService implements IVersioncontrol {
         return versioncontrolMapper.update(record);
     }
 
-    @Cacheable(value = Utils.CACHE_NAME_CONF, key = "#appid + channelid + appVersion")
+//    @Cacheable(value = Utils.CACHE_NAME_CONF, key = "#appid + channelid + appVersion")
+    @Cacheable(value = Utils.CACHE_NAME_CONF, key = "#appid + #channelid + #appVersion")
     @Override
     public Versioncontrol findVersionInfo(String appid, String channelid, String appVersion) {
         return versioncontrolMapper.findVersionInfo(appid, channelid, appVersion);
