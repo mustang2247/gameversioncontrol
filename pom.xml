@@ -18,7 +18,6 @@
         <thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>
         <thymeleaf-layout-dialect.version>2.0.0</thymeleaf-layout-dialect.version>
         <mysql.version>5.1.44</mysql.version>
-        <!--<spring.boot.version>1.5.8.RELEASE</spring.boot.version>-->
     </properties>
 
     <parent>
@@ -33,7 +32,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
-            <!--<version>${spring.boot.version}</version>-->
             <!--<exclusions>-->
                 <!--<exclusion>-->
                     <!--<groupId>org.springframework.boot</groupId>-->
@@ -46,7 +44,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <!--<version>${spring.boot.version}</version>-->
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
@@ -70,32 +67,27 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
-            <!--<version>${spring.boot.version}</version>-->
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <!--<version>${spring.boot.version}</version>-->
             <scope>runtime</scope>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
-            <!--<version>${spring.boot.version}</version>-->
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-            <!--<version>${spring.boot.version}</version>-->
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
-            <!--<version>${spring.boot.version}</version>-->
         </dependency>
 
         <dependency>
@@ -107,14 +99,12 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <!--<version>5.1.43</version>-->
             <scope>runtime</scope>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <!--<version>${spring.boot.version}</version>-->
             <scope>test</scope>
         </dependency>
 
@@ -208,29 +198,30 @@
                 <envdir>dev/</envdir>
                 <log4j.level>DEBUG</log4j.level>
                 <log4j.appender>stdout</log4j.appender>
+                <log.dir>./logs</log.dir>
                 <profileActive>dev</profileActive>
             </properties>
         </profile>
 
         <profile>
-            <id>test</id>
+            <id>qa</id>
             <properties>
-                <envdir>test/</envdir>
+                <envdir>qa/</envdir>
                 <log4j.level>INFO</log4j.level>
                 <log4j.appender>dailyLog</log4j.appender>
-                <log.dir>./logs/gvc</log.dir>
-                <profileActive>test</profileActive>
+                <log.dir>./logs</log.dir>
+                <profileActive>qa</profileActive>
             </properties>
         </profile>
 
         <profile>
-            <id>qcloud</id>
+            <id>qc</id>
             <properties>
-                <envdir>qcloud/</envdir>
+                <envdir>qc/</envdir>
                 <log4j.level>INFO</log4j.level>
                 <log4j.appender>dailyLog</log4j.appender>
-                <log.dir>./logs/gvc</log.dir>
-                <profileActive>qcloud</profileActive>
+                <log.dir>./logs</log.dir>
+                <profileActive>qc</profileActive>
             </properties>
         </profile>
 
