@@ -1,4 +1,4 @@
-package com.mybitop.gameversioncontrol.web.versioncheck;
+package com.mybitop.gameversioncontrol.web.check;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping("/check/")
-public class HotUpdateVersionCheckController {
-    private static final Logger logger = LoggerFactory.getLogger(HotUpdateVersionCheckController.class);
+public class CheckController {
+    private static final Logger logger = LoggerFactory.getLogger(CheckController.class);
     @Autowired
     private IHotupdatecheck hotupdatecheck;
 

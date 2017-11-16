@@ -1,7 +1,9 @@
 package com.mybitop.gameversioncontrol.web.home;
 
+import com.mybitop.gameversioncontrol.entity.HotupdateCheckOnline;
 import com.mybitop.gameversioncontrol.entity.Hotupdatecheck;
 import com.mybitop.gameversioncontrol.entity.Versioncontrol;
+import com.mybitop.gameversioncontrol.service.IHotupdateCheckOnline;
 import com.mybitop.gameversioncontrol.service.IHotupdatecheck;
 import com.mybitop.gameversioncontrol.service.IVersioncontrol;
 import org.slf4j.Logger;
@@ -29,6 +31,9 @@ public class HomeController {
     @Autowired
     IVersioncontrol versionConfig;
 
+    @Autowired
+    private IHotupdateCheckOnline checkOnline;
+
     @RequestMapping({"/", "/index"})
     public String index(HttpServletRequest request, Model model) {
         String name = "World";
@@ -48,13 +53,21 @@ public class HomeController {
 //        }
 
         model.addAttribute("checkTitle", "部署版本");
+        model.addAttribute("checkTitleOnline", "线上版本");
         model.addAttribute("confTitle", "热更新配置");
         List<Hotupdatecheck> checkList = hotupdatecheck.select();
         List<Versioncontrol> confList = versionConfig.select();
+        List<HotupdateCheckOnline> checkOnlines = checkOnline.select();
         if(checkList != null){
             model.addAttribute("checkList", checkList);
         }else {
             model.addAttribute("checkList", null);
+        }
+
+        if(checkOnlines != null){
+            model.addAttribute("checkListOnline", checkOnlines);
+        }else {
+            model.addAttribute("checkListOnline", null);
         }
 
         if(confList != null){

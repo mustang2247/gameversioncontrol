@@ -1,7 +1,10 @@
 package com.mybitop.gameversioncontrol.web.form;
 
+import com.alibaba.fastjson.JSON;
+import com.mybitop.gameversioncontrol.entity.HotupdateCheckOnline;
 import com.mybitop.gameversioncontrol.entity.Hotupdatecheck;
 import com.mybitop.gameversioncontrol.entity.Versioncontrol;
+import com.mybitop.gameversioncontrol.service.IHotupdateCheckOnline;
 import com.mybitop.gameversioncontrol.service.IHotupdatecheck;
 import com.mybitop.gameversioncontrol.service.IVersioncontrol;
 import org.slf4j.Logger;
@@ -11,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -18,20 +23,23 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/form/")
-public class GameVersionFormCommitController {
+public class HotfixFormCommitController {
 
-    private static final Logger logger = LoggerFactory.getLogger(GameVersionFormCommitController.class);
+    private static final Logger logger = LoggerFactory.getLogger(HotfixFormCommitController.class);
 
     /**
      * 配置文件
      */
     @Autowired
-    IVersioncontrol versionConfig;
+    private IVersioncontrol versionConfig;
     /**
      * 检查热更新
      */
     @Autowired
     private IHotupdatecheck hotupdatecheck;
+
+    @Autowired
+    private IHotupdateCheckOnline checkOnline;
 
     //==============================热更配置文件====================================
 
@@ -75,21 +83,11 @@ public class GameVersionFormCommitController {
      * @return
      */
     @PostMapping("hotfixForm")
-    public String hotfixSubmit(@ModelAttribute Versioncontrol versionConfig) {
+    public void hotfixSubmit(@ModelAttribute Versioncontrol versionConfig, HttpServletResponse response) throws IOException {
         this.versionConfig.insert(versionConfig);
-        return "conf/result";
-    }
-
-//    /**
-//     * 更新配置
-//     * @param versionConfig
-//     * @return
-//     */
-//    @PostMapping("hotfixUpdateForm")
-//    public String hotfixUpdateForm(@ModelAttribute Versioncontrol versionConfig) {
-//        this.versionConfig.update(versionConfig);
+        response.sendRedirect("/");
 //        return "conf/result";
-//    }
+    }
 
     @GetMapping("deleteConfigInfoItem")
     @ResponseBody
@@ -107,7 +105,7 @@ public class GameVersionFormCommitController {
      * @return
      */
     @RequestMapping(value = "getCheckConfigs", method = RequestMethod.GET)
-    public String getCheckConfigs(Model model) {
+    public void getCheckConfigs(Model model, HttpServletResponse response) throws IOException {
         List<Hotupdatecheck> checkList = hotupdatecheck.select();
         model.addAttribute("funTitle", "部署版本");
         if(checkList != null){
@@ -115,7 +113,7 @@ public class GameVersionFormCommitController {
         }else {
             model.addAttribute("checkList", null);
         }
-        return "home";
+        response.sendRedirect("/");
     }
 
     /**
@@ -153,9 +151,10 @@ public class GameVersionFormCommitController {
      * @return
      */
     @PostMapping("checkInfoSubmit")
-    public String checkSubmit(@ModelAttribute Hotupdatecheck versionConfig) {
+    public void checkSubmit(@ModelAttribute Hotupdatecheck versionConfig, HttpServletResponse response) throws IOException {
         hotupdatecheck.insert(versionConfig);
-        return "check/result";
+        response.sendRedirect("/");
+//        return "check/result";
     }
 
     @GetMapping("deleteCheckInfoItem")
@@ -173,16 +172,32 @@ public class GameVersionFormCommitController {
      * @return
      */
     @GetMapping("checkFormOnline")
-    @ResponseBody
     public String checkFormOnline(@RequestParam(value = "id", required = true) int id, Model model) {
         Hotupdatecheck check = hotupdatecheck.selectByPrimaryKey(id);
-        if(check != null){
-            model.addAttribute("checkinfo", check);
-        }else {
-            model.addAttribute("checkinfo", new Hotupdatecheck());
+        try {
+            if(check != null){
+                String json = JSON.toJSONString(check);
+                HotupdateCheckOnline online = JSON.parseObject(json, HotupdateCheckOnline.class);
+
+                checkOnline.insert(online);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
-        return "commoit ok";
+        return "/";
+    }
+
+    @GetMapping("viewCheckOnlineItem")
+    public String viewCheckOnlineItem(@RequestParam(value = "id", required = true) int id, Model model) {
+        HotupdateCheckOnline check = checkOnline.selectByPrimaryKey(id);
+        if(check != null){
+            model.addAttribute("checkInfoOnline", check);
+        }else {
+            model.addAttribute("checkInfoOnline", new HotupdateCheckOnline());
+        }
+
+        return "/checkonline/checkonline";
     }
 
 }

@@ -15,3 +15,12 @@ function addCheckInfo() {
 function hotfixNewForm() {
     $(window).attr('location',"/form/hotfixNewForm");
 }
+
+/**
+ * 回到root
+ * @param greetCardId
+ * @param name
+ */
+function index() {
+    $(window).attr('location',"/");
+}

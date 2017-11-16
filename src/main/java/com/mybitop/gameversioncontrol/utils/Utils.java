@@ -3,6 +3,7 @@ package com.mybitop.gameversioncontrol.utils;
 public class Utils {
     public static final String CACHE_NAME_CONF = "redis-cache-conf";
     public static final String CACHE_NAME_CHECK = "redis-cache-check";
+    public static final String CACHE_NAME_CHECK_ONLINE = "redis-cache-check-online";
 
 
     //  1.非强制更新  2.强制更新 3.不更新

@@ -97,7 +97,7 @@
                         <div class="mc-body">
 
                             <!-- BEGIN FORM-->
-                            <form action="#" class="form-horizontal" th:action="@{/form/checkInfoSubmit}" th:object="${checkinfo}" method="post">
+                            <form action="#" class="form-horizontal" th:object="${checkInfoOnline}" method="post">
                                 <div style="padding-left:150px;">
 
                                     <input type="hidden" th:field="*{id}"/>
@@ -105,7 +105,7 @@
                                     <div class="control-group">
                                         <label class="control-label">应用appid</label>
                                         <div class="controls">
-                                            <input type="text" class="span8 "  th:field="*{appid}" placeholder="appid">
+                                            <input type="text" class="span8 " readonly="readonly"  th:field="*{appid}" placeholder="appid">
 
                                         </div>
                                     </div>
@@ -114,7 +114,7 @@
                                     <div class="control-group">
                                         <label class="control-label">应用名称</label>
                                         <div class="controls">
-                                            <input type="text" class="span8 " th:field="*{appname}" placeholder="appname">
+                                            <input type="text" class="span8 " readonly="readonly" th:field="*{appname}" placeholder="appname">
 
                                         </div>
                                     </div>
@@ -122,7 +122,7 @@
                                     <div class="control-group">
                                         <label class="control-label">渠道id</label>
                                         <div class="controls">
-                                            <input type="text" class="span8 " th:field="*{channelid}">
+                                            <input type="text" class="span8 " readonly="readonly" th:field="*{channelid}">
 
                                         </div>
                                     </div>
@@ -130,7 +130,7 @@
                                     <div class="control-group">
                                         <label class="control-label">渠道名称</label>
                                         <div class="controls">
-                                            <input type="text" class="span8 " th:field="*{channelname}">
+                                            <input type="text" class="span8 " readonly="readonly" th:field="*{channelname}">
 
                                         </div>
                                     </div>
@@ -138,7 +138,7 @@
                                     <div class="control-group">
                                         <label class="control-label">应用版本</label>
                                         <div class="controls">
-                                            <input type="text" class="span8 " th:field="*{appVersion}">
+                                            <input type="text" class="span8 " readonly="readonly" th:field="*{appVersion}">
 
                                         </div>
                                     </div>
@@ -146,7 +146,7 @@
                                     <div class="control-group">
                                         <label class="control-label">更新策略</label>
                                         <div class="controls">
-                                            <input type="text" class="span8 " th:field="*{updatestrategy}" placeholder="更新策略 1:提示更新 2:强制更新 3:不更新">
+                                            <input type="text" class="span8 " readonly="readonly" th:field="*{updatestrategy}" placeholder="更新策略 1:提示更新 2:强制更新 3:不更新">
 
                                         </div>
                                     </div>
@@ -154,7 +154,7 @@
                                     <div class="control-group">
                                         <label class="control-label">资源baseUrl</label>
                                         <div class="controls">
-                                            <input type="text" class="span8 " th:field="*{baseurl}">
+                                            <input type="text" class="span8 " readonly="readonly" th:field="*{baseurl}">
 
                                         </div>
                                     </div>
@@ -162,7 +162,7 @@
                                     <div class="control-group">
                                         <label class="control-label">apk跟新地址</label>
                                         <div class="controls">
-                                            <input type="text" class="span8 " th:field="*{apkurl}">
+                                            <input type="text" class="span8 " readonly="readonly" th:field="*{apkurl}">
 
                                         </div>
                                     </div>
@@ -170,7 +170,7 @@
                                     <div class="control-group">
                                         <label class="control-label">提示更新集合</label>
                                         <div class="controls">
-                                            <input type="text" class="span8 " th:field="*{promptcollection}" placeholder="例如：1.0,1.1">
+                                            <input type="text" class="span8 " readonly="readonly" th:field="*{promptcollection}" placeholder="例如：1.0,1.1">
 
                                         </div>
                                     </div>
@@ -179,7 +179,7 @@
                                     <div class="control-group">
                                         <label class="control-label">强制更新集合</label>
                                         <div class="controls">
-                                            <input type="text" class="span8 " th:field="*{forcecollection}" placeholder="例如：1.0,1.1">
+                                            <input type="text" class="span8 " readonly="readonly" th:field="*{forcecollection}" placeholder="例如：1.0,1.1">
 
                                         </div>
                                     </div>
@@ -187,7 +187,7 @@
                                     <div class="control-group">
                                         <label class="control-label">排除更新集合</label>
                                         <div class="controls">
-                                            <input type="text" class="span8 " th:field="*{excludecollection}" placeholder="例如：1.0,1.1">
+                                            <input type="text" class="span8 " readonly="readonly" th:field="*{excludecollection}" placeholder="例如：1.0,1.1">
 
                                         </div>
                                     </div>
@@ -195,7 +195,7 @@
                                     <div class="control-group">
                                         <label class="control-label">更新信息</label>
                                         <div class="controls">
-                                            <input type="text" class="span8 " th:field="*{updateinfo}">
+                                            <input type="text" class="span8 " readonly="readonly" th:field="*{updateinfo}">
 
                                         </div>
                                     </div>
@@ -203,7 +203,7 @@
                                 </div>
 
                                 <div class="form-actions">
-                                    <button type="submit" class="btn tijiao btn-success">保存</button>
+                                    <!--<button type="submit" class="btn tijiao btn-success">保存</button>-->
                                     <button type="button" class="btn tijiao" onclick="index();" >返回</button>
                                 </div>
                             </form>

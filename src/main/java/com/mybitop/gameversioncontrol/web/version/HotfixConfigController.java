@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping("/conf/")
-public class GameVersionHotfixController {
-    private static final Logger logger = LoggerFactory.getLogger(GameVersionHotfixController.class);
+public class HotfixConfigController {
+    private static final Logger logger = LoggerFactory.getLogger(HotfixConfigController.class);
 
     @Autowired
     IVersioncontrol iVersioncontrol;
