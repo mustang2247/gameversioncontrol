@@ -53,7 +53,7 @@ public class HomeController {
 //        }
 
         model.addAttribute("checkTitle", "部署版本");
-        model.addAttribute("checkTitleOnline", "线上版本");
+        model.addAttribute("checkTitleOnline", "线上版本(需要同步才能使用)");
         model.addAttribute("confTitle", "热更新配置");
         List<Hotupdatecheck> checkList = hotupdatecheck.select();
         List<Versioncontrol> confList = versionConfig.select();

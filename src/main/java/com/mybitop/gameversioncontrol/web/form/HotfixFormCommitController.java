@@ -172,7 +172,7 @@ public class HotfixFormCommitController {
      * @return
      */
     @GetMapping("checkFormOnline")
-    public String checkFormOnline(@RequestParam(value = "id", required = true) int id, Model model) {
+    public void checkFormOnline(@RequestParam(value = "id", required = true) int id, Model model, HttpServletResponse response) throws IOException {
         Hotupdatecheck check = hotupdatecheck.selectByPrimaryKey(id);
         try {
             if(check != null){
@@ -185,7 +185,8 @@ public class HotfixFormCommitController {
             e.printStackTrace();
         }
 
-        return "/";
+        response.sendRedirect("/");
+//        return "/";
     }
 
     @GetMapping("viewCheckOnlineItem")
@@ -197,7 +198,7 @@ public class HotfixFormCommitController {
             model.addAttribute("checkInfoOnline", new HotupdateCheckOnline());
         }
 
-        return "/checkonline/checkonline";
+        return "checkonline/checkonline";
     }
 
 }

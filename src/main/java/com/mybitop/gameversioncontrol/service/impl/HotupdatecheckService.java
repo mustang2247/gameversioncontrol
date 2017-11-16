@@ -62,17 +62,19 @@ public class HotupdatecheckService implements IHotupdatecheck {
     public Hotupdatecheck selectByConf(String appid, String channelid, String clientversion) {
         Hotupdatecheck hotupdatecheck = selectByConf(appid, channelid);
         try {
-            hotupdatecheck.setUpdatestrategy(Utils.NOT_UPDATE);
-            if (hotupdatecheck != null && hotupdatecheck.getForcecollection() != null &&
-                    !hotupdatecheck.getForcecollection().isEmpty()) {
-                if (hotupdatecheck.getUpdatestrategy() == Utils.FORCE_UPDATE) {
-                    hotupdatecheck.setUpdatestrategy(Utils.FORCE_UPDATE);
-                }else if (hotupdatecheck.getUpdatestrategy() == Utils.NOT_UPDATE) {
-                    hotupdatecheck.setUpdatestrategy(Utils.NOT_UPDATE);
-                } else if (hotupdatecheck.getForcecollection().indexOf(clientversion) != -1) {
-                    hotupdatecheck.setUpdatestrategy(Utils.FORCE_UPDATE);
-                } else if (hotupdatecheck.getPromptcollection().indexOf(clientversion) != -1) {
-                    hotupdatecheck.setUpdatestrategy(Utils.TIP_UPDATE);
+            if (hotupdatecheck != null){
+                hotupdatecheck.setUpdatestrategy(Utils.NOT_UPDATE);
+                if (hotupdatecheck != null && hotupdatecheck.getForcecollection() != null &&
+                        !hotupdatecheck.getForcecollection().isEmpty()) {
+                    if (hotupdatecheck.getUpdatestrategy() == Utils.FORCE_UPDATE) {
+                        hotupdatecheck.setUpdatestrategy(Utils.FORCE_UPDATE);
+                    }else if (hotupdatecheck.getUpdatestrategy() == Utils.NOT_UPDATE) {
+                        hotupdatecheck.setUpdatestrategy(Utils.NOT_UPDATE);
+                    } else if (hotupdatecheck.getForcecollection().indexOf(clientversion) != -1) {
+                        hotupdatecheck.setUpdatestrategy(Utils.FORCE_UPDATE);
+                    } else if (hotupdatecheck.getPromptcollection().indexOf(clientversion) != -1) {
+                        hotupdatecheck.setUpdatestrategy(Utils.TIP_UPDATE);
+                    }
                 }
             }
         } catch (Exception e) {

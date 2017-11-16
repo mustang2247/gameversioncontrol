@@ -63,25 +63,27 @@ public class HotupdateCheckOnlineService implements IHotupdateCheckOnline {
      */
     @Override
     public HotupdateCheckOnline selectByConf(String appid, String channelid, String clientversion) {
-        HotupdateCheckOnline hotupdatecheck = selectByConf(appid, channelid);
+        HotupdateCheckOnline online = selectByConf(appid, channelid);
         try {
-            hotupdatecheck.setUpdatestrategy(Utils.NOT_UPDATE);
-            if (hotupdatecheck != null && hotupdatecheck.getForcecollection() != null &&
-                    !hotupdatecheck.getForcecollection().isEmpty()) {
-                if (hotupdatecheck.getUpdatestrategy() == Utils.FORCE_UPDATE) {
-                    hotupdatecheck.setUpdatestrategy(Utils.FORCE_UPDATE);
-                }else if (hotupdatecheck.getUpdatestrategy() == Utils.NOT_UPDATE) {
-                    hotupdatecheck.setUpdatestrategy(Utils.NOT_UPDATE);
-                } else if (hotupdatecheck.getForcecollection().indexOf(clientversion) != -1) {
-                    hotupdatecheck.setUpdatestrategy(Utils.FORCE_UPDATE);
-                } else if (hotupdatecheck.getPromptcollection().indexOf(clientversion) != -1) {
-                    hotupdatecheck.setUpdatestrategy(Utils.TIP_UPDATE);
+            if (online != null){
+                online.setUpdatestrategy(Utils.NOT_UPDATE);
+                if (online != null && online.getForcecollection() != null &&
+                        !online.getForcecollection().isEmpty()) {
+                    if (online.getUpdatestrategy() == Utils.FORCE_UPDATE) {
+                        online.setUpdatestrategy(Utils.FORCE_UPDATE);
+                    }else if (online.getUpdatestrategy() == Utils.NOT_UPDATE) {
+                        online.setUpdatestrategy(Utils.NOT_UPDATE);
+                    } else if (online.getForcecollection().indexOf(clientversion) != -1) {
+                        online.setUpdatestrategy(Utils.FORCE_UPDATE);
+                    } else if (online.getPromptcollection().indexOf(clientversion) != -1) {
+                        online.setUpdatestrategy(Utils.TIP_UPDATE);
+                    }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return hotupdatecheck;
+        return online;
     }
 
     @CachePut(value = Utils.CACHE_NAME_CHECK_ONLINE, key = "#appid + #channelid")
