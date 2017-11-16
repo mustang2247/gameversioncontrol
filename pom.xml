@@ -174,7 +174,7 @@
                 <excludes>
                     <exclude>application.properties</exclude>
                     <exclude>application-dev.properties</exclude>
-                    <exclude>application-test.properties</exclude>
+                    <exclude>application-qa.properties</exclude>
                     <exclude>application-qcloud.properties</exclude>
                 </excludes>
             </resource>
@@ -215,13 +215,13 @@
         </profile>
 
         <profile>
-            <id>qc</id>
+            <id>qcloud</id>
             <properties>
-                <envdir>qc/</envdir>
+                <envdir>qcloud/</envdir>
                 <log4j.level>INFO</log4j.level>
                 <log4j.appender>dailyLog</log4j.appender>
                 <log.dir>./logs</log.dir>
-                <profileActive>qc</profileActive>
+                <profileActive>qcloud</profileActive>
             </properties>
         </profile>
 
