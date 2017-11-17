@@ -29,7 +29,7 @@ public class VersioncontrolService implements IVersioncontrol {
     @CachePut(value = Utils.CACHE_NAME_CONF, key = "#record.appid + #record.channelid + #record.appVersion")
     @Override
     public int insert(Versioncontrol record) {
-        if (findVersionInfo(record.getAppid(), record.getChannelid(), record.getAppVersion()) != null) {
+        if (selectVersionInfo(record.getAppid(), record.getChannelid(), record.getAppVersion()) != null) {
             return update(record);
         } else {
             return versioncontrolMapper.insert(record);
@@ -48,11 +48,9 @@ public class VersioncontrolService implements IVersioncontrol {
         return versioncontrolMapper.update(record);
     }
 
-//    @Cacheable(value = Utils.CACHE_NAME_CONF, key = "#appid + channelid + appVersion")
     @Cacheable(value = Utils.CACHE_NAME_CONF, key = "#appid + #channelid + #appVersion")
-    @Override
-    public Versioncontrol findVersionInfo(String appid, String channelid, String appVersion) {
-        return versioncontrolMapper.findVersionInfo(appid, channelid, appVersion);
+    public Versioncontrol selectVersionInfo(String appid, String channelid, String appVersion) {
+        return versioncontrolMapper.selectVersionInfo(appid, channelid, appVersion);
     }
 
     @Override

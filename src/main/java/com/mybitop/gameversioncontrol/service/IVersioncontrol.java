@@ -13,7 +13,7 @@ public interface IVersioncontrol {
 
     int update(Versioncontrol record);
 
-    Versioncontrol findVersionInfo(String appid, String channelid, String appVersion);
+    Versioncontrol selectVersionInfo(String appid, String channelid, String appVersion);
 
     List<Versioncontrol> select();
 }

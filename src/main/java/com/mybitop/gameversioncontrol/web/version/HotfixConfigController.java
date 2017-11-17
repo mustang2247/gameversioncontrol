@@ -28,7 +28,7 @@ public class HotfixConfigController {
                                            @RequestParam(value = "channelid", required = true) String channelid,
                                            @RequestParam(value = "appVersion", required = true) String appVersion) {
         logger.info("appid:  " + appid + "  channelid: " + channelid + "  appversion: " + appVersion);
-        return iVersioncontrol.findVersionInfo(appid, channelid, appVersion);
+        return iVersioncontrol.selectVersionInfo(appid, channelid, appVersion);
     }
 
     @RequestMapping(value = "getConfigInfoByJson", method = {RequestMethod.GET, RequestMethod.POST})
@@ -46,9 +46,9 @@ public class HotfixConfigController {
             channelid = String.valueOf(object.getString("id"));
             appVersion = String.valueOf(object.getString("version"));
 
-            logger.info("getConfigInfoByJson appid:  " + appid);
+            logger.info("getConfigInfoByJson appid:  " + appid + "  channelid: " + channelid + "  appVersion:   " + appVersion);
 
-            return iVersioncontrol.findVersionInfo(appid, channelid, appVersion);
+            return iVersioncontrol.selectVersionInfo(appid, channelid, appVersion);
         }catch (Exception e){
             e.printStackTrace();
             return null;
