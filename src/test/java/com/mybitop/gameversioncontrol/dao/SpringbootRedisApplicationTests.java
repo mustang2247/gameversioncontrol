@@ -25,9 +25,9 @@ public class SpringbootRedisApplicationTests {
     RedisService redisDao;
     @Test
     public void testRedis(){
-        redisDao.setKey("name","forezp");
-        redisDao.setKey("age","11");
-        logger.info(redisDao.getValue("name"));
-        logger.info(redisDao.getValue("age"));
+//        redisDao.setKey("name","forezp");
+//        redisDao.setKey("age","11");
+//        logger.info(redisDao.getValue("name"));
+//        logger.info(redisDao.getValue("age"));
     }
 }
