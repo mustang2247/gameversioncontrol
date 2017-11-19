@@ -133,7 +133,9 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <!--hot update config-->
                     <fork>true</fork>
+                    <excludeDevtools>false</excludeDevtools>
                     <mainClass>com.mybitop.gameversioncontrol.Application</mainClass>
                 </configuration>
                 <executions>
