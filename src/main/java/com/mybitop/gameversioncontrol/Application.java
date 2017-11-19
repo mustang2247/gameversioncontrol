@@ -1,5 +1,6 @@
 package com.mybitop.gameversioncontrol;
 
+import com.mybitop.gameversioncontrol.utils.PropsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -22,6 +23,9 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
         System.out.println("Starting");
+
+//        String envDir = PropsUtil.getProp( "env.properties", "envdir" );
+//        logger.info("Application is getProp........... " + envDir);
     }
 
 
