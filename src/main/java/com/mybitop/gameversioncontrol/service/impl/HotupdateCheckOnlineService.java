@@ -68,16 +68,13 @@ public class HotupdateCheckOnlineService implements IHotupdateCheckOnline {
      */
     @Override
     public HotupdateCheckOnline selectByConf(String appid, String channelid, String clientversion) {
-        logger.info("selectByConf: " + appid + "  :  " + clientversion);
+//        logger.info("selectByConf: " + appid + "  :  " + clientversion);
         HotupdateCheckOnline online = selectByConf(appid, channelid);
         try {
             if (online != null){
-//                online.setUpdatestrategy(Utils.FORCE_UPDATE);
+                online.setUpdatestrategy(Utils.NOT_UPDATE);
                 if (online != null && online.getForcecollection() != null &&
                         !online.getForcecollection().isEmpty()) {
-
-//                    logger.info("selectByConf: " + online.getAppVersion());
-
                     if (online.getUpdatestrategy() == Utils.FORCE_UPDATE) {
                         if (online.getAppVersion().equals(clientversion)){
                             online.setUpdatestrategy(Utils.NOT_UPDATE);
@@ -91,9 +88,7 @@ public class HotupdateCheckOnlineService implements IHotupdateCheckOnline {
                     } else if (online.getPromptcollection().indexOf(clientversion) != -1) {
                         online.setUpdatestrategy(Utils.TIP_UPDATE);
                     }
-
-
-                    logger.info("selectByConf3: " + online.getUpdatestrategy());
+//                    logger.info("selectByConf3: " + online.getUpdatestrategy());
                 }
             }
         } catch (Exception e) {
