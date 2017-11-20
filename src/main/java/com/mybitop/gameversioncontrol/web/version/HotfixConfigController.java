@@ -45,9 +45,6 @@ public class HotfixConfigController {
             appid = String.valueOf(object.getString("productId"));
             channelid = String.valueOf(object.getString("id"));
             appVersion = String.valueOf(object.getString("version"));
-
-            logger.info("getConfigInfoByJson appid:  " + appid + "  channelid: " + channelid + "  appVersion:   " + appVersion);
-
             return iVersioncontrol.selectVersionInfo(appid, channelid, appVersion);
         }catch (Exception e){
             e.printStackTrace();

@@ -5,6 +5,7 @@ import com.mybitop.gameversioncontrol.mapper.HotupdatecheckMapper;
 import com.mybitop.gameversioncontrol.service.IHotupdatecheck;
 import com.mybitop.gameversioncontrol.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Component;
@@ -14,12 +15,13 @@ import java.util.List;
 
 @Service
 @Component
+@CacheConfig(cacheNames = "checkItems")
 public class HotupdatecheckService implements IHotupdatecheck {
 
     @Autowired
     private HotupdatecheckMapper hotupdatecheckMapper;
 
-    @CacheEvict(value = Utils.CACHE_NAME_CHECK, key = "#id")
+//    @CacheEvict(value = Utils.CACHE_NAME_CHECK, key = "#id")
     @Override
     public int deleteByPrimaryKey(Integer id) {
         return hotupdatecheckMapper.deleteByPrimaryKey(id);
@@ -34,7 +36,7 @@ public class HotupdatecheckService implements IHotupdatecheck {
         }
     }
 
-    @CachePut(value = Utils.CACHE_NAME_CHECK, key = "#record.appid + record.channelid")
+//    @CachePut(value = Utils.CACHE_NAME_CHECK, key = "#record.appid + record.channelid")
     public int insertItem(Hotupdatecheck record) {
         return hotupdatecheckMapper.insert(record);
     }
@@ -44,7 +46,7 @@ public class HotupdatecheckService implements IHotupdatecheck {
         return hotupdatecheckMapper.select();
     }
 
-    @CachePut(value = Utils.CACHE_NAME_CHECK, key = "#id")
+//    @CachePut(value = Utils.CACHE_NAME_CHECK, key = "#id")
     @Override
     public Hotupdatecheck selectByPrimaryKey(Integer id) {
         return hotupdatecheckMapper.selectByPrimaryKey(id);

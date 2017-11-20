@@ -63,17 +63,6 @@ public class HotupdatecheckMapperImpl implements HotupdatecheckMapper {
         }
     }
 
-//    @Override
-//    public Hotupdatecheck selectByConf(String appid, String channelid, String clientversion) {
-//        List<Hotupdatecheck> list = jdbcTemplate.query("select * from hotupdatecheck where appid = ? AND channelid = ? AND appVersion = ?", new Object[]{appid, channelid, clientversion}, new BeanPropertyRowMapper(Hotupdatecheck.class));
-//        if(list!=null && list.size()>0){
-//            Hotupdatecheck hotupdatecheck = list.get(0);
-//            return hotupdatecheck;
-//        }else{
-//            return null;
-//        }
-//    }
-
     @Override
     public int update(Hotupdatecheck record) {
         return jdbcTemplate.update("UPDATE  hotupdatecheck SET appid=?,appname=?,channelid=?,channelname=?,appVersion=?,updatestrategy=?,baseurl=?,apkurl=?,promptcollection=?,forcecollection=?,excludecollection=?,updateinfo=?,createtime=?,updatetime=? WHERE id=?",

@@ -4,12 +4,10 @@ import com.mybitop.gameversioncontrol.entity.HotupdateCheckOnline;
 import com.mybitop.gameversioncontrol.mapper.HotupdateCheckOnlineMapper;
 import com.mybitop.gameversioncontrol.service.IHotupdateCheckOnline;
 import com.mybitop.gameversioncontrol.utils.Utils;
-import com.mybitop.gameversioncontrol.web.checkonline.CheckOnlineController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +18,7 @@ import java.util.List;
  */
 @Service
 @Component
+@CacheConfig(cacheNames = "checkOnlineItems")
 public class HotupdateCheckOnlineService implements IHotupdateCheckOnline {
 
     private static final Logger logger = LoggerFactory.getLogger(HotupdateCheckOnlineService.class);
@@ -27,7 +26,7 @@ public class HotupdateCheckOnlineService implements IHotupdateCheckOnline {
     @Autowired
     private HotupdateCheckOnlineMapper checkOnlineMapper;
 
-    @CacheEvict(value = Utils.CACHE_NAME_CHECK_ONLINE, key = "#id")
+//    @CacheEvict(value = Utils.CACHE_NAME_CHECK_ONLINE, key = "#id")
     @Override
     public int deleteByPrimaryKey(Integer id) {
         return checkOnlineMapper.deleteByPrimaryKey(id);
@@ -42,7 +41,7 @@ public class HotupdateCheckOnlineService implements IHotupdateCheckOnline {
         }
     }
 
-    @CachePut(value = Utils.CACHE_NAME_CHECK_ONLINE, key = "#record.appid + record.channelid")
+//    @CachePut(value = Utils.CACHE_NAME_CHECK_ONLINE, key = "#record.appid + record.channelid")
     public int insertItem(HotupdateCheckOnline record) {
         return checkOnlineMapper.insert(record);
     }
@@ -52,7 +51,7 @@ public class HotupdateCheckOnlineService implements IHotupdateCheckOnline {
         return checkOnlineMapper.select();
     }
 
-    @CachePut(value = Utils.CACHE_NAME_CHECK_ONLINE, key = "#id")
+//    @CachePut(value = Utils.CACHE_NAME_CHECK_ONLINE, key = "#id")
     @Override
     public HotupdateCheckOnline selectByPrimaryKey(Integer id) {
         return checkOnlineMapper.selectByPrimaryKey(id);

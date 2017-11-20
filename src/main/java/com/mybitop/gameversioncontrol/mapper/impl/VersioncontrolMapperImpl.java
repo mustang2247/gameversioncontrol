@@ -56,7 +56,6 @@ public class VersioncontrolMapperImpl implements VersioncontrolMapper {
 
     @Override
     public Versioncontrol selectVersionInfo(String appid, String channelid, String appVersion) {
-        logger.info("appid:  " + appid + "  channelid:    " + channelid + "  appVersion: " + appVersion);
         List<Versioncontrol> list = jdbcTemplate.query("select * from hotupdateconfig where appid=? AND channelid=? AND appVersion=?", new Object[]{appid, channelid, appVersion}, new BeanPropertyRowMapper(Versioncontrol.class));
         if(list!=null && list.size()>0){
             Versioncontrol hotupdatecheck = list.get(0);

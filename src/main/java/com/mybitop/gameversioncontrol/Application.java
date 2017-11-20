@@ -1,31 +1,23 @@
 package com.mybitop.gameversioncontrol;
 
-import com.mybitop.gameversioncontrol.utils.PropsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 @SpringBootApplication
 @EnableCaching
 @EnableAutoConfiguration
 //@ControllerAdvice
-public class Application implements CommandLineRunner {
+@EnableScheduling
+public class Application {
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-    }
-
-    @Override
-    public void run(String... strings) throws Exception {
-        System.out.println("Starting");
-
-//        String envDir = PropsUtil.getProp( "env.properties", "envdir" );
-//        logger.info("Application is getProp........... " + envDir);
     }
 
 
