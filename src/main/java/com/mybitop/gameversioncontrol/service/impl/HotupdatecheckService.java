@@ -83,7 +83,7 @@ public class HotupdatecheckService implements IHotupdatecheck {
         return hotupdatecheck;
     }
 
-    @CachePut(value = Utils.CACHE_NAME_CHECK, key = "#appid + #channelid")
+//    @CachePut(value = Utils.CACHE_NAME_CHECK, key = "#appid + #channelid")
     public Hotupdatecheck selectByConf(String appid, String channelid) {
         return hotupdatecheckMapper.selectByConf(appid, channelid);
     }
