@@ -9,10 +9,10 @@
             <div class="custom-header">
                 <img src="http://shiro.apache.org/assets/images/apache-shiro-logo.png"/>
             </div>
-            <!--<div class="logo">-->
-                <!--<h1 th:text="${errors.status}"></h1>-->
-            <!--</div>-->
-            <!--<p class="lead text-muted" th:text="${errors.message}">Unauthorized</p>-->
+            <div class="logo">
+                <h1 th:text="${errors.code}"></h1>
+            </div>
+            <p class="lead text-muted" th:text="${errors.msg}">Unauthorized</p>
             <a href="/" class="btn btn-primary">报错咯！！！！！！！ Go Home</a>
         </div>
     </div>

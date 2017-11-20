@@ -7,17 +7,24 @@ import com.mybitop.gameversioncontrol.utils.ResultUtil;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @ControllerAdvice
-public class ExceptionHandle {
+public class GlobleExceptionHandle {
+    public static final String DEFAULT_ERROR_VIEW = "error";
+
     @ExceptionHandler(value = Exception.class)
-    @ResponseBody
-    public Result handle(Exception e) {
+    public ModelAndView handle(Exception e) {
+
+        ModelAndView mav = new ModelAndView();
         if (e instanceof ErrorException) {
-            ErrorException girlExpection = (ErrorException) e;
-            return ResultUtil.error(girlExpection.getCode(), girlExpection.getMessage());
+            ErrorException errorException = (ErrorException) e;
+            mav.addObject("errors", ResultUtil.error(errorException.getCode(), errorException.getMessage()));
         } else {
-            return ResultUtil.error(ResultEnum.UNKONW_ERROR.getCode(), ResultEnum.UNKONW_ERROR.getMsg());
+            mav.addObject("errors", ResultUtil.error(ResultEnum.UNKONW_ERROR.getCode(), ResultEnum.UNKONW_ERROR.getMsg()));
         }
+
+        mav.setViewName(DEFAULT_ERROR_VIEW);
+        return mav;
     }
 }
