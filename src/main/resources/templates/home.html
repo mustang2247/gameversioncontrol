@@ -87,7 +87,7 @@
                         <ul class="b-list" th:if="${checkList != null}" th:each="ck:${checkList}">
                             <li>
                                 <span class="m-date" th:text="${ck.createtime}">2014-01-16</span>
-                                <!--<span class="m-view" th:href="@{/form/deleteCheckInfoItem(id=${ck.id})}" >删除</span>-->
+                                <span class="m-view" th:text="${ck.channelname}" >渠道名称</span>
                                 <span class="m-name">
                                     <a th:href="@{/form/deleteCheckInfoItem(id=${ck.id})}" >删除</a>
                                 </span>
@@ -106,6 +106,7 @@
                         <ul class="b-list" th:if="${checkListOnline != null}" th:each="ckl:${checkListOnline}">
                             <li>
                                 <span class="m-date" th:text="${ckl.createtime}">2014-01-16</span>
+                                <span class="m-view" th:text="${ckl.channelname}" >渠道名称</span>
                                 <!--<span class="m-view" th:href="@{/form/deleteCheckInfoItem(id=${ckl.id})}" >删除</span>-->
                                 <!--<span class="m-name">-->
                                     <!--<a th:href="@{/form/checkFormOnline(id=${ckl.id})}" >同步</a>-->
@@ -122,7 +123,7 @@
                         <ul class="b-list" th:if="${confList != null}" th:each="conf:${confList}">
                             <li>
                                 <span class="m-date" th:text="${conf.createtime}">2014-01-16</span>
-                                <!--<span class="m-view" th:href="@{/form/deleteConfigInfoItem(id=${conf.id})}" >删除</span>-->
+                                <span class="m-view" th:text="${conf.channelname}" >渠道名称</span>
                                 <span class="m-name">
                                     <a th:href="@{/form/deleteConfigInfoItem(id=${conf.id})}" >删除</a>
                                 </span>
