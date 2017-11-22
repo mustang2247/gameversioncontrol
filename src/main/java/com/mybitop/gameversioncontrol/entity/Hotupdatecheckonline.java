@@ -7,12 +7,12 @@ import javax.persistence.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
- * 热更新部署模板
+ * 热更新线上模板
  * @author 
  */
 @Entity
-@Table(name="hotupdatecheck")
-public class Hotupdatecheck implements Serializable {
+@Table(name="hotupdatecheckonline")
+public class Hotupdatecheckonline implements Serializable {
     @Id
     @GeneratedValue
     private Integer id;
@@ -230,7 +230,7 @@ public class Hotupdatecheck implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Hotupdatecheck other = (Hotupdatecheck) that;
+        Hotupdatecheckonline other = (Hotupdatecheckonline) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getAppid() == null ? other.getAppid() == null : this.getAppid().equals(other.getAppid()))
             && (this.getAppname() == null ? other.getAppname() == null : this.getAppname().equals(other.getAppname()))

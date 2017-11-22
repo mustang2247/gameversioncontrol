@@ -138,7 +138,7 @@
                                     <div class="control-group">
                                         <label class="control-label">应用版本</label>
                                         <div class="controls">
-                                            <input type="text" class="span8 " readonly="readonly" th:field="*{appVersion}">
+                                            <input type="text" class="span8 " readonly="readonly" th:field="*{appversion}">
 
                                         </div>
                                     </div>
@@ -146,7 +146,7 @@
                                     <div class="control-group">
                                         <label class="control-label">服务器IP或者域名</label>
                                         <div class="controls">
-                                            <input type="text" class="span8 " th:field="*{serverIp}" placeholder="更新策略 1:提示更新 2:强制更新 3:不更新">
+                                            <input type="text" class="span8 " th:field="*{serverip}" placeholder="ip 或者 域名">
 
                                         </div>
                                     </div>
@@ -154,7 +154,7 @@
                                     <div class="control-group">
                                         <label class="control-label">服务器端口</label>
                                         <div class="controls">
-                                            <input type="text" class="span8 " th:field="*{serverPort}">
+                                            <input type="text" class="span8 " th:field="*{serverport}">
 
                                         </div>
                                     </div>
@@ -170,7 +170,7 @@
                                     <div class="control-group">
                                         <label class="control-label">热更新参数</label>
                                         <div class="controls">
-                                            <textarea type="text" class="span11 " rows="5" th:field="*{params}" placeholder="例如：1.0,1.1"></textarea>
+                                            <textarea type="text" class="span11 " rows="5" th:field="*{params}" placeholder="hotfix里的参数"></textarea>
 
                                         </div>
                                     </div>
@@ -179,7 +179,7 @@
                                     <div class="control-group">
                                         <label class="control-label">屏蔽信息</label>
                                         <div class="controls">
-                                            <textarea type="text" class="span11 " rows="5" th:field="*{shields}" placeholder="例如：1.0,1.1"></textarea>
+                                            <textarea type="text" class="span11 " rows="5" th:field="*{shields}" placeholder="根据不同渠道屏蔽信息"></textarea>
 
                                         </div>
                                     </div>
@@ -187,7 +187,7 @@
                                     <div class="control-group">
                                         <label class="control-label">用户自定义1</label>
                                         <div class="controls">
-                                            <textarea type="text" class="span11 " rows="5" th:field="*{define1}" placeholder="例如：1.0,1.1"></textarea>
+                                            <textarea type="text" class="span11 " rows="5" th:field="*{define1}"></textarea>
 
                                         </div>
                                     </div>

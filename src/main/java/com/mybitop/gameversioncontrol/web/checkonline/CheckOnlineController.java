@@ -2,8 +2,8 @@ package com.mybitop.gameversioncontrol.web.checkonline;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.mybitop.gameversioncontrol.entity.HotupdateCheckOnline;
-import com.mybitop.gameversioncontrol.service.IHotupdateCheckOnline;
+import com.mybitop.gameversioncontrol.entity.Hotupdatecheckonline;
+import com.mybitop.gameversioncontrol.service.IHotUpdateCheckOnline;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +21,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CheckOnlineController {
     private static final Logger logger = LoggerFactory.getLogger(CheckOnlineController.class);
     @Autowired
-    private IHotupdateCheckOnline checkOnline;
+    private IHotUpdateCheckOnline checkOnline;
 
     @RequestMapping(value = "getCheckOnlineInfo", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public HotupdateCheckOnline getCheckOnlineInfo(@RequestParam(value = "appid", required = true) String appid,
-                                             @RequestParam(value = "channelid", required = true) String channelid,
-                                             @RequestParam(value = "appVersion", required = true) String appVersion) {
+    public Hotupdatecheckonline getCheckOnlineInfo(@RequestParam(value = "appid", required = true) String appid,
+                                                   @RequestParam(value = "channelid", required = true) String channelid,
+                                                   @RequestParam(value = "appVersion", required = true) String appVersion) {
         logger.info("appid:  " + appid + "  channelid: " + channelid + "  appversion: " + appVersion);
-        return checkOnline.selectByConf(appid, channelid, appVersion);
+        return checkOnline.findHotupdatecheckByAppidAndChannelid(appid, channelid, appVersion);
     }
 
     /**
@@ -39,7 +39,7 @@ public class CheckOnlineController {
      */
     @RequestMapping(value = "getCheckInfoOnlineByJson", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public HotupdateCheckOnline getCheckInfoOnlineByJson(@RequestParam(value = "data", required = true) String data) {
+    public Hotupdatecheckonline getCheckInfoOnlineByJson(@RequestParam(value = "data", required = true) String data) {
         logger.info("data:  " + data);
         if (data == null || data.isEmpty()) return null;
         String appid;
@@ -51,7 +51,7 @@ public class CheckOnlineController {
             channelid = String.valueOf(object.getString("id"));
             appVersion = String.valueOf(object.getString("version"));
 
-            return checkOnline.selectByConf(appid, channelid, appVersion);
+            return checkOnline.findHotupdatecheckByAppidAndChannelid(appid, channelid, appVersion);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -60,9 +60,9 @@ public class CheckOnlineController {
 
     @RequestMapping(value = "getCheckOnlineInfoById", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public HotupdateCheckOnline getCheckOnlineInfoById(@RequestParam(value = "id", required = true) int id) {
+    public Hotupdatecheckonline getCheckOnlineInfoById(@RequestParam(value = "id", required = true) int id) {
         logger.info("getConfigById: " + id);
-        return checkOnline.selectByPrimaryKey(id);
+        return checkOnline.findHotupdatecheckById(id);
     }
 
 

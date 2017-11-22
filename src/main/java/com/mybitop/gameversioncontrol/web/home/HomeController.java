@@ -1,11 +1,11 @@
 package com.mybitop.gameversioncontrol.web.home;
 
-import com.mybitop.gameversioncontrol.entity.HotupdateCheckOnline;
 import com.mybitop.gameversioncontrol.entity.Hotupdatecheck;
-import com.mybitop.gameversioncontrol.entity.Versioncontrol;
-import com.mybitop.gameversioncontrol.service.IHotupdateCheckOnline;
-import com.mybitop.gameversioncontrol.service.IHotupdatecheck;
-import com.mybitop.gameversioncontrol.service.IVersioncontrol;
+import com.mybitop.gameversioncontrol.entity.Hotupdatecheckonline;
+import com.mybitop.gameversioncontrol.entity.Hotupdateconfig;
+import com.mybitop.gameversioncontrol.service.IHotUpdateCheckOnline;
+import com.mybitop.gameversioncontrol.service.IHotUpdateCheck;
+import com.mybitop.gameversioncontrol.service.IHotUpdateConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +24,15 @@ public class HomeController {
      * 检查热更新
      */
     @Autowired
-    private IHotupdatecheck hotupdatecheck;
+    private IHotUpdateCheck hotupdatecheck;
     /**
      * 配置文件
      */
     @Autowired
-    IVersioncontrol versionConfig;
+    IHotUpdateConfig versionConfig;
 
     @Autowired
-    private IHotupdateCheckOnline checkOnline;
+    private IHotUpdateCheckOnline checkOnline;
 
     @RequestMapping({"/", "/index"})
     public String index(HttpServletRequest request, Model model) {
@@ -55,9 +55,9 @@ public class HomeController {
         model.addAttribute("checkTitle", "部署版本");
         model.addAttribute("checkTitleOnline", "线上版本(需要同步才能使用)");
         model.addAttribute("confTitle", "热更新配置");
-        List<Hotupdatecheck> checkList = hotupdatecheck.select();
-        List<Versioncontrol> confList = versionConfig.select();
-        List<HotupdateCheckOnline> checkOnlines = checkOnline.select();
+        List<Hotupdatecheck> checkList = hotupdatecheck.findAll();
+        List<Hotupdateconfig> confList = versionConfig.findAll();
+        List<Hotupdatecheckonline> checkOnlines = checkOnline.findAll();
         if(checkList != null){
             model.addAttribute("checkList", checkList);
         }else {

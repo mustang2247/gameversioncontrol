@@ -2,8 +2,8 @@ package com.mybitop.gameversioncontrol.web.version;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.mybitop.gameversioncontrol.entity.Versioncontrol;
-import com.mybitop.gameversioncontrol.service.IVersioncontrol;
+import com.mybitop.gameversioncontrol.entity.Hotupdateconfig;
+import com.mybitop.gameversioncontrol.service.IHotUpdateConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +20,20 @@ public class HotfixConfigController {
     private static final Logger logger = LoggerFactory.getLogger(HotfixConfigController.class);
 
     @Autowired
-    IVersioncontrol iVersioncontrol;
+    IHotUpdateConfig iVersioncontrol;
 
     @RequestMapping(value = "getConfigInfo", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public Versioncontrol getConfigInfo(@RequestParam(value = "appid", required = true) String appid,
-                                           @RequestParam(value = "channelid", required = true) String channelid,
-                                           @RequestParam(value = "appVersion", required = true) String appVersion) {
+    public Hotupdateconfig getConfigInfo(@RequestParam(value = "appid", required = true) String appid,
+                                         @RequestParam(value = "channelid", required = true) String channelid,
+                                         @RequestParam(value = "appVersion", required = true) String appVersion) {
         logger.info("appid:  " + appid + "  channelid: " + channelid + "  appversion: " + appVersion);
-        return iVersioncontrol.selectVersionInfo(appid, channelid, appVersion);
+        return iVersioncontrol.findHotupdatecheckByAppidAndChannelidandAndAppVersion(appid, channelid, appVersion);
     }
 
     @RequestMapping(value = "getConfigInfoByJson", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public Versioncontrol getConfigInfoByJson(@RequestParam(value = "data", required = true) String data) {
+    public Hotupdateconfig getConfigInfoByJson(@RequestParam(value = "data", required = true) String data) {
         logger.info("getConfigInfoByJson value:  " + data);
         if(data == null || data.isEmpty()) return null;
 
@@ -45,7 +45,7 @@ public class HotfixConfigController {
             appid = String.valueOf(object.getString("productId"));
             channelid = String.valueOf(object.getString("id"));
             appVersion = String.valueOf(object.getString("version"));
-            return iVersioncontrol.selectVersionInfo(appid, channelid, appVersion);
+            return iVersioncontrol.findHotupdatecheckByAppidAndChannelidandAndAppVersion(appid, channelid, appVersion);
         }catch (Exception e){
             e.printStackTrace();
             return null;
@@ -55,7 +55,7 @@ public class HotfixConfigController {
     @GetMapping("getConfigById")
     public String getConfigById(@RequestParam(value = "id", required = true) int id, Model model) {
         logger.info("getConfigById: " + id);
-        model.addAttribute("versioning", iVersioncontrol.selectByPrimaryKey(id));
+        model.addAttribute("versioning", iVersioncontrol.findHotupdatecheckById(id));
         return "form/version";
     }
 
