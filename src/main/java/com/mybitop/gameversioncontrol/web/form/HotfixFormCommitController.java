@@ -90,9 +90,10 @@ public class HotfixFormCommitController {
     }
 
     @GetMapping("deleteConfigInfoItem")
-    @ResponseBody
-    public String deleteConfigInfoItem(@RequestParam(value = "id", required = true) int id, Model model) {
-        return String.valueOf(versionConfig.deleteHotupdatecheckById(id));
+//    @ResponseBody
+    public void deleteConfigInfoItem(@RequestParam(value = "id", required = true) int id, HttpServletResponse response) throws IOException {
+        versionConfig.deleteHotupdatecheckById(id);
+        response.sendRedirect("/");
     }
 
 
@@ -158,9 +159,10 @@ public class HotfixFormCommitController {
     }
 
     @GetMapping("deleteCheckInfoItem")
-    @ResponseBody
-    public String deleteCheckInfoItem(@RequestParam(value = "id", required = true) int id, Model model) {
-        return String.valueOf(hotupdatecheck.deleteHotupdatecheckById(id));
+//    @ResponseBody
+    public void deleteCheckInfoItem(@RequestParam(value = "id", required = true) int id, HttpServletResponse response) throws IOException {
+        hotupdatecheck.deleteHotupdatecheckById(id);
+        response.sendRedirect("/");
     }
 
     //==============================热更新线上同步====================================

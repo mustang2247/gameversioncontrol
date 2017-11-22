@@ -48,13 +48,13 @@ public class Hotupdateconfig implements Serializable {
     /**
      * 创建时间
      */
-    @NotEmpty
+//    @NotEmpty
     private Date createtime;
 
     /**
      * 更新时间
      */
-    @NotEmpty
+//    @NotEmpty
     private Date updatetime;
 
     /**

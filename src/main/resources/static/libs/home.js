@@ -16,6 +16,10 @@ function hotfixNewForm() {
     $(window).attr('location',"/form/hotfixNewForm");
 }
 
+function addNotice() {
+    $(window).attr('location',"/notice/addNotice");
+}
+
 /**
  * 回到root
  * @param greetCardId

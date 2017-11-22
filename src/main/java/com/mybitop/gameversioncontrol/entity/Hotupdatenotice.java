@@ -45,13 +45,11 @@ public class Hotupdatenotice implements Serializable {
     /**
      * 创建时间
      */
-    @NotEmpty
     private Date createtime;
 
     /**
      * 更新时间
      */
-    @NotEmpty
     private Date updatetime;
 
     private static final long serialVersionUID = 1L;

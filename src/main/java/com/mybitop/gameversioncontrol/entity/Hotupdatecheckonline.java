@@ -3,6 +3,7 @@ package com.mybitop.gameversioncontrol.entity;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -50,7 +51,7 @@ public class Hotupdatecheckonline implements Serializable {
     /**
      * 更新策略 1:提示更新 2:强制更新 3:不更新
      */
-    @NotEmpty
+    @NotNull
     private Integer updatestrategy;
 
     /**
@@ -88,13 +89,13 @@ public class Hotupdatecheckonline implements Serializable {
     /**
      * 创建时间
      */
-    @NotEmpty
+//    @NotEmpty
     private Date createtime;
 
     /**
      * 更新时间
      */
-    @NotEmpty
+//    @NotEmpty
     private Date updatetime;
 
     private static final long serialVersionUID = 1L;
