@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 @Transactional
@@ -27,7 +28,12 @@ public class HotUpdateNoticeService implements IHotUpdateNotice {
 
     @Override
     public int deleteHotupdatenoticeById(Integer id) {
-        return hotUpdateNoticeDao.deleteHotupdatenoticeById(id);
+        Hotupdatenotice hotupdatenotice = hotUpdateNoticeDao.findById(id);
+        Integer resoult = 0;
+        if(hotupdatenotice != null){
+            resoult = hotUpdateNoticeDao.deleteHotupdatenoticeByAppid(hotupdatenotice.getAppid());
+        }
+        return resoult;
     }
 
     @Override
@@ -38,5 +44,10 @@ public class HotUpdateNoticeService implements IHotUpdateNotice {
     @Override
     public int update(Hotupdatenotice record) {
         return hotUpdateNoticeDao.updateHotUpdateCheckOnlineById(record.getAppname(), record.getAppversion(), record.getUpdatemessage(), record.getId());
+    }
+
+    @Override
+    public List<Hotupdatenotice> findAll() {
+        return hotUpdateNoticeDao.findAll();
     }
 }

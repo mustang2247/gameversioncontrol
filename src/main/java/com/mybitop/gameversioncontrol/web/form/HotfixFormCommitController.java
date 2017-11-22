@@ -203,4 +203,11 @@ public class HotfixFormCommitController {
         return "checkonline/checkonline";
     }
 
+    @GetMapping("deleteCheckOnlineInfoItem")
+//    @ResponseBody
+    public void deleteCheckOnlineInfoItem(@RequestParam(value = "id", required = true) int id, HttpServletResponse response) throws IOException {
+        checkOnline.deleteHotupdatecheckById(id);
+        response.sendRedirect("/");
+    }
+
 }

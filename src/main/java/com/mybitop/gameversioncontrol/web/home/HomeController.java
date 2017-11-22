@@ -3,9 +3,11 @@ package com.mybitop.gameversioncontrol.web.home;
 import com.mybitop.gameversioncontrol.entity.Hotupdatecheck;
 import com.mybitop.gameversioncontrol.entity.Hotupdatecheckonline;
 import com.mybitop.gameversioncontrol.entity.Hotupdateconfig;
+import com.mybitop.gameversioncontrol.entity.Hotupdatenotice;
 import com.mybitop.gameversioncontrol.service.IHotUpdateCheckOnline;
 import com.mybitop.gameversioncontrol.service.IHotUpdateCheck;
 import com.mybitop.gameversioncontrol.service.IHotUpdateConfig;
+import com.mybitop.gameversioncontrol.service.IHotUpdateNotice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,9 @@ public class HomeController {
 
     @Autowired
     private IHotUpdateCheckOnline checkOnline;
+
+    @Autowired
+    private IHotUpdateNotice hotUpdateNotice;
 
     @RequestMapping({"/", "/index"})
     public String index(HttpServletRequest request, Model model) {
@@ -74,6 +79,14 @@ public class HomeController {
             model.addAttribute("confList", confList);
         }else {
             model.addAttribute("confList", null);
+        }
+
+        model.addAttribute("noticeInfo", "更新公告");
+        List<Hotupdatenotice> noticeList = hotUpdateNotice.findAll();
+        if(noticeList != null){
+            model.addAttribute("noticeList", noticeList);
+        }else {
+            model.addAttribute("noticeList", null);
         }
 
         return "home";

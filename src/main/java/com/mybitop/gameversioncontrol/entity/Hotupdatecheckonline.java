@@ -1,11 +1,14 @@
 package com.mybitop.gameversioncontrol.entity;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * 热更新线上模板
@@ -97,6 +100,18 @@ public class Hotupdatecheckonline implements Serializable {
      */
 //    @NotEmpty
     private Date updatetime;
+
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "appid")
+    private Hotupdatenotice notice;
+
+    public Hotupdatenotice getNotice() {
+        return notice;
+    }
+
+    public void setNotice(Hotupdatenotice notice) {
+        this.notice = notice;
+    }
 
     private static final long serialVersionUID = 1L;
 

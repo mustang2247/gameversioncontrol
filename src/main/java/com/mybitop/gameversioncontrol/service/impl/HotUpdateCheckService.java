@@ -4,8 +4,6 @@ import com.mybitop.gameversioncontrol.dao.HotUpdateCheckDao;
 import com.mybitop.gameversioncontrol.entity.Hotupdatecheck;
 import com.mybitop.gameversioncontrol.service.IHotUpdateCheck;
 import com.mybitop.gameversioncontrol.utils.Utils;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -14,8 +12,8 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-@Component
-@CacheConfig(cacheNames = "checkItems")
+//@Component
+//@CacheConfig(cacheNames = "checkItems")
 @Transactional
 public class HotUpdateCheckService implements IHotUpdateCheck {
 
@@ -25,7 +23,12 @@ public class HotUpdateCheckService implements IHotUpdateCheck {
 //    @CacheEvict(value = Utils.CACHE_NAME_CHECK, key = "#id")
     @Override
     public int deleteHotupdatecheckById(Integer id) {
-        return hotupdatecheckMapper.deleteHotupdatecheckById(id);
+        Hotupdatecheck hotupdateconfig = hotupdatecheckMapper.findHotupdatecheckById(id);
+        Integer resoult = 0;
+        if(hotupdateconfig != null){
+            resoult = hotupdatecheckMapper.deleteHotupdatecheckByAppidAndChannelid(hotupdateconfig.getAppid(), hotupdateconfig.getChannelid());
+        }
+        return resoult;
     }
 
     @Override

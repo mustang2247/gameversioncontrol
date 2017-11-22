@@ -1,13 +1,13 @@
 package com.mybitop.gameversioncontrol.service.impl;
 
 import com.mybitop.gameversioncontrol.dao.HotUpdateCheckOnlineDao;
+import com.mybitop.gameversioncontrol.dao.HotUpdateNoticeDao;
 import com.mybitop.gameversioncontrol.entity.Hotupdatecheckonline;
+import com.mybitop.gameversioncontrol.entity.Hotupdatenotice;
 import com.mybitop.gameversioncontrol.service.IHotUpdateCheckOnline;
 import com.mybitop.gameversioncontrol.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -19,8 +19,8 @@ import java.util.List;
  * 检查更新在线版
  */
 @Service
-@Component
-@CacheConfig(cacheNames = "checkOnlineItems")
+//@Component
+//@CacheConfig(cacheNames = "checkOnlineItems")
 @Transactional
 public class HotUpdateCheckOnlineService implements IHotUpdateCheckOnline {
 
@@ -29,10 +29,18 @@ public class HotUpdateCheckOnlineService implements IHotUpdateCheckOnline {
     @Resource
     private HotUpdateCheckOnlineDao checkOnlineMapper;
 
+    @Resource
+    private HotUpdateNoticeDao hotUpdateNoticeDao;
+
 //    @CacheEvict(value = Utils.CACHE_NAME_CHECK_ONLINE, key = "#id")
     @Override
     public int deleteHotupdatecheckById(Integer id) {
-        return checkOnlineMapper.deleteHotupdatecheckById(id);
+        Hotupdatecheckonline hotupdateconfig = checkOnlineMapper.findHotupdatecheckById(id);
+        Integer resoult = 0;
+        if(hotupdateconfig != null){
+            resoult = checkOnlineMapper.deleteHotupdatecheckonlineByAppidAndChannelid(hotupdateconfig.getAppid(), hotupdateconfig.getChannelid());
+        }
+        return resoult;
     }
 
     @Override
@@ -74,10 +82,13 @@ public class HotUpdateCheckOnlineService implements IHotUpdateCheckOnline {
         Assert.notNull(appid, "appid is null");
         Assert.notNull(channelid, "channelid is null");
         Assert.notNull(clientversion, "clientversion is null");
-
         Hotupdatecheckonline online = checkOnlineMapper.findHotupdatecheckByAppidAndChannelid(appid, channelid);
+
+        Hotupdatenotice hotupdatenotice = hotUpdateNoticeDao.findByAppid(appid);
+
         try {
             if (online != null){
+                online.setNotice(hotupdatenotice);
                 online.setUpdatestrategy(Utils.NOT_UPDATE);
                 if (online != null && online.getForcecollection() != null &&
                         !online.getForcecollection().isEmpty()) {

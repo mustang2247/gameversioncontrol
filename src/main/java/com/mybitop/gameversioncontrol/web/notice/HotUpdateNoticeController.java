@@ -59,9 +59,9 @@ public class HotUpdateNoticeController {
     }
 
     @GetMapping("deleteNoticeInfoItem")
-    @ResponseBody
-    public String deleteConfigInfoItem(@RequestParam(value = "id", required = true) int id, Model model) {
-        return String.valueOf(hotUpdateNotice.deleteHotupdatenoticeById(id));
+    public void deleteConfigInfoItem(@RequestParam(value = "id", required = true) int id, HttpServletResponse response) throws IOException {
+        hotUpdateNotice.deleteHotupdatenoticeById(id);
+        response.sendRedirect("/");
     }
 
 

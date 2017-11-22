@@ -108,10 +108,9 @@
                             <li>
                                 <span class="m-date" th:text="${ckl.createtime}">2014-01-16</span>
                                 <span class="m-view" th:text="${ckl.channelname}" >渠道名称</span>
-                                <!--<span class="m-view" th:href="@{/form/deleteCheckInfoItem(id=${ckl.id})}" >删除</span>-->
-                                <!--<span class="m-name">-->
-                                    <!--<a th:href="@{/form/checkFormOnline(id=${ckl.id})}" >同步</a>-->
-                                <!--</span>-->
+                                <span class="m-name">
+                                    <a th:href="@{/form/deleteCheckOnlineInfoItem(id=${ckl.id})}" >删除</a>
+                                </span>
                                 <a th:href="@{/form/viewCheckOnlineItem(id=${ckl.id})}" th:text="${ckl.appname}" >appname</a>
                             </li>
                         </ul>
@@ -132,6 +131,25 @@
                                     <a th:href="@{/form/hotfixUpdateForm(id=${conf.id})}" >修改</a>
                                 </span>
                                 <a th:href="@{/form/hotfixUpdateForm(id=${conf.id})}" th:text="${conf.appname}" >appname</a>
+                            </li>
+                        </ul>
+
+                    </div><!-- //b-pagecontent:end -->
+
+                    <!--热更新通知-->
+                    <div class="b-pagecontent">
+                        <h2 th:text="${noticeInfo}">标题</h2>
+                        <ul class="b-list" th:if="${noticeList != null}" th:each="notice:${noticeList}">
+                            <li>
+                                <span class="m-date" th:text="${notice.createtime}">2014-01-16</span>
+                                <!--<span class="m-view" th:text="${notice.channelname}" >渠道名称</span>-->
+                                <span class="m-name">
+                                    <a th:href="@{/notice/deleteNoticeInfoItem(id=${notice.id})}" >删除</a>
+                                </span>
+                                <span class="m-name">
+                                    <a th:href="@{/notice/updateNotice(id=${notice.id})}" >修改</a>
+                                </span>
+                                <a th:href="@{/notice/updateNotice(id=${notice.id})}" th:text="${notice.appname}" >appname</a>
                             </li>
                         </ul>
 

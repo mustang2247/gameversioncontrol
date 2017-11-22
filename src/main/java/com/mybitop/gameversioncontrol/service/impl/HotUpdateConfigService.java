@@ -3,8 +3,6 @@ package com.mybitop.gameversioncontrol.service.impl;
 import com.mybitop.gameversioncontrol.dao.HotUpdateConfigDao;
 import com.mybitop.gameversioncontrol.entity.Hotupdateconfig;
 import com.mybitop.gameversioncontrol.service.IHotUpdateConfig;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -12,9 +10,9 @@ import org.springframework.util.Assert;
 import javax.annotation.Resource;
 import java.util.List;
 
-@Component
+//@Component
 @Service
-@CacheConfig(cacheNames = "versionConfigs")
+//@CacheConfig(cacheNames = "versionConfigs")
 @Transactional
 public class HotUpdateConfigService implements IHotUpdateConfig {
 
@@ -24,7 +22,12 @@ public class HotUpdateConfigService implements IHotUpdateConfig {
 //    @CacheEvict(value = Utils.CACHE_NAME_CONF, key = "#id")
     @Override
     public int deleteHotupdatecheckById(Integer id) {
-        return versioncontrolMapper.deleteHotupdatecheckById(id);
+        Hotupdateconfig hotupdateconfig = versioncontrolMapper.findHotupdatecheckById(id);
+        Integer resoult = 0;
+        if(hotupdateconfig != null){
+            resoult = versioncontrolMapper.deleteHotupdateconfigByAppidAndChannelidAndAppversion(hotupdateconfig.getAppid(), hotupdateconfig.getChannelid(), hotupdateconfig.getAppversion());
+        }
+        return resoult;
     }
 
 //    @CachePut(value = Utils.CACHE_NAME_CONF, key = "#record.appid + #record.channelid + #record.appVersion")
