@@ -16,6 +16,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class Application {
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
     public static void main(String[] args) {
+//        try {
+//            System.setProperty("tomcat.util.http.parser.HttpParser.requestTargetAllow","|{}");
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+
         SpringApplication.run(Application.class, args);
     }
 
