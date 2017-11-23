@@ -10,16 +10,13 @@ import org.springframework.util.Assert;
 import javax.annotation.Resource;
 import java.util.List;
 
-//@Component
 @Service
-//@CacheConfig(cacheNames = "versionConfigs")
 @Transactional
 public class HotUpdateConfigService implements IHotUpdateConfig {
 
     @Resource
     private HotUpdateConfigDao versioncontrolMapper;
 
-//    @CacheEvict(value = Utils.CACHE_NAME_CONF, key = "#id")
     @Override
     public int deleteHotupdatecheckById(Integer id) {
         Hotupdateconfig hotupdateconfig = versioncontrolMapper.findHotupdatecheckById(id);
@@ -30,7 +27,6 @@ public class HotUpdateConfigService implements IHotUpdateConfig {
         return resoult;
     }
 
-//    @CachePut(value = Utils.CACHE_NAME_CONF, key = "#record.appid + #record.channelid + #record.appVersion")
     @Override
     public int insert(Hotupdateconfig record) {
         if (versioncontrolMapper.findHotupdatecheckByAppidAndChannelidAndAppversion(record.getAppid(), record.getChannelid(), record.getAppversion()) != null) {
@@ -42,7 +38,6 @@ public class HotUpdateConfigService implements IHotUpdateConfig {
 
     }
 
-//    @Cacheable(value = Utils.CACHE_NAME_CONF, key = "#id")
     @Override
     public Hotupdateconfig findHotupdatecheckById(Integer id) {
         return versioncontrolMapper.findHotupdatecheckById(id);
@@ -53,7 +48,6 @@ public class HotUpdateConfigService implements IHotUpdateConfig {
         return versioncontrolMapper.update(record.getAppname(),record.getChannelname(), record.getServerip(),record.getServerport(), record.getHotfix(),record.getShields(), record.getDefine1(), record.getDefine2(), record.getParams(), record.getId());
     }
 
-//    @Cacheable(value = Utils.CACHE_NAME_CONF, key = "#appid + #channelid + #appVersion")
     @Override
     public Hotupdateconfig findHotupdatecheckByAppidAndChannelidandAndAppVersion(String appid, String channelid, String appVersion) {
         Assert.notNull(appid, "appid is null");

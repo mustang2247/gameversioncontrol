@@ -12,15 +12,12 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-//@Component
-//@CacheConfig(cacheNames = "checkItems")
 @Transactional
 public class HotUpdateCheckService implements IHotUpdateCheck {
 
     @Resource
     private HotUpdateCheckDao hotupdatecheckMapper;
 
-//    @CacheEvict(value = Utils.CACHE_NAME_CHECK, key = "#id")
     @Override
     public int deleteHotupdatecheckById(Integer id) {
         Hotupdatecheck hotupdateconfig = hotupdatecheckMapper.findHotupdatecheckById(id);
@@ -41,7 +38,6 @@ public class HotUpdateCheckService implements IHotUpdateCheck {
         }
     }
 
-//    @CachePut(value = Utils.CACHE_NAME_CHECK, key = "#record.appid + record.channelid")
     public Hotupdatecheck insertItem(Hotupdatecheck record) {
         return hotupdatecheckMapper.save(record);
     }
@@ -51,7 +47,6 @@ public class HotUpdateCheckService implements IHotUpdateCheck {
         return hotupdatecheckMapper.findAll();
     }
 
-//    @CachePut(value = Utils.CACHE_NAME_CHECK, key = "#id")
     @Override
     public Hotupdatecheck findHotupdatecheckById(Integer id) {
         return hotupdatecheckMapper.findHotupdatecheckById(id);
@@ -65,7 +60,6 @@ public class HotUpdateCheckService implements IHotUpdateCheck {
      * @param clientversion
      * @return
      */
-//    @CachePut(value = Utils.CACHE_NAME_CHECK, key = "#appid + #channelid")
     @Override
     public Hotupdatecheck findHotupdatecheckByAppidAndChannelid(String appid, String channelid, String clientversion) {
         Assert.notNull(appid, "appid is null");

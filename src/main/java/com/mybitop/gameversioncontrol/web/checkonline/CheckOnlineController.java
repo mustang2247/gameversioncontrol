@@ -3,7 +3,9 @@ package com.mybitop.gameversioncontrol.web.checkonline;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.mybitop.gameversioncontrol.entity.Hotupdatecheckonline;
+import com.mybitop.gameversioncontrol.entity.Hotupdatenotice;
 import com.mybitop.gameversioncontrol.service.IHotUpdateCheckOnline;
+import com.mybitop.gameversioncontrol.service.IHotUpdateNotice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class CheckOnlineController {
     private static final Logger logger = LoggerFactory.getLogger(CheckOnlineController.class);
     @Autowired
     private IHotUpdateCheckOnline checkOnline;
+
+    @Autowired
+    private IHotUpdateNotice hotUpdateNotice;
 
     @RequestMapping(value = "getCheckOnlineInfo", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
@@ -51,7 +56,23 @@ public class CheckOnlineController {
             channelid = String.valueOf(object.getString("id"));
             appVersion = String.valueOf(object.getString("version"));
 
-            return checkOnline.findHotupdatecheckByAppidAndChannelid(appid, channelid, appVersion);
+            Hotupdatenotice notice = hotUpdateNotice.findByNoticeAppid(appid);
+            Hotupdatecheckonline hotupdatecheckonline = checkOnline.findHotupdatecheckByAppidAndChannelid(appid, channelid, appVersion);
+            if(notice != null && hotupdatecheckonline != null){
+
+                String nav = notice.getAppversion();
+                if (nav != null && !nav.isEmpty()){
+                    String[] navl = nav.split("\\.");
+                    String[] appVersionL = appVersion.split("\\.");
+
+                    if (Integer.valueOf(navl[0]) > Integer.valueOf(appVersionL[0]) || Integer.valueOf(navl[1]) > Integer.valueOf(appVersionL[1])){
+                        hotupdatecheckonline.setNotice(notice);
+                    }
+                }
+
+            }
+
+            return hotupdatecheckonline;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

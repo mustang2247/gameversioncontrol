@@ -103,7 +103,7 @@ public class Hotupdatecheckonline implements Serializable {
 
 //    @ManyToMany(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "appid")
-    private Hotupdatenotice notice;
+    private Hotupdatenotice notice = null;
 
     public Hotupdatenotice getNotice() {
         return notice;

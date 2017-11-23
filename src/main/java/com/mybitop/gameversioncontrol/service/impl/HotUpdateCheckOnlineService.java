@@ -19,8 +19,6 @@ import java.util.List;
  * 检查更新在线版
  */
 @Service
-//@Component
-//@CacheConfig(cacheNames = "checkOnlineItems")
 @Transactional
 public class HotUpdateCheckOnlineService implements IHotUpdateCheckOnline {
 
@@ -29,10 +27,6 @@ public class HotUpdateCheckOnlineService implements IHotUpdateCheckOnline {
     @Resource
     private HotUpdateCheckOnlineDao checkOnlineMapper;
 
-    @Resource
-    private HotUpdateNoticeDao hotUpdateNoticeDao;
-
-//    @CacheEvict(value = Utils.CACHE_NAME_CHECK_ONLINE, key = "#id")
     @Override
     public int deleteHotupdatecheckById(Integer id) {
         Hotupdatecheckonline hotupdateconfig = checkOnlineMapper.findHotupdatecheckById(id);
@@ -53,7 +47,6 @@ public class HotUpdateCheckOnlineService implements IHotUpdateCheckOnline {
         }
     }
 
-//    @CachePut(value = Utils.CACHE_NAME_CHECK_ONLINE, key = "#record.appid + record.channelid")
     public Hotupdatecheckonline insertItem(Hotupdatecheckonline record) {
         return checkOnlineMapper.save(record);
     }
@@ -63,7 +56,6 @@ public class HotUpdateCheckOnlineService implements IHotUpdateCheckOnline {
         return checkOnlineMapper.findAll();
     }
 
-//    @CachePut(value = Utils.CACHE_NAME_CHECK_ONLINE, key = "#id")
     @Override
     public Hotupdatecheckonline findHotupdatecheckById(Integer id) {
         return checkOnlineMapper.findHotupdatecheckById(id);
@@ -84,11 +76,8 @@ public class HotUpdateCheckOnlineService implements IHotUpdateCheckOnline {
         Assert.notNull(clientversion, "clientversion is null");
         Hotupdatecheckonline online = checkOnlineMapper.findHotupdatecheckByAppidAndChannelid(appid, channelid);
 
-        Hotupdatenotice hotupdatenotice = hotUpdateNoticeDao.findByAppid(appid);
-
         try {
             if (online != null){
-                online.setNotice(hotupdatenotice);
                 online.setUpdatestrategy(Utils.NOT_UPDATE);
                 if (online != null && online.getForcecollection() != null &&
                         !online.getForcecollection().isEmpty()) {
