@@ -13,7 +13,7 @@ public interface IHotUpdateConfig {
 
     Hotupdateconfig findHotupdatecheckByAppidAndChannelidandAndAppVersion(String appid, String channelid, String clientversion);
 
-    int insert(Hotupdateconfig record);
+    Hotupdateconfig insert(Hotupdateconfig record);
 
-    int update(Hotupdateconfig record);
+    Hotupdateconfig update(Hotupdateconfig record);
 }

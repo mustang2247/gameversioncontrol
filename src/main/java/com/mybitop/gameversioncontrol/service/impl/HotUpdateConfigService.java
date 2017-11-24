@@ -3,6 +3,10 @@ package com.mybitop.gameversioncontrol.service.impl;
 import com.mybitop.gameversioncontrol.dao.HotUpdateConfigDao;
 import com.mybitop.gameversioncontrol.entity.Hotupdateconfig;
 import com.mybitop.gameversioncontrol.service.IHotUpdateConfig;
+import com.mybitop.gameversioncontrol.utils.Utils;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -12,6 +16,7 @@ import java.util.List;
 
 @Service
 @Transactional
+@CacheConfig(cacheNames = Utils.CACHE_NAME_CONF)
 public class HotUpdateConfigService implements IHotUpdateConfig {
 
     @Resource
@@ -27,13 +32,13 @@ public class HotUpdateConfigService implements IHotUpdateConfig {
         return resoult;
     }
 
+    @CachePut(key = "#record.appid + #record.channelid + #record.appversion")
     @Override
-    public int insert(Hotupdateconfig record) {
+    public Hotupdateconfig insert(Hotupdateconfig record) {
         if (versioncontrolMapper.findHotupdatecheckByAppidAndChannelidAndAppversion(record.getAppid(), record.getChannelid(), record.getAppversion()) != null) {
             return update(record);
         } else {
-            versioncontrolMapper.save(record);
-            return 1;
+            return versioncontrolMapper.save(record);
         }
 
     }
@@ -44,10 +49,16 @@ public class HotUpdateConfigService implements IHotUpdateConfig {
     }
 
     @Override
-    public int update(Hotupdateconfig record) {
-        return versioncontrolMapper.update(record.getAppname(),record.getChannelname(), record.getServerip(),record.getServerport(), record.getHotfix(),record.getShields(), record.getDefine1(), record.getDefine2(), record.getParams(), record.getId());
+    public Hotupdateconfig update(Hotupdateconfig record) {
+        try {
+            versioncontrolMapper.update(record.getAppname(),record.getChannelname(), record.getServerip(),record.getServerport(), record.getHotfix(),record.getShields(), record.getDefine1(), record.getDefine2(), record.getParams(), record.getId());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return record;
     }
 
+    @Cacheable(key = "#appid + #channelid + #appVersion")
     @Override
     public Hotupdateconfig findHotupdatecheckByAppidAndChannelidandAndAppVersion(String appid, String channelid, String appVersion) {
         Assert.notNull(appid, "appid is null");

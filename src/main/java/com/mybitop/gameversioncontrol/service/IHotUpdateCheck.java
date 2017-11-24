@@ -14,9 +14,9 @@ public interface IHotUpdateCheck {
 
     Hotupdatecheck findHotupdatecheckByAppidAndChannelid(String appid, String channelid, String clientversion);
 
-    int insert(Hotupdatecheck record);
+    Hotupdatecheck insert(Hotupdatecheck record);
 
-    int update(Hotupdatecheck record);
+    Hotupdatecheck update(Hotupdatecheck record);
 
 //    int updateHotUpdateCheckOnlineById(String appname, String channelname, String appVersion, String updatestrategy, String baseurl, String apkurl, String promptcollection, String forcecollection, String excludecollection, String updateinfo, String id);
 

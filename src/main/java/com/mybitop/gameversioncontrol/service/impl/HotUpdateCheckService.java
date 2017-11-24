@@ -4,6 +4,9 @@ import com.mybitop.gameversioncontrol.dao.HotUpdateCheckDao;
 import com.mybitop.gameversioncontrol.entity.Hotupdatecheck;
 import com.mybitop.gameversioncontrol.service.IHotUpdateCheck;
 import com.mybitop.gameversioncontrol.utils.Utils;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -11,6 +14,7 @@ import org.springframework.util.Assert;
 import javax.annotation.Resource;
 import java.util.List;
 
+@CacheConfig(cacheNames = Utils.CACHE_NAME_CHECK)
 @Service
 @Transactional
 public class HotUpdateCheckService implements IHotUpdateCheck {
@@ -28,13 +32,13 @@ public class HotUpdateCheckService implements IHotUpdateCheck {
         return resoult;
     }
 
+    @CachePut(key = "#record.appid + #record.channelid")
     @Override
-    public int insert(Hotupdatecheck record) {
+    public Hotupdatecheck insert(Hotupdatecheck record) {
         if (hotupdatecheckMapper.findHotupdatecheckByAppidAndChannelid(record.getAppid(), record.getChannelid()) != null) {
             return update(record);
         } else {
-            insertItem(record);
-            return 1;
+            return insertItem(record);
         }
     }
 
@@ -60,6 +64,7 @@ public class HotUpdateCheckService implements IHotUpdateCheck {
      * @param clientversion
      * @return
      */
+    @Cacheable(key = "#appid + #channelid")
     @Override
     public Hotupdatecheck findHotupdatecheckByAppidAndChannelid(String appid, String channelid, String clientversion) {
         Assert.notNull(appid, "appid is null");
@@ -90,20 +95,26 @@ public class HotUpdateCheckService implements IHotUpdateCheck {
     }
 
     @Override
-    public int update(Hotupdatecheck record) {
-        return hotupdatecheckMapper.update(
-                record.getAppname(),
-                record.getChannelname(),
-                record.getAppversion(),
-                record.getUpdatestrategy(),
-                record.getBaseurl(),
-                record.getApkurl(),
-                record.getPromptcollection(),
-                record.getForcecollection(),
-                record.getExcludecollection(),
-                record.getUpdateinfo(),
-                record.getId()
-        );
+    public Hotupdatecheck update(Hotupdatecheck record) {
+        try {
+            hotupdatecheckMapper.update(
+                    record.getAppname(),
+                    record.getChannelname(),
+                    record.getAppversion(),
+                    record.getUpdatestrategy(),
+                    record.getBaseurl(),
+                    record.getApkurl(),
+                    record.getPromptcollection(),
+                    record.getForcecollection(),
+                    record.getExcludecollection(),
+                    record.getUpdateinfo(),
+                    record.getId()
+            );
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return record;
     }
 
 }

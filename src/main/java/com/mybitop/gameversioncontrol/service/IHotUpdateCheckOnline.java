@@ -12,10 +12,10 @@ public interface IHotUpdateCheckOnline {
 
     List<Hotupdatecheckonline> findAll();
 
-    Hotupdatecheckonline findHotupdatecheckByAppidAndChannelid(String appid, String channelid, String clientversion);
+    Hotupdatecheckonline findHotupdatecheckonlineByAppidAndChannelid(String appid, String channelid, String clientversion);
 
-    int insert(Hotupdatecheckonline record);
+    Hotupdatecheckonline insert(Hotupdatecheckonline record);
 
-    int update(Hotupdatecheckonline record);
+    Hotupdatecheckonline update(Hotupdatecheckonline record);
 
 }

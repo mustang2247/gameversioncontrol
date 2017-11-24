@@ -12,18 +12,18 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * 热更新通知repository
  */
-@CacheConfig(cacheNames = "hotupdatenoticese")
+//@CacheConfig(cacheNames = "hotupdatenoticese")
 public interface HotUpdateNoticeDao extends JpaRepository<Hotupdatenotice, Long> {
 
-    @Cacheable
+//    @Cacheable
     Hotupdatenotice findByAppid(String appid);
 
     Hotupdatenotice findById(Integer id);
 
-    @CacheEvict
+//    @CacheEvict
     int deleteHotupdatenoticeByAppid(String appid);
 
-    @CacheEvict
+//    @CacheEvict
     int deleteHotupdatenoticeById(Integer id);
 
     @Transactional
