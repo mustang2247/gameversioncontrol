@@ -199,7 +199,7 @@
                 <envdir>qa/</envdir>
                 <log4j.level>INFO</log4j.level>
                 <log4j.appender>dailyLog</log4j.appender>
-                <log.dir>./logs/gvs</log.dir>
+                <log.dir>./logs/gvs.log</log.dir>
                 <profileActive>qa</profileActive>
             </properties>
         </profile>
@@ -210,7 +210,7 @@
                 <envdir>qcloud/</envdir>
                 <log4j.level>INFO</log4j.level>
                 <log4j.appender>dailyLog</log4j.appender>
-                <log.dir>./logs/gvs</log.dir>
+                <log.dir>./logs/gvs.log</log.dir>
                 <profileActive>qcloud</profileActive>
             </properties>
         </profile>

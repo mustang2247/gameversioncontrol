@@ -75,18 +75,18 @@ public class HotUpdateCheckOnlineService implements IHotUpdateCheckOnline {
      * @param clientversion
      * @return
      */
-    @Cacheable(key = "#appid + #channelid")
+//    @Cacheable(key = "#appid + #channelid")
     @Override
-    public Hotupdatecheckonline findHotupdatecheckonlineByAppidAndChannelid(String appid, String channelid, String clientversion) {
+    public Hotupdatecheckonline findHotupdatecheckonlineByAppidAndChannelidAndAppversion(String appid, String channelid, String clientversion) {
         Assert.notNull(appid, "appid is null");
         Assert.notNull(channelid, "channelid is null");
         Assert.notNull(clientversion, "clientversion is null");
 
-        Hotupdatecheckonline online = checkOnlineMapper.findHotupdatecheckonlineByAppidAndChannelid(appid, channelid);
+        Hotupdatecheckonline online = findHotupdatecheckonlineByAppidAndChannelid(appid, channelid);
 
         try {
             if (online != null){
-                online.setUpdatestrategy(Utils.NOT_UPDATE);
+//                online.setUpdatestrategy(Utils.NOT_UPDATE);
                 if (online != null && online.getForcecollection() != null &&
                         !online.getForcecollection().isEmpty()) {
                     // 强更
@@ -98,10 +98,14 @@ public class HotUpdateCheckOnlineService implements IHotUpdateCheckOnline {
                         }
                     }else if (online.getUpdatestrategy() == Utils.NOT_UPDATE) {
                         online.setUpdatestrategy(Utils.NOT_UPDATE);
-                    } else if (online.getForcecollection().indexOf(clientversion) != -1) {
-                        online.setUpdatestrategy(Utils.FORCE_UPDATE);
-                    } else if (online.getPromptcollection().indexOf(clientversion) != -1) {
-                        online.setUpdatestrategy(Utils.TIP_UPDATE);
+                    } else{
+                        if (online.getForcecollection().indexOf(clientversion) != -1) {
+                            online.setUpdatestrategy(Utils.FORCE_UPDATE);
+                        } else if (online.getPromptcollection().indexOf(clientversion) != -1) {
+                            online.setUpdatestrategy(Utils.TIP_UPDATE);
+                        }else {
+                            online.setUpdatestrategy(Utils.NOT_UPDATE);
+                        }
                     }
 //                    logger.info("selectByConf3: " + online.getUpdatestrategy());
                 }
@@ -110,6 +114,12 @@ public class HotUpdateCheckOnlineService implements IHotUpdateCheckOnline {
             e.printStackTrace();
         }
         return online;
+    }
+
+    @Cacheable(key = "#appid + #channelid")
+    @Override
+    public Hotupdatecheckonline findHotupdatecheckonlineByAppidAndChannelid(String appid, String channelid){
+        return checkOnlineMapper.findHotupdatecheckonlineByAppidAndChannelid(appid, channelid);
     }
 
     @Override

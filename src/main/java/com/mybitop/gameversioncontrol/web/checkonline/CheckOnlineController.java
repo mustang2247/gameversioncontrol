@@ -34,7 +34,7 @@ public class CheckOnlineController {
                                                    @RequestParam(value = "channelid", required = true) String channelid,
                                                    @RequestParam(value = "appVersion", required = true) String appVersion) {
         logger.info("appid:  " + appid + "  channelid: " + channelid + "  appversion: " + appVersion);
-        return checkOnline.findHotupdatecheckonlineByAppidAndChannelid(appid, channelid, appVersion);
+        return checkOnline.findHotupdatecheckonlineByAppidAndChannelidAndAppversion(appid, channelid, appVersion);
     }
 
     /**
@@ -57,7 +57,7 @@ public class CheckOnlineController {
             appVersion = String.valueOf(object.getString("version"));
 
             Hotupdatenotice notice = hotUpdateNotice.findByNoticeAppid(appid);
-            Hotupdatecheckonline hotupdatecheckonline = checkOnline.findHotupdatecheckonlineByAppidAndChannelid(appid, channelid, appVersion);
+            Hotupdatecheckonline hotupdatecheckonline = checkOnline.findHotupdatecheckonlineByAppidAndChannelidAndAppversion(appid, channelid, appVersion);
             if(notice != null && hotupdatecheckonline != null){
 
                 String nav = notice.getAppversion();
