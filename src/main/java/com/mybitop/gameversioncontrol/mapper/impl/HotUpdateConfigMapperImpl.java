@@ -19,12 +19,12 @@ public class HotUpdateConfigMapperImpl implements HotUpdateConfigMapper {
 
     @Override
     public int deleteByPrimaryKey(Integer id) {
-        return jdbcTemplate.update("delete from TABLE hotupdateconfig where id = ? ",id);
+        return jdbcTemplate.update("delete from hotupdateconfig where id = ? ",id);
     }
 
     @Override
     public int deleteHotupdateconfigByAppidAndChannelidAndAppversion(String appid, String channelid, String appVersion) {
-        return jdbcTemplate.update("delete from TABLE hotupdateconfig where appid = ? and  channelid = ? and  appversion = ? ",appid, channelid, appVersion);
+        return jdbcTemplate.update("delete from hotupdateconfig where appid = ? and  channelid = ? and  appversion = ? ",appid, channelid, appVersion);
     }
 
     @Override

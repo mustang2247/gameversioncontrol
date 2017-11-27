@@ -5,16 +5,13 @@ import com.mybitop.gameversioncontrol.mapper.HotUpdateCheckMapper;
 import com.mybitop.gameversioncontrol.service.IHotUpdateCheck;
 import com.mybitop.gameversioncontrol.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
 
-@CacheConfig(cacheNames = Utils.CACHE_NAME_CHECK)
+//@CacheConfig(cacheNames = Utils.CACHE_NAME_CHECK)
 @Service
 @Transactional
 public class HotUpdateCheckService implements IHotUpdateCheck {
@@ -26,15 +23,16 @@ public class HotUpdateCheckService implements IHotUpdateCheck {
 
     @Override
     public int deleteHotupdatecheckById(Integer id) {
-        Hotupdatecheck hotupdateconfig = hotupdatecheckMapper.findHotupdatecheckById(id);
-        Integer resoult = 0;
-        if(hotupdateconfig != null){
-            resoult = hotupdatecheckMapper.deleteHotupdatecheckByAppidAndChannelid(hotupdateconfig.getAppid(), hotupdateconfig.getChannelid());
-        }
-        return resoult;
+        return hotupdatecheckMapper.deleteByPrimaryKey(id);
+//        Hotupdatecheck hotupdateconfig = hotupdatecheckMapper.findHotupdatecheckById(id);
+//        Integer resoult = 0;
+//        if(hotupdateconfig != null){
+//            resoult = hotupdatecheckMapper.deleteHotupdatecheckByAppidAndChannelid(hotupdateconfig.getAppid(), hotupdateconfig.getChannelid());
+//        }
+//        return resoult;
     }
 
-    @CachePut(key = "#record.appid + #record.channelid")
+//    @CachePut(key = "#record.appid + #record.channelid")
     @Override
     public int insert(Hotupdatecheck record) {
         if (hotupdatecheckMapper.findHotupdatecheckByAppidAndChannelid(record.getAppid(), record.getChannelid()) != null) {
@@ -66,7 +64,7 @@ public class HotUpdateCheckService implements IHotUpdateCheck {
      * @param clientversion
      * @return
      */
-    @Cacheable(key = "#appid + #channelid")
+//    @Cacheable(key = "#appid + #channelid")
     @Override
     public Hotupdatecheck findHotupdatecheckByAppidAndChannelid(String appid, String channelid, String clientversion) {
         Assert.notNull(appid, "appid is null");

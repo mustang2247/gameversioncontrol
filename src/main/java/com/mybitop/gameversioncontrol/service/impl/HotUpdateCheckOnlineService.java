@@ -30,12 +30,13 @@ public class HotUpdateCheckOnlineService implements IHotUpdateCheckOnline {
 
     @Override
     public int deleteHotupdatecheckById(Integer id) {
-        Hotupdatecheckonline hotupdateconfig = checkOnlineMapper.findHotupdatecheckById(id);
-        Integer resoult = 0;
-        if(hotupdateconfig != null){
-            resoult = deleteHotupdatecheckonlineByAppidAndChannelid(hotupdateconfig.getAppid(), hotupdateconfig.getChannelid());
-        }
-        return resoult;
+        return checkOnlineMapper.deleteByPrimaryKey(id);
+//        Hotupdatecheckonline hotupdateconfig = checkOnlineMapper.findHotupdatecheckById(id);
+//        Integer resoult = 0;
+//        if(hotupdateconfig != null){
+//            resoult = deleteHotupdatecheckonlineByAppidAndChannelid(hotupdateconfig.getAppid(), hotupdateconfig.getChannelid());
+//        }
+//        return resoult;
     }
 
     public int deleteHotupdatecheckonlineByAppidAndChannelid(String appid, String channelid){

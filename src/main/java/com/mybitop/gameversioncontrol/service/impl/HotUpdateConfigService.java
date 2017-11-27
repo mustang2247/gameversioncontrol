@@ -3,11 +3,7 @@ package com.mybitop.gameversioncontrol.service.impl;
 import com.mybitop.gameversioncontrol.entity.Hotupdateconfig;
 import com.mybitop.gameversioncontrol.mapper.HotUpdateConfigMapper;
 import com.mybitop.gameversioncontrol.service.IHotUpdateConfig;
-import com.mybitop.gameversioncontrol.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -16,7 +12,7 @@ import java.util.List;
 
 @Service
 @Transactional
-@CacheConfig(cacheNames = Utils.CACHE_NAME_CONF)
+//@CacheConfig(cacheNames = Utils.CACHE_NAME_CONF)
 public class HotUpdateConfigService implements IHotUpdateConfig {
 
 //    @Resource
@@ -26,15 +22,16 @@ public class HotUpdateConfigService implements IHotUpdateConfig {
 
     @Override
     public int deleteHotupdatecheckById(Integer id) {
-        Hotupdateconfig hotupdateconfig = versioncontrolMapper.findHotupdatecheckById(id);
-        Integer resoult = 0;
-        if(hotupdateconfig != null){
-            resoult = versioncontrolMapper.deleteHotupdateconfigByAppidAndChannelidAndAppversion(hotupdateconfig.getAppid(), hotupdateconfig.getChannelid(), hotupdateconfig.getAppversion());
-        }
-        return resoult;
+        return versioncontrolMapper.deleteByPrimaryKey(id);
+//        Hotupdateconfig hotupdateconfig = versioncontrolMapper.findHotupdatecheckById(id);
+//        Integer resoult = 0;
+//        if(hotupdateconfig != null){
+//            resoult = versioncontrolMapper.deleteHotupdateconfigByAppidAndChannelidAndAppversion(hotupdateconfig.getAppid(), hotupdateconfig.getChannelid(), hotupdateconfig.getAppversion());
+//        }
+//        return resoult;
     }
 
-    @CachePut(key = "#record.appid + #record.channelid + #record.appversion")
+//    @CachePut(key = "#record.appid + #record.channelid + #record.appversion")
     @Override
     public int insert(Hotupdateconfig record) {
         if (versioncontrolMapper.findHotupdatecheckByAppidAndChannelidAndAppversion(record.getAppid(), record.getChannelid(), record.getAppversion()) != null) {
@@ -66,7 +63,7 @@ public class HotUpdateConfigService implements IHotUpdateConfig {
 //        return record;
     }
 
-    @Cacheable(key = "#appid + #channelid + #appVersion")
+//    @Cacheable(key = "#appid + #channelid + #appVersion")
     @Override
     public Hotupdateconfig findHotupdatecheckByAppidAndChannelidandAndAppVersion(String appid, String channelid, String appVersion) {
         Assert.notNull(appid, "appid is null");

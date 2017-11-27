@@ -39,12 +39,12 @@ public class HotUpdateNoticeMapperImpl implements HotUpdateNoticeMapper {
 
     @Override
     public int deleteHotupdatenoticeByAppid(String appid) {
-        return jdbcTemplate.update("DELETE from TABLE hotupdatenotice where appid=?",appid);
+        return jdbcTemplate.update("DELETE from hotupdatenotice where appid=?",appid);
     }
 
     @Override
     public int deleteHotupdatenoticeById(Integer id) {
-        return jdbcTemplate.update("DELETE from TABLE hotupdatenotice where id=?",id);
+        return jdbcTemplate.update("DELETE from hotupdatenotice where id=?",id);
     }
 
     @Override

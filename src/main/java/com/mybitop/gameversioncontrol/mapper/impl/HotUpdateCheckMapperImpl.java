@@ -17,12 +17,12 @@ public class HotUpdateCheckMapperImpl implements HotUpdateCheckMapper {
 
     @Override
     public int deleteByPrimaryKey(Integer id) {
-        return jdbcTemplate.update("DELETE from TABLE hotupdatecheck where id=?",id);
+        return jdbcTemplate.update("DELETE FROM hotupdatecheck where id=?",id);
     }
 
     @Override
     public int deleteHotupdatecheckByAppidAndChannelid(String appid, String channelid) {
-        return jdbcTemplate.update("DELETE from TABLE hotupdatecheck where appid=? and  channelid=?",appid, channelid);
+        return jdbcTemplate.update("DELETE from hotupdatecheck where appid=? and  channelid=?",appid, channelid);
     }
 
     @Override

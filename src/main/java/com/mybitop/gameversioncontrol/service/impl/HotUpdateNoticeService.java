@@ -30,12 +30,13 @@ public class HotUpdateNoticeService implements IHotUpdateNotice {
 
     @Override
     public int deleteHotupdatenoticeById(Integer id) {
-        Hotupdatenotice hotupdatenotice = hotUpdateNoticeDao.findById(id);
-        Integer resoult = 0;
-        if(hotupdatenotice != null){
-            resoult = hotUpdateNoticeDao.deleteHotupdatenoticeByAppid(hotupdatenotice.getAppid());
-        }
-        return resoult;
+        return hotUpdateNoticeDao.deleteHotupdatenoticeById(id);
+//        Hotupdatenotice hotupdatenotice = hotUpdateNoticeDao.findById(id);
+//        Integer resoult = 0;
+//        if(hotupdatenotice != null){
+//            resoult = hotUpdateNoticeDao.deleteHotupdatenoticeByAppid(hotupdatenotice.getAppid());
+//        }
+//        return resoult;
     }
 
     @Override
