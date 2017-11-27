@@ -70,9 +70,10 @@ public class HotUpdateCheckOnlineMapperImpl implements HotUpdateCheckOnlineMappe
 
     @Override
     public int update(Hotupdatecheckonline record) {
-        return jdbcTemplate.update("UPDATE hotupdatecheckonline SET appid=?,appname=?,channelid=?,channelname=?,appversion=?,updatestrategy=?,baseurl=?,apkurl=?,promptcollection=?,forcecollection=?,excludecollection=?,updateinfo=?,createtime=?,updatetime=? WHERE id=?",
-                record.getAppid(), record.getAppname(),record.getChannelid(), record.getChannelname(), record.getAppversion(),
+        return jdbcTemplate.update("UPDATE hotupdatecheckonline SET appname=?,channelname=?,appversion=?,updatestrategy=?,baseurl=?," +
+                        "apkurl=?,promptcollection=?,forcecollection=?,excludecollection=?,updateinfo=? WHERE appid=? AND channelid=?",
+                record.getAppname(),record.getChannelname(), record.getAppversion(),
                 record.getUpdatestrategy(), record.getBaseurl(), record.getApkurl(), record.getPromptcollection(), record.getForcecollection(),
-                record.getExcludecollection(),record.getUpdateinfo(), record.getCreatetime(), record.getUpdatetime(), record.getId());
+                record.getExcludecollection(),record.getUpdateinfo(), record.getAppid(), record.getChannelid());
     }
 }

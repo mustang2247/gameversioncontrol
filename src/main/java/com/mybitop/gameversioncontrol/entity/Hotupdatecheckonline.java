@@ -1,8 +1,7 @@
 package com.mybitop.gameversioncontrol.entity;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.annotation.Transient;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -20,49 +19,49 @@ public class Hotupdatecheckonline implements Serializable {
     /**
      * 应用appid
      */
-    @NotEmpty
+//    @NotEmpty
     private String appid;
 
     /**
      * 应用名称
      */
-    @NotEmpty
+//    @NotEmpty
     private String appname;
 
     /**
      * 渠道id
      */
-    @NotEmpty
+//    @NotEmpty
     private String channelid;
 
     /**
      * 渠道名称
      */
-    @NotEmpty
+//    @NotEmpty
     private String channelname;
 
     /**
      * 当前应用版本
      */
-    @NotEmpty
+//    @NotEmpty
     private String appversion;
 
     /**
      * 更新策略 1:提示更新 2:强制更新 3:不更新
      */
-    @NotNull
+//    @NotNull
     private Integer updatestrategy;
 
     /**
      * 热更baseUrl
      */
-    @NotEmpty
+//    @NotEmpty
     private String baseurl;
 
     /**
      * apk跟新地址
      */
-    @NotEmpty
+//    @NotEmpty
     private String apkurl;
 
     /**
@@ -97,6 +96,7 @@ public class Hotupdatecheckonline implements Serializable {
 //    @NotEmpty
     private Date updatetime;
 
+    @Transient
     private Hotupdatenotice notice = null;
 
     public Hotupdatenotice getNotice() {

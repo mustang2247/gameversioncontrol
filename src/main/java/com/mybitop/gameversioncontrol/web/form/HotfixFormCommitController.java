@@ -181,7 +181,7 @@ public class HotfixFormCommitController {
                 String json = JSON.toJSONString(check);
                 Hotupdatecheckonline online = JSON.parseObject(json, Hotupdatecheckonline.class);
 
-                checkOnline.insert(online);
+                logger.info("checkFormOnline:  " + checkOnline.insert(online));
             }
         }catch (Exception e){
             e.printStackTrace();

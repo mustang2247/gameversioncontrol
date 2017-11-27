@@ -49,12 +49,7 @@ public class HotUpdateConfigService implements IHotUpdateConfig {
 
     @Override
     public int update(Hotupdateconfig record) {
-        try {
-            return versioncontrolMapper.update(record);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return -1;
+        return versioncontrolMapper.update(record);
 //        try {
 //            versioncontrolMapper.update(record.getAppname(),record.getChannelname(), record.getServerip(),record.getServerport(), record.getHotfix(),record.getShields(), record.getDefine1(), record.getDefine2(), record.getParams(), record.getId());
 //        }catch (Exception e){

@@ -113,13 +113,7 @@ public class HotUpdateCheckService implements IHotUpdateCheck {
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
-        try {
-            return hotupdatecheckMapper.update(record);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return -1;
+        return hotupdatecheckMapper.update(record);
     }
 
 }

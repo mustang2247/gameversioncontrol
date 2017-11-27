@@ -124,12 +124,7 @@ public class HotUpdateCheckOnlineService implements IHotUpdateCheckOnline {
 
     @Override
     public int update(Hotupdatecheckonline record) {
-        try {
-            return checkOnlineMapper.update(record);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return -1;
+        return checkOnlineMapper.update(record);
     }
 
 
