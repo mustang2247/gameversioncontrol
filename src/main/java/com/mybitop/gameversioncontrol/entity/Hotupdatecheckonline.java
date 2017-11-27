@@ -2,10 +2,6 @@ package com.mybitop.gameversioncontrol.entity;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
@@ -14,11 +10,11 @@ import java.util.Date;
  * 热更新线上模板
  * @author 
  */
-@Entity
-@Table(name="hotupdatecheckonline")
+//@Entity
+//@Table(name="hotupdatecheckonline")
 public class Hotupdatecheckonline implements Serializable {
-    @Id
-    @GeneratedValue
+//    @Id
+//    @GeneratedValue
     private Integer id;
 
     /**

@@ -16,8 +16,8 @@ public interface IHotUpdateCheckOnline {
 
     Hotupdatecheckonline findHotupdatecheckonlineByAppidAndChannelid(String appid, String channelid);
 
-    Hotupdatecheckonline insert(Hotupdatecheckonline record);
+    int insert(Hotupdatecheckonline record);
 
-    Hotupdatecheckonline update(Hotupdatecheckonline record);
+    int update(Hotupdatecheckonline record);
 
 }

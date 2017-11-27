@@ -11,7 +11,7 @@ public interface IHotUpdateNotice {
 
     int deleteHotupdatenoticeById(Integer id);
 
-    Hotupdatenotice insert(Hotupdatenotice record);
+    int insert(Hotupdatenotice record);
 
     int update(Hotupdatenotice record);
 

@@ -1,9 +1,10 @@
 package com.mybitop.gameversioncontrol.service.impl;
 
-import com.mybitop.gameversioncontrol.dao.HotUpdateConfigDao;
 import com.mybitop.gameversioncontrol.entity.Hotupdateconfig;
+import com.mybitop.gameversioncontrol.mapper.HotUpdateConfigMapper;
 import com.mybitop.gameversioncontrol.service.IHotUpdateConfig;
 import com.mybitop.gameversioncontrol.utils.Utils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @Service
@@ -19,8 +19,10 @@ import java.util.List;
 @CacheConfig(cacheNames = Utils.CACHE_NAME_CONF)
 public class HotUpdateConfigService implements IHotUpdateConfig {
 
-    @Resource
-    private HotUpdateConfigDao versioncontrolMapper;
+//    @Resource
+//    private HotUpdateConfigDao versioncontrolMapper;
+    @Autowired
+    private HotUpdateConfigMapper versioncontrolMapper;
 
     @Override
     public int deleteHotupdatecheckById(Integer id) {
@@ -34,7 +36,7 @@ public class HotUpdateConfigService implements IHotUpdateConfig {
 
     @CachePut(key = "#record.appid + #record.channelid + #record.appversion")
     @Override
-    public Hotupdateconfig insert(Hotupdateconfig record) {
+    public int insert(Hotupdateconfig record) {
         if (versioncontrolMapper.findHotupdatecheckByAppidAndChannelidAndAppversion(record.getAppid(), record.getChannelid(), record.getAppversion()) != null) {
             return update(record);
         } else {
@@ -49,13 +51,19 @@ public class HotUpdateConfigService implements IHotUpdateConfig {
     }
 
     @Override
-    public Hotupdateconfig update(Hotupdateconfig record) {
+    public int update(Hotupdateconfig record) {
         try {
-            versioncontrolMapper.update(record.getAppname(),record.getChannelname(), record.getServerip(),record.getServerport(), record.getHotfix(),record.getShields(), record.getDefine1(), record.getDefine2(), record.getParams(), record.getId());
+            return versioncontrolMapper.update(record);
         }catch (Exception e){
             e.printStackTrace();
         }
-        return record;
+        return -1;
+//        try {
+//            versioncontrolMapper.update(record.getAppname(),record.getChannelname(), record.getServerip(),record.getServerport(), record.getHotfix(),record.getShields(), record.getDefine1(), record.getDefine2(), record.getParams(), record.getId());
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        return record;
     }
 
     @Cacheable(key = "#appid + #channelid + #appVersion")

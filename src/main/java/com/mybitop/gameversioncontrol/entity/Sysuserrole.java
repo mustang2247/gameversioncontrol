@@ -1,25 +1,23 @@
 package com.mybitop.gameversioncontrol.entity;
 
-import java.io.Serializable;
-import javax.persistence.*;
-
 import org.hibernate.validator.constraints.NotEmpty;
+
+import java.io.Serializable;
 
 /**
  * @author 
  */
-@Entity
-@Table(name="sysuserrole")
+//@Entity
+//@Table(name="sysuserrole")
 public class Sysuserrole implements Serializable {
-    @Id
-    @GeneratedValue
+//    @Id
+//    @GeneratedValue
     private Integer id;
 
     @NotEmpty
     private Long uid;
 
     @NotEmpty
-    @Column(name = "roleid")
     private Long roleid;
 
     private static final long serialVersionUID = 1L;

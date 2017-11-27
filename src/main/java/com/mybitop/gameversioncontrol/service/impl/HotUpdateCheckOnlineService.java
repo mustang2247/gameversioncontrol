@@ -1,33 +1,32 @@
 package com.mybitop.gameversioncontrol.service.impl;
 
-import com.mybitop.gameversioncontrol.dao.HotUpdateCheckOnlineDao;
 import com.mybitop.gameversioncontrol.entity.Hotupdatecheckonline;
+import com.mybitop.gameversioncontrol.mapper.HotUpdateCheckOnlineMapper;
 import com.mybitop.gameversioncontrol.service.IHotUpdateCheckOnline;
 import com.mybitop.gameversioncontrol.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * 检查更新在线版
  */
-@CacheConfig(cacheNames = Utils.CACHE_NAME_CHECK_ONLINE)
+//@CacheConfig(cacheNames = Utils.CACHE_NAME_CHECK_ONLINE)
 @Service
 @Transactional
 public class HotUpdateCheckOnlineService implements IHotUpdateCheckOnline {
 
     private static final Logger logger = LoggerFactory.getLogger(HotUpdateCheckOnlineService.class);
 
-    @Resource
-    private HotUpdateCheckOnlineDao checkOnlineMapper;
+//    @Resource
+//    private HotUpdateCheckOnlineDao checkOnlineMapper;
+    @Autowired
+    private HotUpdateCheckOnlineMapper checkOnlineMapper;
 
     @Override
     public int deleteHotupdatecheckById(Integer id) {
@@ -43,9 +42,9 @@ public class HotUpdateCheckOnlineService implements IHotUpdateCheckOnline {
         return checkOnlineMapper.deleteHotupdatecheckonlineByAppidAndChannelid(appid, channelid);
     }
 
-    @CachePut(key = "#record.appid + #record.channelid")
+//    @CachePut(key = "#record.appid + #record.channelid")
     @Override
-    public Hotupdatecheckonline insert(Hotupdatecheckonline record) {
+    public int insert(Hotupdatecheckonline record) {
         if (checkOnlineMapper.findHotupdatecheckonlineByAppidAndChannelid(record.getAppid(), record.getChannelid()) != null) {
             return update(record);
         } else {
@@ -53,7 +52,7 @@ public class HotUpdateCheckOnlineService implements IHotUpdateCheckOnline {
         }
     }
 
-    public Hotupdatecheckonline insertItem(Hotupdatecheckonline record) {
+    public int insertItem(Hotupdatecheckonline record) {
         return checkOnlineMapper.save(record);
     }
 
@@ -116,32 +115,39 @@ public class HotUpdateCheckOnlineService implements IHotUpdateCheckOnline {
         return online;
     }
 
-    @Cacheable(key = "#appid + #channelid")
+//    @Cacheable(key = "#appid + #channelid")
     @Override
     public Hotupdatecheckonline findHotupdatecheckonlineByAppidAndChannelid(String appid, String channelid){
         return checkOnlineMapper.findHotupdatecheckonlineByAppidAndChannelid(appid, channelid);
     }
 
     @Override
-    public Hotupdatecheckonline update(Hotupdatecheckonline record) {
+    public int update(Hotupdatecheckonline record) {
+//        try {
+//            logger.info("################## Hotupdatecheckonline");
+//            checkOnlineMapper.updateHotUpdateCheckOnlineById(
+//                    record.getAppname(),
+//                    record.getChannelname(),
+//                    record.getAppversion(),
+//                    record.getUpdatestrategy(),
+//                    record.getBaseurl(),
+//                    record.getApkurl(),
+//                    record.getPromptcollection(),
+//                    record.getForcecollection(),
+//                    record.getExcludecollection(),
+//                    record.getUpdateinfo(),
+//                    record.getId()
+//            );
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
         try {
-            checkOnlineMapper.updateHotUpdateCheckOnlineById(
-                    record.getAppname(),
-                    record.getChannelname(),
-                    record.getAppversion(),
-                    record.getUpdatestrategy(),
-                    record.getBaseurl(),
-                    record.getApkurl(),
-                    record.getPromptcollection(),
-                    record.getForcecollection(),
-                    record.getExcludecollection(),
-                    record.getUpdateinfo(),
-                    record.getId()
-            );
+            logger.info("################## Hotupdatecheckonline");
+            return checkOnlineMapper.update(record);
         }catch (Exception e){
             e.printStackTrace();
         }
-        return record;
+        return -1;
     }
 
 

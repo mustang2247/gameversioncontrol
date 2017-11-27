@@ -1,21 +1,18 @@
 package com.mybitop.gameversioncontrol.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * @author 
  */
-@Entity
-@Table(name="sysrole")
+//@Entity
+//@Table(name="sysrole")
 public class Sysrole implements Serializable {
     /**
      * 编号
      */
-    @Id
-    @GeneratedValue
+//    @Id
+//    @GeneratedValue
     private Long id;
 
     /**

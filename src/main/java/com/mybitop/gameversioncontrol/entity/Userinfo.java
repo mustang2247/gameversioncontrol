@@ -1,18 +1,17 @@
 package com.mybitop.gameversioncontrol.entity;
 
-import java.io.Serializable;
-import javax.persistence.*;
-
 import org.hibernate.validator.constraints.NotEmpty;
+
+import java.io.Serializable;
 
 /**
  * @author 
  */
-@Entity
-@Table(name="userinfo")
+//@Entity
+//@Table(name="userinfo")
 public class Userinfo implements Serializable {
-    @Id
-    @GeneratedValue
+//    @Id
+//    @GeneratedValue
     private Long uid;
 
     /**

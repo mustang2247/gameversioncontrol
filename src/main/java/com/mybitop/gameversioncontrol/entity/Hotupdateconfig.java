@@ -1,20 +1,19 @@
 package com.mybitop.gameversioncontrol.entity;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.*;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * 热更新配置文件
  * @author 
  */
-@Entity
-@Table(name="hotupdateconfig")
+//@Entity
+//@Table(name="hotupdateconfig")
 public class Hotupdateconfig implements Serializable {
-    @Id
-    @GeneratedValue
+//    @Id
+//    @GeneratedValue
     private Integer id;
 
     /**

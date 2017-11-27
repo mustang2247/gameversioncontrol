@@ -1,9 +1,10 @@
 package com.mybitop.gameversioncontrol.service.impl;
 
-import com.mybitop.gameversioncontrol.dao.HotUpdateCheckDao;
 import com.mybitop.gameversioncontrol.entity.Hotupdatecheck;
+import com.mybitop.gameversioncontrol.mapper.HotUpdateCheckMapper;
 import com.mybitop.gameversioncontrol.service.IHotUpdateCheck;
 import com.mybitop.gameversioncontrol.utils.Utils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @CacheConfig(cacheNames = Utils.CACHE_NAME_CHECK)
@@ -19,8 +19,10 @@ import java.util.List;
 @Transactional
 public class HotUpdateCheckService implements IHotUpdateCheck {
 
-    @Resource
-    private HotUpdateCheckDao hotupdatecheckMapper;
+//    @Resource
+//    private HotUpdateCheckDao hotupdatecheckMapper;
+    @Autowired
+    private HotUpdateCheckMapper hotupdatecheckMapper;
 
     @Override
     public int deleteHotupdatecheckById(Integer id) {
@@ -34,7 +36,7 @@ public class HotUpdateCheckService implements IHotUpdateCheck {
 
     @CachePut(key = "#record.appid + #record.channelid")
     @Override
-    public Hotupdatecheck insert(Hotupdatecheck record) {
+    public int insert(Hotupdatecheck record) {
         if (hotupdatecheckMapper.findHotupdatecheckByAppidAndChannelid(record.getAppid(), record.getChannelid()) != null) {
             return update(record);
         } else {
@@ -42,7 +44,7 @@ public class HotUpdateCheckService implements IHotUpdateCheck {
         }
     }
 
-    public Hotupdatecheck insertItem(Hotupdatecheck record) {
+    public int insertItem(Hotupdatecheck record) {
         return hotupdatecheckMapper.save(record);
     }
 
@@ -95,26 +97,31 @@ public class HotUpdateCheckService implements IHotUpdateCheck {
     }
 
     @Override
-    public Hotupdatecheck update(Hotupdatecheck record) {
+    public int update(Hotupdatecheck record) {
+//        try {
+//            hotupdatecheckMapper.update(
+//                    record.getAppname(),
+//                    record.getChannelname(),
+//                    record.getAppversion(),
+//                    record.getUpdatestrategy(),
+//                    record.getBaseurl(),
+//                    record.getApkurl(),
+//                    record.getPromptcollection(),
+//                    record.getForcecollection(),
+//                    record.getExcludecollection(),
+//                    record.getUpdateinfo(),
+//                    record.getId()
+//            );
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
         try {
-            hotupdatecheckMapper.update(
-                    record.getAppname(),
-                    record.getChannelname(),
-                    record.getAppversion(),
-                    record.getUpdatestrategy(),
-                    record.getBaseurl(),
-                    record.getApkurl(),
-                    record.getPromptcollection(),
-                    record.getForcecollection(),
-                    record.getExcludecollection(),
-                    record.getUpdateinfo(),
-                    record.getId()
-            );
+            return hotupdatecheckMapper.update(record);
         }catch (Exception e){
             e.printStackTrace();
         }
 
-        return record;
+        return -1;
     }
 
 }

@@ -1,19 +1,18 @@
 package com.mybitop.gameversioncontrol.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 
 /**
  * @author 
  */
-@Entity
-@Table(name="syspermission")
+//@Entity
+//@Table(name="syspermission")
 public class Syspermission implements Serializable {
     /**
      * 主键
      */
-    @Id
-    @GeneratedValue
+//    @Id
+//    @GeneratedValue
     private Long id;
 
     private Boolean available;
