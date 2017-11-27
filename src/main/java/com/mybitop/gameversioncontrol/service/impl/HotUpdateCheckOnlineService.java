@@ -124,26 +124,7 @@ public class HotUpdateCheckOnlineService implements IHotUpdateCheckOnline {
 
     @Override
     public int update(Hotupdatecheckonline record) {
-//        try {
-//            logger.info("################## Hotupdatecheckonline");
-//            checkOnlineMapper.updateHotUpdateCheckOnlineById(
-//                    record.getAppname(),
-//                    record.getChannelname(),
-//                    record.getAppversion(),
-//                    record.getUpdatestrategy(),
-//                    record.getBaseurl(),
-//                    record.getApkurl(),
-//                    record.getPromptcollection(),
-//                    record.getForcecollection(),
-//                    record.getExcludecollection(),
-//                    record.getUpdateinfo(),
-//                    record.getId()
-//            );
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
         try {
-            logger.info("################## Hotupdatecheckonline");
             return checkOnlineMapper.update(record);
         }catch (Exception e){
             e.printStackTrace();

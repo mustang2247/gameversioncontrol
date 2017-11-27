@@ -97,8 +97,6 @@ public class Hotupdatecheckonline implements Serializable {
 //    @NotEmpty
     private Date updatetime;
 
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "appid")
     private Hotupdatenotice notice = null;
 
     public Hotupdatenotice getNotice() {
