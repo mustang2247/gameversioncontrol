@@ -45,7 +45,26 @@ public class HotfixConfigController {
             appid = String.valueOf(object.getString("productId"));
             channelid = String.valueOf(object.getString("id"));
             appVersion = String.valueOf(object.getString("version"));
-            return iVersioncontrol.findHotupdatecheckByAppidAndChannelidandAndAppVersion(appid, channelid, appVersion);
+
+            Hotupdateconfig config = iVersioncontrol.findHotupdatecheckByAppidAndChannelidandAndAppVersion(appid, channelid, appVersion);
+//            JSONObject obj = JSON.parseObject(JSON.toJSONString(config));
+//            if(config.getHotfix() != null && !config.getHotfix().isEmpty()){
+//                obj.put("hotfix", JSON.parseObject(config.getHotfix()));
+//            }
+//            if(config.getShields() != null && !config.getShields().isEmpty()){
+//                obj.put("shields", JSON.parseObject(config.getShields()));
+//            }
+//            if(config.getDefine1() != null && !config.getDefine1().isEmpty()){
+//                obj.put("define1", JSON.parseObject(config.getDefine1()));
+//            }
+//            if(config.getDefine2() != null && !config.getDefine2().isEmpty()){
+//                obj.put("define2", JSON.parseObject(config.getDefine2()));
+//            }
+//            if(config.getParams() != null && !config.getParams().isEmpty()){
+//                obj.put("params", JSON.parseObject(config.getParams()));
+//            }
+//            return obj;
+            return config;
         }catch (Exception e){
             e.printStackTrace();
             return null;
