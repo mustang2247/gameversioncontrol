@@ -98,8 +98,6 @@ public class HotUpdateCheckOnlineService implements IHotUpdateCheckOnline {
                         }
                     }else if (online.getUpdatestrategy() == Utils.NOT_UPDATE) {
                         online.setUpdatestrategy(Utils.NOT_UPDATE);
-                    } else if (online.getUpdatestrategy() == Utils.CHOOSE_APP_STORE) {
-                        online.setUpdatestrategy(Utils.CHOOSE_APP_STORE);
                     } else{
                         if (online.getForcecollection().indexOf(clientversion) != -1) {
                             online.setUpdatestrategy(Utils.FORCE_UPDATE);

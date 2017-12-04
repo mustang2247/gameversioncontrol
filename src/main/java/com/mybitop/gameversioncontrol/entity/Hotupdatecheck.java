@@ -1,68 +1,57 @@
 package com.mybitop.gameversioncontrol.entity;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 热更新部署模板
  * @author 
  */
-//@Entity
-//@Table(name="hotupdatecheck")
 public class Hotupdatecheck implements Serializable {
-//    @Id
-//    @GeneratedValue
     private Integer id;
 
     /**
      * 应用appid
      */
-    @NotEmpty
     private String appid;
 
     /**
      * 应用名称
      */
-    @NotEmpty
     private String appname;
 
     /**
      * 渠道id
      */
-    @NotEmpty
     private String channelid;
 
     /**
      * 渠道名称
      */
-    @NotEmpty
     private String channelname;
 
     /**
      * 当前应用版本
      */
-    @NotEmpty
     private String appversion;
 
     /**
      * 更新策略 1:提示更新 2:强制更新 3:不更新
      */
-    @NotNull
     private Integer updatestrategy;
+
+    /**
+     * 是否跳转应用市场 0:不跳转应用内下载 1:跳转应用市场下载
+     */
+    private Integer jumpappmarket;
 
     /**
      * 热更baseUrl
      */
-    @NotEmpty
     private String baseurl;
 
     /**
      * apk跟新地址
      */
-    @NotEmpty
     private String apkurl;
 
     /**
@@ -88,13 +77,11 @@ public class Hotupdatecheck implements Serializable {
     /**
      * 创建时间
      */
-//    @NotEmpty
     private Date createtime;
 
     /**
      * 更新时间
      */
-//    @NotEmpty
     private Date updatetime;
 
     private static final long serialVersionUID = 1L;
@@ -153,6 +140,14 @@ public class Hotupdatecheck implements Serializable {
 
     public void setUpdatestrategy(Integer updatestrategy) {
         this.updatestrategy = updatestrategy;
+    }
+
+    public Integer getJumpappmarket() {
+        return jumpappmarket;
+    }
+
+    public void setJumpappmarket(Integer jumpappmarket) {
+        this.jumpappmarket = jumpappmarket;
     }
 
     public String getBaseurl() {
@@ -238,6 +233,7 @@ public class Hotupdatecheck implements Serializable {
             && (this.getChannelname() == null ? other.getChannelname() == null : this.getChannelname().equals(other.getChannelname()))
             && (this.getAppversion() == null ? other.getAppversion() == null : this.getAppversion().equals(other.getAppversion()))
             && (this.getUpdatestrategy() == null ? other.getUpdatestrategy() == null : this.getUpdatestrategy().equals(other.getUpdatestrategy()))
+            && (this.getJumpappmarket() == null ? other.getJumpappmarket() == null : this.getJumpappmarket().equals(other.getJumpappmarket()))
             && (this.getBaseurl() == null ? other.getBaseurl() == null : this.getBaseurl().equals(other.getBaseurl()))
             && (this.getApkurl() == null ? other.getApkurl() == null : this.getApkurl().equals(other.getApkurl()))
             && (this.getPromptcollection() == null ? other.getPromptcollection() == null : this.getPromptcollection().equals(other.getPromptcollection()))
@@ -259,6 +255,7 @@ public class Hotupdatecheck implements Serializable {
         result = prime * result + ((getChannelname() == null) ? 0 : getChannelname().hashCode());
         result = prime * result + ((getAppversion() == null) ? 0 : getAppversion().hashCode());
         result = prime * result + ((getUpdatestrategy() == null) ? 0 : getUpdatestrategy().hashCode());
+        result = prime * result + ((getJumpappmarket() == null) ? 0 : getJumpappmarket().hashCode());
         result = prime * result + ((getBaseurl() == null) ? 0 : getBaseurl().hashCode());
         result = prime * result + ((getApkurl() == null) ? 0 : getApkurl().hashCode());
         result = prime * result + ((getPromptcollection() == null) ? 0 : getPromptcollection().hashCode());
@@ -283,6 +280,7 @@ public class Hotupdatecheck implements Serializable {
         sb.append(", channelname=").append(channelname);
         sb.append(", appversion=").append(appversion);
         sb.append(", updatestrategy=").append(updatestrategy);
+        sb.append(", jumpappmarket=").append(jumpappmarket);
         sb.append(", baseurl=").append(baseurl);
         sb.append(", apkurl=").append(apkurl);
         sb.append(", promptcollection=").append(promptcollection);

@@ -28,11 +28,11 @@ public class HotUpdateCheckOnlineMapperImpl implements HotUpdateCheckOnlineMappe
     @Override
     public int save(Hotupdatecheckonline record) {
         return jdbcTemplate.update("insert into hotupdatecheckonline(appid,appname,channelid,channelname,appversion," +
-                        "updatestrategy,baseurl,apkurl,promptcollection,forcecollection," +
+                        "updatestrategy,jumpappmarket,baseurl,apkurl,promptcollection,forcecollection," +
                         "excludecollection,updateinfo,createtime,updatetime) " +
                         "values(?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?)",
                 record.getAppid(), record.getAppname(),record.getChannelid(), record.getChannelname(), record.getAppversion(),
-                record.getUpdatestrategy(), record.getBaseurl(), record.getApkurl(), record.getPromptcollection(), record.getForcecollection(),
+                record.getUpdatestrategy(), record.getJumpappmarket(), record.getBaseurl(), record.getApkurl(), record.getPromptcollection(), record.getForcecollection(),
                 record.getExcludecollection(),record.getUpdateinfo(), record.getCreatetime(), record.getUpdatetime());
     }
 
@@ -70,10 +70,10 @@ public class HotUpdateCheckOnlineMapperImpl implements HotUpdateCheckOnlineMappe
 
     @Override
     public int update(Hotupdatecheckonline record) {
-        return jdbcTemplate.update("UPDATE hotupdatecheckonline SET appname=?,channelname=?,appversion=?,updatestrategy=?,baseurl=?," +
+        return jdbcTemplate.update("UPDATE hotupdatecheckonline SET appname=?,channelname=?,appversion=?,updatestrategy=?,jumpappmarket=?,baseurl=?," +
                         "apkurl=?,promptcollection=?,forcecollection=?,excludecollection=?,updateinfo=? WHERE appid=? AND channelid=?",
                 record.getAppname(),record.getChannelname(), record.getAppversion(),
-                record.getUpdatestrategy(), record.getBaseurl(), record.getApkurl(), record.getPromptcollection(), record.getForcecollection(),
+                record.getUpdatestrategy(), record.getJumpappmarket(), record.getBaseurl(), record.getApkurl(), record.getPromptcollection(), record.getForcecollection(),
                 record.getExcludecollection(),record.getUpdateinfo(), record.getAppid(), record.getChannelid());
     }
 }

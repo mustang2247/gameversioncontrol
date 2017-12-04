@@ -28,11 +28,11 @@ public class HotUpdateCheckMapperImpl implements HotUpdateCheckMapper {
     @Override
     public int save(Hotupdatecheck record) {
         return jdbcTemplate.update("insert into hotupdatecheck(appid,appname,channelid,channelname,appversion," +
-                        "updatestrategy,baseurl,apkurl,promptcollection,forcecollection," +
+                        "updatestrategy,jumpappmarket,baseurl,apkurl,promptcollection,forcecollection," +
                         "excludecollection,updateinfo,createtime,updatetime) " +
                         "values(?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?)",
                 record.getAppid(), record.getAppname(),record.getChannelid(), record.getChannelname(), record.getAppversion(),
-                record.getUpdatestrategy(), record.getBaseurl(), record.getApkurl(), record.getPromptcollection(), record.getForcecollection(),
+                record.getUpdatestrategy(), record.getJumpappmarket(), record.getBaseurl(), record.getApkurl(), record.getPromptcollection(), record.getForcecollection(),
                 record.getExcludecollection(),record.getUpdateinfo(), record.getCreatetime(), record.getUpdatetime());
     }
 
@@ -70,9 +70,9 @@ public class HotUpdateCheckMapperImpl implements HotUpdateCheckMapper {
 
     @Override
     public int update(Hotupdatecheck record) {
-        return jdbcTemplate.update("UPDATE  hotupdatecheck SET appid=?,appname=?,channelid=?,channelname=?,appversion=?,updatestrategy=?,baseurl=?,apkurl=?,promptcollection=?,forcecollection=?,excludecollection=?,updateinfo=?,createtime=?,updatetime=? WHERE id=?",
+        return jdbcTemplate.update("UPDATE  hotupdatecheck SET appid=?,appname=?,channelid=?,channelname=?,appversion=?,updatestrategy=?,jumpappmarket=?,baseurl=?,apkurl=?,promptcollection=?,forcecollection=?,excludecollection=?,updateinfo=?,createtime=?,updatetime=? WHERE id=?",
                 record.getAppid(), record.getAppname(),record.getChannelid(), record.getChannelname(), record.getAppversion(),
-                record.getUpdatestrategy(), record.getBaseurl(), record.getApkurl(), record.getPromptcollection(), record.getForcecollection(),
+                record.getUpdatestrategy(), record.getJumpappmarket(), record.getBaseurl(), record.getApkurl(), record.getPromptcollection(), record.getForcecollection(),
                 record.getExcludecollection(),record.getUpdateinfo(), record.getCreatetime(), record.getUpdatetime(), record.getId());
     }
 }
