@@ -10,4 +10,5 @@ public class Utils {
     public final static int TIP_UPDATE = 1;
     public final static int FORCE_UPDATE = 2;
     public final static int NOT_UPDATE = 3;
+    public final static int CHOOSE_APP_STORE = 4;
 }
