@@ -30,7 +30,7 @@ public class HotUpdateCheckMapperImpl implements HotUpdateCheckMapper {
         return jdbcTemplate.update("insert into hotupdatecheck(appid,appname,channelid,channelname,appversion," +
                         "updatestrategy,jumpappmarket,baseurl,apkurl,promptcollection,forcecollection," +
                         "excludecollection,updateinfo,createtime,updatetime) " +
-                        "values(?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?)",
+                        "values(?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?)",
                 record.getAppid(), record.getAppname(),record.getChannelid(), record.getChannelname(), record.getAppversion(),
                 record.getUpdatestrategy(), record.getJumpappmarket(), record.getBaseurl(), record.getApkurl(), record.getPromptcollection(), record.getForcecollection(),
                 record.getExcludecollection(),record.getUpdateinfo(), record.getCreatetime(), record.getUpdatetime());

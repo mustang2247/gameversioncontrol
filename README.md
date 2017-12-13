@@ -15,6 +15,9 @@ This is game version control server.
 2、完善后台管理；
 3、根据需求添加。
 
+## build
+mvn clean package -P qa
+
 
 ## 增加更新提示
 data["productId"] = sdkConfig.channelInfo.productId;
