@@ -73,4 +73,10 @@ public class HotUpdateConfigService implements IHotUpdateConfig {
         return versioncontrolMapper.findAll();
     }
 
+    @Override
+    public List<Hotupdateconfig> findHotupdateconfigByPageCount(int pageCount)
+    {
+        return versioncontrolMapper.findHotupdateconfigByPageCount(pageCount);
+    }
+
 }

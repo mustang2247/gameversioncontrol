@@ -95,6 +95,12 @@ public class HotUpdateCheckService implements IHotUpdateCheck {
     }
 
     @Override
+    public List<Hotupdatecheck> findHotupdatecheckByPage(int pageCount)
+    {
+        return hotupdatecheckMapper.findHotupdatecheckByPage(pageCount);
+    }
+
+    @Override
     public int update(Hotupdatecheck record) {
 //        try {
 //            hotupdatecheckMapper.update(

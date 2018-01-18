@@ -12,6 +12,8 @@ public interface IHotUpdateCheckOnline {
 
     List<Hotupdatecheckonline> findAll();
 
+    List<Hotupdatecheckonline> findHotupdatecheckonlineByPage(int pageCount);
+
     Hotupdatecheckonline findHotupdatecheckonlineByAppidAndChannelidAndAppversion(String appid, String channelid, String clientversion);
 
     Hotupdatecheckonline findHotupdatecheckonlineByAppidAndChannelid(String appid, String channelid);

@@ -14,6 +14,8 @@ public interface HotUpdateCheckMapper {
 
     List<Hotupdatecheck> findAll();
 
+    List<Hotupdatecheck> findHotupdatecheckByPage(int pageCount);
+
     Hotupdatecheck findHotupdatecheckById(Integer id);
 
     Hotupdatecheck findHotupdatecheckByAppidAndChannelid(String appid, String channelid);

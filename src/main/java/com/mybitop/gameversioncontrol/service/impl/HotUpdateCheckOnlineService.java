@@ -67,6 +67,11 @@ public class HotUpdateCheckOnlineService implements IHotUpdateCheckOnline {
         return checkOnlineMapper.findHotupdatecheckById(id);
     }
 
+    @Override
+    public List<Hotupdatecheckonline> findHotupdatecheckonlineByPage(int pageCount) {
+        return checkOnlineMapper.findHotupdatecheckByPage(pageCount);
+    }
+
     /**
      * 检查更新
      *

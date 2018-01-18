@@ -56,7 +56,6 @@ public class HomeController {
 //                name = (String) principalMaps.iterator().next().get("username");
 //            }
 //        }
-
         model.addAttribute("checkTitle", "部署版本");
         model.addAttribute("checkTitleOnline", "线上版本(需要同步才能使用)");
         model.addAttribute("confTitle", "热更新配置");
@@ -89,7 +88,99 @@ public class HomeController {
             model.addAttribute("noticeList", null);
         }
 
+        findHotupdatecheckonlineByPage(model, 1);
+        findHotupdatecheckByPage(model, 1);
+        findHotupdateconfigByPage(model, 1);
         return "home";
+    }
+
+
+    /**
+     * 更新版本
+     * */
+    @RequestMapping(value = "/findHotupdatecheckonlineByPage", method = RequestMethod.POST)
+    public String findHotupdatecheckonlineByPage(
+            Model model, @RequestParam( value = "pageCount", required = false, defaultValue = "1") int pageCount
+    ) {
+        List<Hotupdatecheckonline> list = checkOnline.findHotupdatecheckonlineByPage((pageCount - 1) * 5);
+        model.addAttribute("checkOnlinePageCount", (checkOnline.findAll().size() / 5) + 1);
+        model.addAttribute("checkOnlineByPage", list);
+        return "home";
+    }
+
+    @RequestMapping(value = "/findHotupdatecheckonlineByPageAjax", method = RequestMethod.POST)
+    public @ResponseBody List findHotupdatecheckonlineByPageAjax(
+            Model model, @RequestParam( value = "pageCount", required = false, defaultValue = "1") int pageCount
+    ) {
+        if( pageCount < 1 )
+        {
+            pageCount = 1;
+        }else if( pageCount > (checkOnline.findAll().size() / 5) + 1)
+        {
+            pageCount = (checkOnline.findAll().size() / 5) + 1;
+        }
+        List<Hotupdatecheckonline> list = checkOnline.findHotupdatecheckonlineByPage((pageCount - 1) * 5);
+        System.out.print(pageCount);
+        return list;
+    }
+
+
+    /**
+     * 部署版本
+     * */
+    @RequestMapping(value = "/findHotupdatecheckByPage", method = RequestMethod.POST)
+    public String findHotupdatecheckByPage(
+            Model model, @RequestParam( value = "pageCount", required = false, defaultValue = "1") int pageCount
+    ) {
+        List<Hotupdatecheck> list = hotupdatecheck.findHotupdatecheckByPage((pageCount - 1) * 5);
+        model.addAttribute("hotupdatecheckPageCount", (hotupdatecheck.findAll().size() / 5) + 1);
+        model.addAttribute("hotupdatecheckByPage", list);
+        return "home";
+    }
+
+    @RequestMapping(value = "/findHotupdatecheckByPageAjax", method = RequestMethod.POST)
+    public @ResponseBody List findHotupdatecheckByPageAjax(
+            Model model, @RequestParam( value = "pageCount", required = false, defaultValue = "1") int pageCount
+    ) {
+        if( pageCount < 1 )
+        {
+            pageCount = 1;
+        }else if( pageCount > (hotupdatecheck.findAll().size() / 5) + 1)
+        {
+            pageCount = (hotupdatecheck.findAll().size() / 5) + 1;
+        }
+        List<Hotupdatecheck> list = hotupdatecheck.findHotupdatecheckByPage((pageCount - 1) * 5);
+        System.out.print(pageCount);
+        return list;
+    }
+
+    /**
+     * 热更新配置
+     * */
+    @RequestMapping(value = "/findHotupdateconfigByPage", method = RequestMethod.POST)
+    public String findHotupdateconfigByPage(
+            Model model, @RequestParam( value = "pageCount", required = false, defaultValue = "1") int pageCount
+    ) {
+        List<Hotupdateconfig> list = versionConfig.findHotupdateconfigByPageCount((pageCount - 1) * 5);
+        model.addAttribute("hotupdateconfigPageCount", (versionConfig.findAll().size() / 5) + 1);
+        model.addAttribute("hotupdateconfigByPage", list);
+        return "home";
+    }
+
+    @RequestMapping(value = "/findHotupdateconfigByPageAjax", method = RequestMethod.POST)
+    public @ResponseBody List findHotupdateconfigByPageAjax(
+            Model model, @RequestParam( value = "pageCount", required = false, defaultValue = "1") int pageCount
+    ) {
+        if( pageCount < 1 )
+        {
+            pageCount = 1;
+        }else if( pageCount > (versionConfig.findAll().size() / 5) + 1)
+        {
+            pageCount = (versionConfig.findAll().size() / 5) + 1;
+        }
+        List<Hotupdateconfig> list = versionConfig.findHotupdateconfigByPageCount((pageCount - 1) * 5);
+        System.out.print(pageCount);
+        return list;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

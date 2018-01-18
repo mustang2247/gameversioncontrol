@@ -47,6 +47,16 @@ public class HotUpdateCheckOnlineMapperImpl implements HotUpdateCheckOnlineMappe
     }
 
     @Override
+    public List<Hotupdatecheckonline> findHotupdatecheckByPage(int pageCount) {
+        List<Hotupdatecheckonline> list = jdbcTemplate.query("select * from hotupdatecheckonline limit ?, 5", new Object[]{pageCount}, new BeanPropertyRowMapper(Hotupdatecheckonline.class));
+        if(list!=null && list.size()>0){
+            return list;
+        }else{
+            return null;
+        }
+    }
+
+    @Override
     public Hotupdatecheckonline findHotupdatecheckById(Integer id) {
         List<Hotupdatecheckonline> list = jdbcTemplate.query("select * from hotupdatecheckonline where id = ?", new Object[]{id}, new BeanPropertyRowMapper(Hotupdatecheckonline.class));
         if(list!=null && list.size()>0){

@@ -19,4 +19,6 @@ public interface HotUpdateConfigMapper {
     Hotupdateconfig findHotupdatecheckByAppidAndChannelidAndAppversion(String appid, String channelid, String appVersion);
 
     List<Hotupdateconfig> findAll();
+
+    List<Hotupdateconfig> findHotupdateconfigByPageCount(int pageCount);
 }

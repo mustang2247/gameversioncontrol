@@ -11,6 +11,8 @@ public interface IHotUpdateConfig {
 
     List<Hotupdateconfig> findAll();
 
+    List<Hotupdateconfig> findHotupdateconfigByPageCount(int pageCount);
+
     Hotupdateconfig findHotupdatecheckByAppidAndChannelidandAndAppVersion(String appid, String channelid, String clientversion);
 
     int insert(Hotupdateconfig record);

@@ -12,6 +12,8 @@ public interface IHotUpdateCheck {
 
     List<Hotupdatecheck> findAll();
 
+    List<Hotupdatecheck> findHotupdatecheckByPage(int pageCount);
+
     Hotupdatecheck findHotupdatecheckByAppidAndChannelid(String appid, String channelid, String clientversion);
 
     int insert(Hotupdatecheck record);

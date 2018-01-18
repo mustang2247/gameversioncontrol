@@ -80,4 +80,15 @@ public class HotUpdateConfigMapperImpl implements HotUpdateConfigMapper {
             return null;
         }
     }
+
+    @Override
+    public List<Hotupdateconfig> findHotupdateconfigByPageCount(int pageCount)
+    {
+        List<Hotupdateconfig> list = jdbcTemplate.query("select * from hotupdateconfig limit ?, 5", new Object[]{pageCount}, new BeanPropertyRowMapper(Hotupdateconfig.class));
+        if(list!=null && list.size()>0){
+            return list;
+        }else{
+            return null;
+        }
+    }
 }
