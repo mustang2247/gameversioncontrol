@@ -19,6 +19,142 @@
     <script src="stylelib/plugins/modernizr.js"></script>
     <script src="/libs/home.js"></script>
     <link href="stylelib/cp.css" rel="stylesheet" type="text/css"/>
+
+    <script type="text/javascript" th:inline="javascript">
+
+        var checkOnlinePageCount = 1;
+        var hotupdatecheckPageCount = 1;
+        var hotupdateconfigPageCount = 1;
+        /*<![CDATA[*/
+            var checkOnlinePageSum = [[${checkOnlinePageCount}]];
+            var hotupdatecheckPageSum = [[${hotupdatecheckPageCount}]];
+            var hotupdateconfigPageSum = [[${hotupdateconfigPageCount}]];
+        /*]]>*/
+
+        //0 加 -1减 1 2 3 4 5 表示页数
+        function findHotupdatecheckonlineByPageAjax(countType) {
+            if( countType == 0)
+            {
+                if( checkOnlinePageCount < checkOnlinePageSum )
+                {
+                    checkOnlinePageCount++;
+                }
+            }else if( countType == -1 )
+            {
+                checkOnlinePageCount --;
+            }else{
+                checkOnlinePageCount = countType;
+            }
+            $.ajax({
+                url: "/findHotupdatecheckonlineByPageAjax",
+                type: "Post",
+                data: "pageCount="+ checkOnlinePageCount,
+                dataType: "json",
+                success:function (json) {
+                    var html = "";
+                    for ( position in json )
+                    {
+                        html += "<ul class=\"b-list\">";
+                        html += "<li>";
+                        html += "<span class=\"m-date\"> "+ json[position].createtime +" </span>";
+                        html += "<span class=\"m-view\">" + json[position].channelname + "</span>";
+                        html += "<span class=\"m-name\">";
+                        html += "<a href=\"/form/deleteCheckOnlineInfoItem?id=" + json[position].id + "\" >删除</a>";
+                        html += "</span>";
+                        html += "<a href=\"/form/viewCheckOnlineItem?id=" + json[position].id + "\" >" + json[position].appname + "</a>";
+                        html += "</li>";
+                        html += "</ul>";
+                    }
+                    $('#checkOnlineByPage').html();
+                    $('#checkOnlineByPage').html(html);
+                }
+            });
+        }
+
+        function findHotupdatecheckByPageAjax(countType) {
+            if( countType == 0)
+            {
+                if( hotupdatecheckPageCount < hotupdatecheckPageSum )
+                {
+                    hotupdatecheckPageCount++;
+                }
+            }else if( countType == -1 )
+            {
+                hotupdatecheckPageCount --;
+            }else{
+                hotupdatecheckPageCount = countType;
+            }
+            $.ajax({
+                url: "/findHotupdatecheckByPageAjax",
+                type: "Post",
+                data: "pageCount="+ hotupdatecheckPageCount,
+                dataType: "json",
+                success:function (json) {
+                    var html = "";
+                    for ( position in json )
+                    {
+                        html += "<ul class=\"b-list\">";
+                        html += "<li>";
+                        html += "<span class=\"m-date\"> "+ json[position].createtime +" </span>";
+                        html += "<span class=\"m-view\">" + json[position].channelname + "</span>";
+                        html += "<span class=\"m-name\">";
+                        html += "<a href=\"/form/deleteCheckInfoItem?id=" + json[position].id + "\" >删除</a>";
+                        html += "</span>";
+                        html += "<span class=\"m-name\">";
+                        html += "<a href=\"/form/checkFormOnline?id=" + json[position].id + "\" >同步</a>";
+                        html += "</span>";
+                        html += "<a href=\"/form/updateCheckForm?id=" + json[position].id + "\" >" + json[position].appname + "</a>";
+                        html += "</li>";
+                        html += "</ul>";
+                    }
+                    $('#hotupdatecheckByPage').html();
+                    $('#hotupdatecheckByPage').html(html);
+                }
+            });
+        }
+
+        function findHotupdateconfigByPageAjax(countType) {
+            if( countType == 0)
+            {
+                if( hotupdateconfigPageCount < hotupdateconfigPageSum )
+                {
+                    hotupdateconfigPageCount++;
+                }
+            }else if( countType == -1 )
+            {
+                hotupdateconfigPageCount --;
+            }else{
+                hotupdateconfigPageCount = countType;
+            }
+            $.ajax({
+                url: "/findHotupdateonfigByPageAjax",
+                type: "Post",
+                data: "pageCount="+ hotupdateconfigPageCount,
+                dataType: "json",
+                success:function (json) {
+                    var html = "";
+                    for ( position in json )
+                    {
+                        html += "<ul class=\"b-list\">";
+                        html += "<li>";
+                        html += "<span class=\"m-date\"> "+ json[position].createtime +" </span>";
+                        html += "<span class=\"m-view\">" + json[position].channelname + "</span>";
+                        html += "<span class=\"m-name\">";
+                        html += "<a href=\"/form/deleteConfigInfoItem?id=" + json[position].id + "\" >删除</a>";
+                        html += "</span>";
+                        html += "<span class=\"m-name\">";
+                        html += "<a href=\"/form/hotfixUpdateForm?id=" + json[position].id + "\" >修改</a>";
+                        html += "</span>";
+                        html += "<a href=\"/form/hotfixUpdateForm?id=" + json[position].id + "\" >" + json[position].appname + "</a>";
+                        html += "</li>";
+                        html += "</ul>";
+                    }
+                    $('#hotupdateconfigByPage').html();
+                    $('#hotupdateconfigByPage').html(html);
+                }
+            });
+        }
+    </script>
 </head>
 <body>
 
@@ -85,54 +221,88 @@
                     <!--热更新版本-->
                     <div class="b-pagecontent">
                         <h2 th:text="${checkTitle}">标题</h2>
-                        <ul class="b-list" th:if="${checkList != null}" th:each="ck:${checkList}">
-                            <li>
-                                <span class="m-date" th:text="${ck.createtime}">2014-01-16</span>
-                                <span class="m-view" th:text="${ck.channelname}" >渠道名称</span>
-                                <span class="m-name">
+                        <div id="hotupdatecheckByPage">
+                            <ul class="b-list" th:if="${hotupdatecheckByPage != null}" th:each="ck:${hotupdatecheckByPage}">
+                                <li>
+                                    <span class="m-date" th:text="${ck.createtime}">2014-01-16</span>
+                                    <span class="m-view" th:text="${ck.channelname}" >渠道名称</span>
+                                    <span class="m-name">
                                     <a th:href="@{/form/deleteCheckInfoItem(id=${ck.id})}" >删除</a>
                                 </span>
-                                <span class="m-name">
+                                    <span class="m-name">
                                     <a th:href="@{/form/checkFormOnline(id=${ck.id})}" >同步</a>
                                 </span>
-                                <a th:href="@{/form/updateCheckForm(id=${ck.id})}" th:text="${ck.appname}" >appname</a>
-                            </li>
-                        </ul>
-
+                                    <a th:href="@{/form/updateCheckForm(id=${ck.id})}" th:text="${ck.appname}" >appname</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <span>
+                            <a onclick="findHotupdatecheckByPageAjax(-1)"> 上一页 </a>
+                        </span>
+                        <span th:each = "i : ${#numbers.sequence(1,hotupdatecheckPageCount)}" >
+                            <a th:text="${i}" th:onclick="'javascript:findHotupdatecheckByPageAjax(\''+${i}+'\');'"></a>
+                        </span>
+                        <span>
+                            <a onclick="findHotupdatecheckByPageAjax(0)"> 下一页 </a>
+                        </span>
                     </div><!-- //b-pagecontent:end -->
 
                     <!--热更新版本-->
                     <div class="b-pagecontent">
                         <h2 th:text="${checkTitleOnline}">标题</h2>
-                        <ul class="b-list" th:if="${checkListOnline != null}" th:each="ckl:${checkListOnline}">
-                            <li>
-                                <span class="m-date" th:text="${ckl.createtime}">2014-01-16</span>
-                                <span class="m-view" th:text="${ckl.channelname}" >渠道名称</span>
-                                <span class="m-name">
+                        <div id="checkOnlineByPage">
+                            <ul class="b-list" th:if="${checkOnlineByPage != null}" th:each="ckl:${checkOnlineByPage}">
+                                <li>
+                                    <span class="m-date" th:text="${ckl.createtime}">2014-01-16</span>
+                                    <span class="m-view" th:text="${ckl.channelname}" >渠道名称</span>
+                                    <span class="m-name">
                                     <a th:href="@{/form/deleteCheckOnlineInfoItem(id=${ckl.id})}" >删除</a>
-                                </span>
-                                <a th:href="@{/form/viewCheckOnlineItem(id=${ckl.id})}" th:text="${ckl.appname}" >appname</a>
-                            </li>
-                        </ul>
-
+                                    </span>
+                                    <a th:href="@{/form/viewCheckOnlineItem(id=${ckl.id})}" th:text="${ckl.appname}" >appname</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <span>
+                            <a onclick="findHotupdatecheckonlineByPageAjax(-1)"> 上一页 </a>
+                        </span>
+                        <span th:each = "i : ${#numbers.sequence(1,checkOnlinePageCount)}" >
+                            <a th:text="${i}" th:onclick="'javascript:findHotupdatecheckonlineByPageAjax(\''+${i}+'\');'"></a>
+                        </span>
+                        <span>
+                            <a onclick="findHotupdatecheckonlineByPageAjax(0)"> 下一页 </a>
+                        </span>
                     </div><!-- //b-pagecontent:end -->
 
                     <!--热更新配置文件-->
                     <div class="b-pagecontent">
                         <h2 th:text="${confTitle}">标题</h2>
-                        <ul class="b-list" th:if="${confList != null}" th:each="conf:${confList}">
-                            <li>
-                                <span class="m-date" th:text="${conf.createtime}">2014-01-16</span>
-                                <span class="m-view" th:text="${conf.channelname}" >渠道名称</span>
-                                <span class="m-name">
+
+                        <div id="hotupdateconfigByPage">
+                            <ul class="b-list" th:if="${hotupdateconfigByPage != null}" th:each="conf:${hotupdateconfigByPage}">
+                                <li>
+                                    <span class="m-date" th:text="${conf.createtime}">2014-01-16</span>
+                                    <span class="m-view" th:text="${conf.channelname}" >渠道名称</span>
+                                    <span class="m-name">
                                     <a th:href="@{/form/deleteConfigInfoItem(id=${conf.id})}" >删除</a>
                                 </span>
-                                <span class="m-name">
+                                    <span class="m-name">
                                     <a th:href="@{/form/hotfixUpdateForm(id=${conf.id})}" >修改</a>
                                 </span>
-                                <a th:href="@{/form/hotfixUpdateForm(id=${conf.id})}" th:text="${conf.appname}" >appname</a>
-                            </li>
-                        </ul>
+                                    <a th:href="@{/form/hotfixUpdateForm(id=${conf.id})}" th:text="${conf.appname}" >appname</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <span>
+                            <a onclick="findHotupdateconfigByPageAjax(-1)"> 上一页 </a>
+                        </span>
+
+                        <span th:each = "i : ${#numbers.sequence(1,hotupdateconfigPageCount)}" >
+                            <a th:text="${i}" th:onclick="'javascript:findHotupdateconfigByPageAjax(\''+${i}+'\');'"></a>
+                        </span>
+                        <span>
+                            <a onclick="findHotupdateconfigByPageAjax(0)"> 下一页 </a>
+                        </span>
 
                     </div><!-- //b-pagecontent:end -->
 
