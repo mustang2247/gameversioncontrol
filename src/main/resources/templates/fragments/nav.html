@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="fragments/adminModel">
+
+    <head>
+        <title>用户管理</title>
+    </head>
+    <body>
+        <div th:fragment="content">
+            <ul class="nav nav-list" th:if="${session.LOGIN_USER ne NULL}">
+                <div th:each="ppm, menuVs:${session.LOGIN_USER.authMenu}" th:remove="tag">
+                    <li th:id="'menu_'+${ppm.pm.id}" th:class="'menu-level-'+${menuVs.count}">
+                        <a href="#" class="dropdown-toggle">
+                            <i th:class="${ppm.pm.icon}"></i>
+                            <span class="menu-text" th:text="${ppm.pm.name}+' '">菜单名称</span>
+                            <b class="arrow icon-angle-down"></b>
+                        </a>
+
+                        <ul class="submenu">
+                            <div th:each="pm : ${ppm.children}" th:remove="tag">
+                                <li th:id="'menu_'+${pm.pm.id}" th:class="'menu-level-'+${menuVs.count}">
+                                    <a href="javascript:" class="dropdown-toggle">
+                                        <i class="icon-double-angle-right"></i>
+                                        <span th:text="${pm.pm.name}+' '" th:remove="tag">菜单名称</span>
+                                        <b class="arrow icon-angle-down"></b>
+                                    </a>
+
+                                    <ul class="submenu">
+                                        <div th:each="m : ${pm.children}" th:remove="tag">
+                                        <li th:id="'menu_'+${m.id}" th:class="'menu-level-'+${menuVs.count}" th:attr="thisHref=${m.href}, ppmId=${ppm.pm.id}, pmId=${pm.pm.id}, mId=${m.id}">
+                                            <a th:href="'javascript:gotoHref(\''+${m.href}+'\', \''+${ppm.pm.id}+'\', \''+${pm.pm.id}+'\', \''+${m.id}+'\')'" >
+                                                <i th:class="${m.icon}"></i><span th:text="${m.name}+' '" th:remove="tag"></span>
+                                            </a>
+                                        </li>
+                                        </div>
+                                    </ul>
+                                </li>
+                            </div>
+                        </ul>
+                    </li>
+                </div>
+            </ul>
+            <input type="hidden" id="setmidUrl" value="/setCurrentMenuId"/>
+            <input type="hidden" id="curPpmId" th:value="${session.ppmId}"/>
+            <input type="hidden" id="curPmId" th:value="${session.pmId}"/>
+            <input type="hidden" id="curMId" th:value="${session.mid}"/>
+            <script type="text/javascript">
+                $(function() {
+                    //alert("sdfsdf");
+                    var pathname = window.location.pathname;
+                    var thisHref = $('li[thisHref="'+pathname+'"]');
+                    var ppmId = $(thisHref).attr("ppmId");
+                    var pmId = $(thisHref).attr("pmId");
+                    var mid = $(thisHref).attr("mId");
+                    //alert($(thisHref).html());
+                    //alert(ppmId+"=="+pmId+"=="+mid);
+
+                    if(ppmId==null || pmId==null || mid==null) {
+                        ppmId = $("#curPpmId").val();
+                        pmId = $("#curPmId").val();
+                        mid = $("#curMId").val();
+                    }
+                    //alert(ppmId+"=="+pmId+"=="+mid);
+                    if(ppmId==null || pmId==null || mid==null) {
+                        //alert("+=-=-");
+                        $(".menu-level-1").addClass("active open");
+                    } else {
+                        $(("#menu_"+ppmId)).addClass("active open");
+                        $(("#menu_"+pmId)).addClass("active open");
+                        //$(("#menu_"+pmId)).addClass("open");
+                        $(("#menu_"+mid)).addClass("active");
+                    }
+                });
+
+                function gotoHref(href, ppm, pm, m) {
+                    //alert(href);
+                    $.post($("#setmidUrl").val(), {ppmId:ppm, pmId:pm, mid:m}, function(res) {
+                        if(res=='1') {window.location.href = href;}
+                    }, "json");
+                }
+            </script>
+        </div>
+    </body>
+</html>

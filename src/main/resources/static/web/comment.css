@@ -1,0 +1,15 @@
+* .add-comment-btn {
+    cursor:pointer; background:#00aaee; color:#FFF;
+}
+
+.single-comment {
+    width:100%; border-bottom:1px #ddd solid; padding:15px 10px; color:#777; float:left;
+}
+
+.single-comment span.time {
+    border:1px #ff9d9d solid; padding:2px 4px; background:#ffe9e9; color:#ff8e8e; border-radius:5px;
+}
+
+.reply-p {
+    padding-top:15px; width:90%; float:right;
+}

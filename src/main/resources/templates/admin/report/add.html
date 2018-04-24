@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="fragments/adminModel">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<title>添加文章</title>
+		<link rel="stylesheet" href="/editor.md-master/css/editormd.css" />
+
+		<script type="text/javascript" src="/editor.md-master/editormd.js"></script>
+		<script type="text/javascript" src="/admin/business/encyclopedia-add.js"></script>
+		<script type="text/javascript" src="/tags/fm.tag.js"></script>
+		<link rel="stylesheet" type="text/css" href="/tags/fm.tag.css"/>
+
+	</head>
+	<body>
+		<div th:fragment="content" th:remove="tag">
+			<div class="header lighter smaller blue">
+				<h3><i class="icon-plus"></i>&nbsp;添加百科</h3>
+				<div th:replace="admin/report/nav :: content" th:remove="tag"></div>
+			</div>
+
+			<form method="POST" th:object="${article}" id="dataForm" enctype="multipart/form-data">
+				<div class="form-group form-group-lg">
+					<div class="input-group">
+						<div class="input-group-addon">文章标题：</div>
+						<input name="title" type="text" class="form-control" th:value="${article.title}" placeholder="请输入文章标题" />
+					</div>
+				</div>
+
+				<div class="form-group form-group-lg">
+					<div class="input-group">
+						<div class="input-group-addon">视频地址：</div>
+						<input name="videoUrl" type="text" class="form-control" th:value="${article.videoUrl}" placeholder="视频地址，支持MP4（可以不输）" />
+						<div class="input-group-addon">视频高度：</div>
+						<input name="videoHeight" type="text" class="form-control" th:value="${article.videoHeight}" placeholder="视频高度，支持百分比和px（可以不输）" />
+					</div>
+				</div>
+
+				<div class="form-group form-group-lg">
+					<div class="input-group">
+						<div class="input-group-addon">文章图片：</div>
+						<input name="file" type="file" class="form-control" />
+					</div>
+				</div>
+
+				<div class="form-group form-group-lg">
+					<div class="input-group">
+						<div class="input-group-addon">所属分类：</div>
+						<div class="form-control" style="min-height:65px;">
+							<p th:each="cate : ${cateList}" th:remove="tag">
+								<a href="javascript:void(0)" class="btn btn-default cate-href" th:attr="cateId=${cate.id}" th:text="${cate.name}"></a>
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group form-group-lg">
+					<div class="input-group">
+						<div class="input-group-addon">文章导读</div>
+						<textarea name="guide" class="form-control" th:text="${article.guide}" style="height:100px;" placeholder="在这里输入文章导读，最好200字左右，不录入将自动从内容中获取部份文字作为导读"></textarea>
+					</div>
+				</div>
+
+				<div class="form-group form-group-lg">
+					<div class="input-group">
+						<div class="input-group-addon">文章内容</div>
+						<div id="my-editormd" class="form-control1">
+							<textarea style="display:none;" placeholder="在这里输入文章内容，以Markdown方式录入"></textarea>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group form-group-lg">
+					<div class="input-group">
+						<div class="input-group-addon">文章标签：</div>
+						<input name="tags" type="text" class="form-control" th:value="${article.tags}" placeholder="请输入文章标签" />
+					</div>
+				</div>
+
+				<div class="form-group form-group-lg">
+					<div class="input-group input-group-lg">
+						<div class="input-group-addon">状态</div>
+						<div class="form-control">
+							<input type="radio" name="isShow" value="1" id="status_1" th:checked="${article.isShow == 1}?'checked'"/><label for="status_1">前台显示</label>
+							<input type="radio" name="isShow" value="0" id="status_0" th:checked="${article.isShow == 0}?'checked'"/><label for="status_0">前台隐藏</label>
+						</div>
+					</div>
+				</div>
+				<input type="hidden" name="token" th:value="${session.token}"/>
+				<input type="hidden" name="cateId" th:value="${article.cateId}"/>
+				<input type="hidden" name="cateName" th:value="${article.cateName}"/>
+				<textarea style="display:none" name="content" th:text="${article.content}"></textarea>
+				<textarea style="display:none" name="mdContent" th:text="${article.mdContent}"></textarea>
+				<button type="submit" class="btn btn-primary">确定提交</button>
+				<button type="button" onclick="javascript:history.back(-1)" class="btn btn-default">返回上级</button>
+			</form>
+		</div>
+	</body>
+</html>

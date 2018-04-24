@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <div th:fragment="content">
+            <div class="ace-settings-container" id="ace-settings-container">
+                <ul class="pagination">
+                    <li><a class="auth" sn="AdminCategoryController.list" href="/admin/category/list"><span class="glyphicon glyphicon-th-list"></span>分类列表</a></li>
+                    <li><a class="auth" sn="AdminCategoryController.add" href="/admin/category/add"><span class="icon-plus"></span>添加分类</a></li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

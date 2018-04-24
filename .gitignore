@@ -1,27 +1,31 @@
-target/
-!.mvn/wrapper/maven-wrapper.jar
+# Operating System Files
 
-### STS ###
-.apt_generated
+*.DS_Store
+Thumbs.db
+
+# Build Files #
+
+bin
+target
+logs
+build/
+.gradle
+
+# Eclipse Project Files #
+
 .classpath
-.factorypath
 .project
 .settings
-.springBeans
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+# IntelliJ IDEA Files #
+
 *.iml
 *.ipr
+*.iws
+*.idea
 
-### NetBeans ###
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-.nb-gradle/
-.mvn/
-gameversionservice
-logs
+# Spring Bootstrap artifacts
+
+dependency-reduced-pom.xml
+out
+README.html

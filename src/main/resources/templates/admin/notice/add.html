@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="fragments/adminModel">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<title>添加公告</title>
+		<link rel="stylesheet" href="/editor.md-master/css/editormd.css" />
+
+		<script type="text/javascript" src="/editor.md-master/editormd.js"></script>
+		<script type="text/javascript" src="/admin/business/notice-add.js"></script>
+
+	</head>
+	<body>
+		<div th:fragment="content" th:remove="tag">
+			<div class="header lighter smaller blue">
+				<h3><i class="icon-plus"></i>&nbsp;添加公告</h3>
+				<div th:replace="admin/notice/nav :: content" th:remove="tag"></div>
+			</div>
+
+			<form method="POST" th:object="${notice}" id="dataForm">
+
+				<div class="form-group form-group-lg">
+					<div class="input-group input-group-lg">
+						<div class="input-group-addon">级别</div>
+						<div class="form-control">
+							<input type="radio" name="isShow" value="1" id="status_1" th:checked="${notice.isShow == 1}?'checked'"/><label for="status_1">显示</label>
+							<input type="radio" name="isShow" value="0" id="status_0" th:checked="${notice.isShow == 0}?'checked'"/><label for="status_0">隐藏</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group form-group-lg">
+					<div class="input-group">
+						<div class="input-group-addon">内容</div>
+						<div id="my-editormd" class="form-control1">
+							<textarea style="display:none;" placeholder="在这里输入内容，以Markdown方式录入"></textarea>
+						</div>
+					</div>
+				</div>
+
+
+				<input type="hidden" name="token" th:value="${session.token}"/>
+				<textarea style="display:none" name="content" th:text="${notice.content}"></textarea>
+				<textarea style="display:none" name="mdContent" th:text="${notice.mdContent}"></textarea>
+				<button type="submit" class="btn btn-primary">确定提交</button>
+				<button type="button" onclick="javascript:history.back(-1)" class="btn btn-default">返回上级</button>
+			</form>
+		</div>
+	</body>
+</html>
