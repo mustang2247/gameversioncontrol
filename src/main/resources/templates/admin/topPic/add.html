@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="fragments/adminModel">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<title>添加页头图片</title>
+
+	</head>
+	<body>
+		<div th:fragment="content" th:remove="tag">
+			<div class="header lighter smaller blue">
+				<h3><i class="icon-plus"></i>&nbsp;添加页头图片</h3>
+				<div th:replace="admin/topPic/nav :: content" th:remove="tag"></div>
+			</div>
+
+			<form method="POST" th:object="${topPic}" id="dataForm" enctype="multipart/form-data">
+				<div class="form-group form-group-lg">
+					<div class="input-group">
+						<div class="input-group-addon">标题：</div>
+						<input name="title" type="text" class="form-control" th:value="${topPic.title}" placeholder="请输入标题" />
+					</div>
+				</div>
+
+				<div class="form-group form-group-lg">
+					<div class="input-group">
+						<div class="input-group-addon">链接地址：</div>
+						<input name="url" type="text" class="form-control" th:value="${topPic.url}" placeholder="请输入链接地址" />
+					</div>
+				</div>
+
+				<div class="form-group form-group-lg">
+					<div class="input-group">
+						<div class="input-group-addon">滚动图片：</div>
+						<input name="file" type="file" class="form-control" />
+					</div>
+				</div>
+
+				<!--<div class="form-group form-group-lg">-->
+					<!--<div class="input-group">-->
+						<!--<div class="input-group-addon">图片地址：</div>-->
+						<!--<input name="picPath" type="text" class="form-control" th:value="${topPic.picPath}" placeholder="请输入图片地址" />-->
+					<!--</div>-->
+				<!--</div>-->
+
+				<div class="form-group form-group-lg">
+					<div class="input-group">
+						<div class="input-group-addon">序号：</div>
+						<input name="orderNo" type="text" class="form-control" th:value="${topPic.orderNo}" placeholder="请输入序号" />
+					</div>
+				</div>
+
+				<div class="form-group form-group-lg">
+					<div class="input-group input-group-lg">
+						<div class="input-group-addon">打开方式</div>
+						<div class="form-control">
+							<input type="radio" name="urlTarget" value="1" id="urlTarget_1" th:checked="${topPic.urlTarget == '1'}?'checked'"/><label for="urlTarget_1">新窗口打开</label>
+							<input type="radio" name="urlTarget" value="0" id="urlTarget_0" th:checked="${topPic.urlTarget == '0'}?'checked'"/><label for="urlTarget_0">当前窗口打开</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group form-group-lg">
+					<div class="input-group input-group-lg">
+						<div class="input-group-addon">状态</div>
+						<div class="form-control">
+							<input type="radio" name="status" value="1" id="status_1" th:checked="${topPic.status == '1'}?'checked'"/><label for="status_1">前台显示</label>
+							<input type="radio" name="status" value="0" id="status_0" th:checked="${topPic.status == '0'}?'checked'"/><label for="status_0">前台隐藏</label>
+						</div>
+					</div>
+				</div>
+				<input type="hidden" name="token" th:value="${session.token}"/>
+				<button type="submit" class="btn btn-primary">确定提交</button>
+				<button type="button" onclick="javascript:history.back(-1)" class="btn btn-default">返回上级</button>
+			</form>
+		</div>
+	</body>
+</html>

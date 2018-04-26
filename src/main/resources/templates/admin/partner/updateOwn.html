@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="fragments/adminModel">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>修改信息</title>
+	<link rel="stylesheet" href="/editor.md-master/css/editormd.css" />
+
+	<script type="text/javascript" src="/editor.md-master/editormd.js"></script>
+	<script type="text/javascript" src="/admin/business/partner-add.js"></script>
+
+	<script type="text/javascript">
+		$(function() {
+			$("#my-editormd").find("textarea").text($("textarea[name='mdRemark']").text());
+		});
+	</script>
+</head>
+<body>
+<div th:fragment="content" th:remove="tag">
+	<div class="header lighter smaller blue">
+		<h3><i class="icon-plus"></i>&nbsp;修改成员</h3>
+		<div th:replace="admin/partner/nav :: content" th:remove="tag"></div>
+	</div>
+
+	<div th:if="${partner eq null}" class="red">
+		<h3>无关联数据，不可修改！</h3>
+		<button class="btn btn-default" onclick="history.back(-1)">返回上级</button>
+	</div>
+
+	<form method="POST" th:object="${partner}" id="dataForm" th:if="${partner ne null}">
+		<div class="form-group form-group-lg">
+			<div class="input-group">
+				<div class="input-group-addon">真实姓名：</div>
+				<input name="realName" type="text" class="form-control" th:value="${partner.realName}" placeholder="请输入真实姓名" />
+			</div>
+		</div>
+		<div class="form-group form-group-lg">
+			<div class="input-group">
+				<div class="input-group-addon">成员昵称：</div>
+				<input name="nickName" type="text" class="form-control" th:value="${partner.nickName}" placeholder="请输入成员昵称" />
+			</div>
+		</div>
+		<div class="form-group form-group-lg">
+			<div class="input-group">
+				<div class="input-group-addon">用户名：</div>
+				<input name="username" type="text" readonly="readonly" class="form-control" th:value="${partner.username}" placeholder="请输入登陆用户名" />
+			</div>
+		</div>
+
+		<div class="form-group form-group-lg">
+			<div class="input-group">
+				<div class="input-group-addon">头像：</div>
+				<input name="headImg" type="text" class="form-control" th:value="${partner.headImg}" placeholder="头像地址，如：http://" />
+			</div>
+		</div>
+		<div class="form-group form-group-lg">
+			<div class="input-group">
+				<div class="input-group-addon">微信二维码：</div>
+				<input name="wxImg" type="text" class="form-control" th:value="${partner.wxImg}" placeholder="微信收款二维码，如：http://" />
+			</div>
+		</div>
+		<div class="form-group form-group-lg">
+			<div class="input-group">
+				<div class="input-group-addon">支付宝：</div>
+				<input name="zfbImg" type="text" class="form-control" th:value="${partner.zfbImg}" placeholder="支付宝收款二维码，如：http://" />
+			</div>
+		</div>
+
+		<div class="form-group form-group-lg">
+			<div class="input-group">
+				<div class="input-group-addon">邮箱地址：</div>
+				<input name="email" type="text" class="form-control" th:value="${partner.email}" placeholder="邮箱地址，用于接收邮件" />
+			</div>
+		</div>
+
+		<div class="form-group form-group-lg">
+			<div class="input-group">
+				<div class="input-group-addon">备注</div>
+				<div id="my-editormd" class="form-control1">
+					<textarea style="display:none;" placeholder="在这里输入文章内容，以Markdown方式录入"></textarea>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group form-group-lg">
+			<div class="input-group input-group-lg">
+				<div class="input-group-addon">支付</div>
+				<div class="form-control">
+					<input type="radio" name="showPay" value="1" id="status_1" th:checked="${partner.showPay == 1}?'checked'"/><label for="status_1">显示</label>
+					<input type="radio" name="showPay" value="0" id="status_0" th:checked="${partner.showPay == 0}?'checked'"/><label for="status_0">隐藏</label>
+				</div>
+			</div>
+		</div>
+		<input type="hidden" name="token" th:value="${session.token}"/>
+		<textarea style="display:none" name="remark" th:text="${partner.remark}"></textarea>
+		<textarea style="display:none" name="mdRemark" th:text="${partner.mdRemark}"></textarea>
+		<button type="submit" class="btn btn-primary">确定提交</button>
+		<button type="button" onclick="javascript:history.back(-1)" class="btn btn-default">返回上级</button>
+	</form>
+</div>
+</body>
+</html>

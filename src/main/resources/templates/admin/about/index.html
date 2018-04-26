@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="fragments/adminModel">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<title>关于管理</title>
+		<link rel="stylesheet" href="/editor.md-master/css/editormd.css" />
+
+		<script type="text/javascript" src="/editor.md-master/editormd.js"></script>
+		<script type="text/javascript" src="/admin/business/about-add.js"></script>
+
+	</head>
+	<body>
+		<div th:fragment="content" th:remove="tag">
+			<div class="header lighter smaller blue">
+				<h3><i class="icon-plus"></i>&nbsp;关于管理</h3>
+			</div>
+
+			<form method="POST" th:object="${about}" id="dataForm">
+
+				<!--<div class="form-group form-group-lg">
+					<div class="input-group input-group-lg">
+						<div class="input-group-addon">流量</div>
+						<input type="text" class="form-control" name="readCount" th:value="${about.readCount eq null ? 0 : about.readCount}" readonly="readonly"/>
+					</div>
+				</div>-->
+
+				<div class="form-group form-group-lg">
+					<div class="input-group">
+						<div class="input-group-addon">内容</div>
+						<div id="my-editormd" class="form-control1">
+							<textarea style="display:none;" placeholder="在这里输入内容，以Markdown方式录入"></textarea>
+						</div>
+					</div>
+				</div>
+
+				<input type="hidden" name="token" th:value="${session.token}"/>
+				<textarea style="display:none" name="content" th:text="${about.content}"></textarea>
+				<textarea style="display:none" name="mdContent" th:text="${about.mdContent}"></textarea>
+				<button type="submit" class="btn btn-primary">确定提交</button>
+				<button type="button" onclick="javascript:history.back(-1)" class="btn btn-default">返回上级</button>
+			</form>
+		</div>
+	</body>
+</html>

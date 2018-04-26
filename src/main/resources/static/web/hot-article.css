@@ -1,0 +1,43 @@
+.hot-article h2 {
+    color:#444;
+}
+
+.hot-article ul {
+    float:left; width:100%; padding:0px;
+}
+.hot-article ul li {
+    float:left; width:100%; list-style:none; line-height:28px; color:#888;
+}
+
+
+
+.hot-article ul li a i {
+    font-size:8px; font-weight:normal;
+}
+
+.hot-article ul li a span {
+    margin-left:-8px;
+}
+
+
+.new-article ul li a i {
+    font-size:8px; font-weight:normal;
+}
+.new-article ul li a span {
+    margin-left:-8px;
+}
+
+ul.comment-ul-list {
+    padding:0px;
+}
+ul.comment-ul-list li {
+    width:100%; list-style:none; color:#555; border-bottom:1px #dfdfdf solid; padding:5px 0px;
+}
+ul.comment-ul-list a {
+    color:#009688;
+}
+
+.new-comment h2, .show-tags h2, .new-article h2, .hot-article h2, .show-cate h2 {
+    border-left:4px #428bca solid; padding-left:12px; color:#428bca; font-size:20px; font-weight:bold;
+    border-bottom:1px #428bca dotted; padding-bottom:4px;
+}

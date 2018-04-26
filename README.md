@@ -1,31 +1,39 @@
-# gameversioncontrol
-This is game version control server.
+# 区块链快讯
 
-# 游戏版本控制
-采用Spring boot + jdbc开发
+使用Dockerfile
 
-## 目前已经完成
-1、http请求配置文件；
-2、采用http修改和添加配置文件；
-3、实现redis读取和写入；
-4、增加热部署功能。
+mvn clean package -P prod dockerfile:build
 
-## future（计划）
-1、整合apache shiro实现权限管理；
-2、完善后台管理；
-3、根据需求添加。
+mvn dockerfile:build
+请检查Expose daemon on tcp://localhost:2375 without TLS
 
-## build
-mvn clean package -P qa
+## 如果出现错误
+2017-12-13 05:42:34.428 ERROR 1 --- [nio-8080-exec-4] o.h.e.j.s.SqlExceptionHelper             : Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'coinnewsblog.article0_.cate_name' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
 
+## 解决
+去掉only_full_group_by
+set global sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
 
-## 增加更新提示
-data["productId"] = sdkConfig.channelInfo.productId;
-data["id"] = sdkConfig.channelInfo.id;
-data["packageName"] = sdkConfig.channelInfo.packageName;
-data["channel"] = sdkConfig.channelInfo.channel;
-data["version"] = version;
-string requsetValue = data.ToJson();
+## API信息
 
-HTTPRequest requset = new HTTPRequest(new Uri(serverUrl + "?" + "value=" + requsetValue));
+// 获取分类列表
+https://news.block18.io/public/listCategories
+// 页头信息
+https://news.block18.io/public/toppic
+// 获取当天的快讯文章
+https://news.block18.io/public/newsList/page
+// 获取文章
+https://news.block18.io/public/articleList/cateid/page
+// 文章详情
+https://news.block18.io/public/detail/id
 
+// 获取百科
+https://news.block18.io/public/encyclopediaList/8/page
+// 获取研究报告
+https://news.block18.io/public/reportList/9/page
+// 获取视频
+https://news.block18.io/public/videoList/7/page
+
+## 版本信息
+1.7.0 版本情况
+主要添加百科、研究报告和视频等相关功能

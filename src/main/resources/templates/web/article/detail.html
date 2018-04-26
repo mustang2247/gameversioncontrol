@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="fragments/webModel">
+
+    <head>
+        <title th:text="${article.title}+' - '+${session.appConfig.appName}">文章详情</title>
+
+        <meta name="keywords" th:content="${article.tags}+','+${session.appConfig.appName}" />
+        <meta name="description" th:content="${article.guide}" />
+
+        <link rel="stylesheet" type="text/css" href="/web/article.css"/>
+
+        <link rel="stylesheet" type="text/css" href="/web/cate.css"/>
+        <link rel="stylesheet" type="text/css" href="/web/tags.css"/>
+        <link rel="stylesheet" type="text/css" href="/web/hot-article.css"/>
+        <!--<script type="text/javascript" src="/web/cate.js"></script>-->
+        <!--<script type="text/javascript" src="/web/tags.js"></script>-->
+        <script type="text/javascript" src="/web/hot-article.js"></script>
+        <!--<script type="text/javascript" src="/web/new-article.js"></script>-->
+        <script type="text/javascript" src="/web/article.js"></script>
+        <link rel="stylesheet" type="text/css" href="/web/comment.css"/>
+        <script type="text/javascript" src="/web/comment.js"></script>
+        <!--<script type="text/javascript" src="/web/new-comment.js"></script>-->
+        <!--<link rel="stylesheet" type="text/css" href="/web/notice.css"/>-->
+        <script type="text/javascript" src="/web/notice.js"></script>
+
+        <link href="/highlight/styles/monokai_sublime.min.css" rel="stylesheet"/>
+        <script src="/highlight/highlight.pack.js"></script>
+
+        <script src="/flowplayer/flowplayer-3.2.13.min.js"></script>
+
+        <script>hljs.initHighlightingOnLoad();</script>
+
+    </head>
+    <body>
+        <div th:fragment="content">
+            <div class="col-md-9 col-sm-12 col-xs-12" style="padding-top:15px;">
+                <div class="text-center hidden-sm hidden-xs" th:if="${session.appConfig.showAdd eq 1}">
+                    <script type="text/javascript">
+                        var sogou_ad_id=706431;
+                        var sogou_ad_height=90;
+                        var sogou_ad_width=728;
+                        </script>
+                    <script type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
+                    <p style="font-size:12px; color:#F00;">广告很烦人，为缓解运维压力，还望理解与支持！可通过QQ或邮件方式令我取消广告。</p>
+                </div>
+                <div class="my-border container-fluid">
+                    <!--<textarea style="display:none" name="mdContent" th:text="${article.mdContent}"></textarea>-->
+                    <div class="page-header">
+                        <h1 th:text="${article.title}"></h1>
+                        <p class="info"><span title="发布日期" th:text="${#dates.format(article.createDate, '&nbsp;yyyy-MM-dd')}" class="fa fa-clock-o"> </span>
+                            <a title="作者" th:if="${article.userId ne NULL}" th:href="@{/(userId=${article.userId})}" class="fa fa-user" th:text="' '+${article.realName}"></a>
+                            &nbsp;<span title="访问量" class="fa fa-eye" th:text="'&nbsp;'+${article.readCount}"></span>
+                            &nbsp;<a title="点评数" href="#comment-div"><span class="fa fa-comments-o" th:text="'&nbsp;'+${article.commentCount}"></span></a>
+                            <a title="所在分类" th:href="@{/(cateId=${article.cateId})}" class="fa fa-tasks" th:text="' '+${article.cateName}"></a>
+
+                            &nbsp;<span title="标签" class="fa fa-tags article-tags" th:text="' '+${article.tags}"></span>
+                        </p>
+                    </div>
+                    <div class="container-fluid" style="padding:10px 0px; color:#aaa;">本文所属【<a href="/">18区</a>】：<span th:text="'18区'+${article.id}" th:remove="tag"></span></div>
+
+                    <a th:if="${article.videoUrl ne null and article.videoUrl ne ''}" th:href="${article.videoUrl}" th:title="${article.title}+' - 知识林'"
+                       th:style="'display:block;width:100%;height:'+${article.videoHeight eq null or article.videoHeight eq '' ? '500px':article.videoHeight}"
+                       id="player">
+                    </a>
+                    <div class="article-content" th:utext="${article.content}"></div>
+                    <script type="text/javascript">
+                        flowplayer("player", "/flowplayer/flowplayer-3.2.18.swf", {clip:{autoPlay:false,autoBuffering: true}});
+                    </script>
+                    <div class="container-fluid" style="padding:10px 0px; color:#aaa;">本文所属【<a href="/">18区</a>】：<span th:text="'18区'+${article.id}" th:remove="tag"></span></div>
+                    <!--<div id="editormd-view">
+                        <textarea style="display:none;" th:text="${article.content}"></textarea>
+                    </div>-->
+
+                    <div class="row container-fluid hidden-xs hidden-sm" th:if="${session.appConfig.showPay eq 1 and (partner eq null or partner.showPay eq 1)}">
+                        <div class="alert alert-danger">
+                            <!--<p class="text-center" style="padding-bottom:15px;">如果您觉得我的文章不错，对您有所帮助，可以通过“微信支付”或“支付宝”对我加以鼓励！</p>-->
+                            <!--<div class="row" th:if="${partner eq null}">-->
+                                <!--<div class="col-md-6 col-sm-12 col-xs-12 text-right">-->
+                                    <!--<img src="http://img.zslin.com/wx-pay.png"/>-->
+                                    <!--<p class="text-right" style="padding-right:75px;">微信扫一扫</p>-->
+                                <!--</div>-->
+                                <!--<div class="col-md-6 col-sm-12 col-xs-12 text-left">-->
+                                    <!--<img src="http://img.zslin.com/zfb-pay.png"/>-->
+                                    <!--<p class="text-left" style="padding-left:75px;">支付宝扫一扫</p>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="row" th:if="${partner ne null}">-->
+                                <!--<div class="col-md-6 col-sm-12 col-xs-12 text-right">-->
+                                    <!--<img th:src="${partner.wxImg ne NULL and partner.wxImg ne '' ? partner.wxImg : 'http://img.zslin.com/wx-pay.png'}"/>-->
+                                    <!--<p class="text-right" style="padding-right:75px;">微信扫一扫</p>-->
+                                <!--</div>-->
+                                <!--<div class="col-md-6 col-sm-12 col-xs-12 text-left">-->
+                                    <!--<img th:src="${partner.zfbImg ne NULL and partner.zfbImg ne '' ? partner.zfbImg : 'http://img.zslin.com/zfb-pay.png'}"/>-->
+                                    <!--<p class="text-left" style="padding-left:75px;">支付宝扫一扫</p>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row about-art" style="padding-top:40px; padding-bottom:40px;">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <a th:href="'/web/article/detail/'+${preArt.id}" th:if="${preArt ne null}" th:title="'上一篇：'+${preArt.title}"><i class="fa fa-caret-up" style="float:left;"></i> <span th:text="'上一篇：'+${preArt.title}"></span></a>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12" style="text-align:right; padding-right:35px;">
+                        <a th:href="'/web/article/detail/'+${nextArt.id}" th:if="${nextArt ne null}"  th:title="'下一篇：'+${nextArt.title}"><span th:text="'下一篇：'+${nextArt.title}"></span><i class="fa fa-caret-down"></i></a>
+                    </div>
+                </div>
+
+                <div class="my-border container-fluid" style="padding-top:20px;">
+                    <div class="row container-fluid">
+                        <div class="panel panel-info">
+                            <div class="panel-heading"><i class="fa fa-commenting"></i> 文章点评<span style="float:right;" th:text="'共：'+${comments.totalElements}+' 条'"></span></div>
+                            <div class="panel-body">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon">点评内容：</span>
+                                    <textarea class="form-control comment-content" placeholder="输入点评内容" style="height:80px; resize:none;"></textarea>
+                                    <span class="input-group-addon add-comment-btn" th:attr="artId=${article.id}, artTitle=${article.title}"><i class="fa fa-plus"></i> 提交点评</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div th:each="comment : ${comments}" id="comment-div">
+                            <div class="single-comment">
+                                <p style="width:90%;"><span class="time" th:text="${#dates.format(comment.createDate, 'MM-dd')}"></span>  <span th:text="'点评：'+${comment.content}">点评内容</span></p>
+                                <p th:if="${comment.reply ne NULL}" class="text-right reply-p">
+                                    <span class="time" th:text="${#dates.format(comment.replyDate, 'MM-dd')}"></span>  <span th:text="'回复：'+${comment.reply}">回复：回复内容</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12 col-xs-12">
+                <div class="container-fluid show-notice"></div>
+                <div class="container-fluid show-cate"></div>
+                <div class="container-fluid hot-article" showLength="12"></div>
+                <div class="container-fluid new-article" showLength="12"></div>
+                <div class="container-fluid show-tags"></div>
+                <div class="container-fluid new-comment" showLength="15"></div>
+            </div>
+            <div th:unless="${article.picPath eq NULL || article.picPath eq ''}" style="height:0px; overflow:hidden">
+                <img th:src="${article.picPath}"/>
+            </div>
+        </div>
+    </body>
+</html>

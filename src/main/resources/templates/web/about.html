@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="fragments/webModel">
+
+    <head>
+        <title th:text="'关于 - '+${session.appConfig.appName}">文章详情</title>
+        <link rel="stylesheet" href="/editor.md-master/css/editormd.css" />
+        <link rel="stylesheet" href="/editor.md-master/css/editormd.preview.min.css" />
+        <link rel="stylesheet" href="/editor.md-master/css/editormd.logo.min.css" />
+
+        <script type="text/javascript" src="/editor.md-master/lib/marked.min.js"></script>
+        <script type="text/javascript" src="/editor.md-master/lib/prettify.min.js"></script>
+        <script type="text/javascript" src="/editor.md-master/lib/raphael.min.js"></script>
+        <script type="text/javascript" src="/editor.md-master/lib/underscore.min.js"></script>
+        <script type="text/javascript" src="/editor.md-master/lib/sequence-diagram.min.js"></script>
+        <script type="text/javascript" src="/editor.md-master/lib/flowchart.min.js"></script>
+        <script type="text/javascript" src="/editor.md-master/lib/jquery.flowchart.min.js"></script>
+
+        <script type="text/javascript" src="/editor.md-master/editormd.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="/web/article.css"/>
+        <script type="text/javascript" src="/web/article-detail.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="/web/cate.css"/>
+        <link rel="stylesheet" type="text/css" href="/web/tags.css"/>
+        <link rel="stylesheet" type="text/css" href="/web/hot-article.css"/>
+        <!--<script type="text/javascript" src="/web/cate.js"></script>-->
+        <!--<script type="text/javascript" src="/web/tags.js"></script>-->
+        <script type="text/javascript" src="/web/hot-article.js"></script>
+        <!--<link rel="stylesheet" type="text/css" href="/web/notice.css"/>-->
+        <script type="text/javascript" src="/web/notice.js"></script>
+
+    </head>
+    <body>
+        <div th:fragment="content">
+            <div class="col-md-9 col-sm-12 col-xs-12">
+                <div class="my-border container-fluid">
+                    <textarea style="display:none" name="mdContent" th:text="${about.mdContent}"></textarea>
+                    <div class="page-header">
+                        <h1><i class="fa fa-at"></i> 关于</h1>
+                    </div>
+                    <div id="editormd-view">
+                        <textarea style="display:none;" th:text="${about.content}"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12 col-xs-12">
+                <div class="container-fluid show-notice"></div>
+                <div class="container-fluid show-cate"></div>
+                <div class="container-fluid hot-article" showLength="10"></div>
+                <div class="container-fluid show-tags"></div>
+            </div>
+        </div>
+    </body>
+</html>

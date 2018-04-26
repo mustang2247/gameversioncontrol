@@ -1,0 +1,70 @@
+<!DOCTYPE html >
+<html lang="zh-CN"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:fragment="webmodel">
+
+<head th:fragment="head">
+    <title th:text="${session.appConfig.appName}">名称</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.png"/>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <!-- 默认360 兼容模式 -->
+    <meta name="renderer" content="webkit|ie-comp|ie-stand"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="baidu-site-verification" content="RZ2u5JBYOT" />
+    <script type="text/javascript" src="/js-lib/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="/bootstrap3/js/bootstrap.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/bootstrap3/css/bootstrap.min.css"/>
+
+    <script type="text/javascript" src="/admin/myself/public.js"></script>
+
+    <!-- Font Awesome-->
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css"/>
+
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome-ie7.min.css"/>
+    <![endif]-->
+
+    <!-- fonts,字体，需要下载到本地 -->
+    <link rel="stylesheet" href="/assets/css/family.css"/>
+    <link rel="stylesheet" href="/web/web-model.css"/>
+
+    <link rel="stylesheet" href="/web/search.css"/>
+    <script type="text/javascript" src="/web/search.js"></script>
+    <script type="text/javascript" src="/web/web-bottom.js"></script>
+</head>
+<body>
+
+
+<div class="container-fluid" id="model-top-div">
+    <div class="col-md-9 col-sm-12 col-xs-12">
+        <a href="/" class="index-href"><img src="/web/imgs/logo.svg"/></a>
+        <ul class="model-top-ul">
+            <li><a href="/"><i class="fa fa-home"></i> 首页</a></li>
+            <li><a href="/kuaixun"><i class="fa"></i> 快讯</a></li>
+            <!--<li><a href="/ticker"><i class="fa"></i> 交易行情</a></li>-->
+            <li th:each="navCate : ${session.navCateList}"><a th:href="'/?cateId='+${navCate.id}"><i
+                    th:class="${navCate.icon}"></i> <span th:text="${navCate.name}"></span></a></li>
+            <li><a href="http://home.block18.io/"><i class="fa fa-at"></i> 关于18区</a></li>
+        </ul>
+    </div>
+    <div class="col-md-3 col-sm-12 col-xs-12 text-left model-search-div">
+        <div class="input-group input-group-lg">
+            <input type="text" class="form-control" placeholder="搜索"/>
+            <span class="input-group-addon search-btn"><i class="fa fa-search"></i></span>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" style="padding-bottom:75px;">
+    <!-- 这里引用子页面的body内容 -->
+    <div th:include="this :: content" style="margin:10px;"></div>
+</div><!-- /.main-container -->
+
+<div class="navbar-fixed-bottom model-bottom-div text-center">
+    &copy; 2016&nbsp;<span title="文章阅读次数" class="read-count"><i class="fa fa-eye"></i> <b></b></span>
+</div>
+</body>
+</html>

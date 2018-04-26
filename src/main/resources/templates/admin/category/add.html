@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="fragments/adminModel">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<script type="text/javascript" src="/validate/bootstrapValidator.js"></script>
+		<title>添加分类</title>
+	</head>
+	<body>
+		<div th:fragment="content" th:remove="tag">
+			<div class="header lighter smaller blue">
+				<h3><i class="icon-plus"></i>&nbsp;添加分类</h3>
+				<div th:replace="admin/category/nav :: content" th:remove="tag"></div>
+			</div>
+
+			<form method="POST" th:object="${category}" id="dataForm">
+				<div class="form-group form-group-lg">
+					<div class="input-group">
+						<div class="input-group-addon">分类名称：</div>
+						<input name="name" type="text" class="form-control" th:value="${category.name}" placeholder="请输入分类名称" />
+					</div>
+				</div>
+				<div class="form-group form-group-lg">
+					<div class="input-group">
+						<div class="input-group-addon">分类图标：</div>
+						<input name="icon" type="text" class="form-control" th:value="${category.icon}" placeholder="分类图标，从Bootstrap或fontawesome.io中选" />
+					</div>
+				</div>
+				<div class="form-group form-group-lg">
+					<div class="input-group">
+						<div class="input-group-addon">分类描述：</div>
+						<textarea name="remark" type="text" class="form-control" th:text="${category.remark}" style="height:80px;" placeholder="分类描述"></textarea>
+					</div>
+				</div>
+				<div class="form-group form-group-lg">
+					<div class="input-group input-group-lg">
+						<div class="input-group-addon">级别</div>
+						<div class="form-control">
+							<input type="radio" name="isNav" value="1" id="status_1" th:checked="${category.isNav == 1}?'checked'"/><label for="status_1">导航显示</label>
+							<input type="radio" name="isNav" value="0" id="status_0" th:checked="${category.isNav == 0}?'checked'"/><label for="status_0">普通</label>
+						</div>
+					</div>
+				</div>
+				<input type="hidden" name="token" th:value="${session.token}"/>
+				<button type="submit" class="btn btn-primary">确定提交</button>
+				<button type="button" onclick="javascript:history.back(-1)" class="btn btn-default">返回上级</button>
+			</form>
+			<script type="text/javascript">
+				jQuery(function($) {
+					$('#dataForm').bootstrapValidator({
+						message: '验证不通过',
+						feedbackIcons: {
+							valid: 'glyphicon glyphicon-ok',
+							invalid: 'glyphicon glyphicon-remove',
+							validating: 'glyphicon glyphicon-refresh'
+						},
+						fields: {
+							name: {
+								validators: {
+									notEmpty: {
+										message: '请输入分类名称'
+									}
+								}
+							}
+						}
+					});
+				});
+			</script>
+		</div>
+	</body>
+</html>

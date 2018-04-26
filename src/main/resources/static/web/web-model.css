@@ -1,0 +1,50 @@
+body,html {
+    background:#FFF;
+}
+
+.article-content * {
+    font-size:16px;
+}
+
+#model-top-div {
+    height:65px; background:#fdfdfd; border-bottom:1px #eee solid; box-shadow: 0px 0px 6px #999;
+}
+
+a.index-href {
+    margin:5px 0px 0px 40px; float:left; padding:0px; color:#fff;
+}
+a.index-href img {border:none; height:28px; margin-top: 12px;}
+
+ul.model-top-ul {
+    height:65px; margin-left:8px; float:left; padding-left:0px;
+}
+ul.model-top-ul li {
+    height:65px; line-height:65px; list-style:none; display:inline; float:left; margin-left:15px;
+}
+ul.model-top-ul li a {
+    font-size:16px; font-weight:400; color:#7b6879;
+    font-family: 'Open Sans';
+    font-family:"微软雅黑";
+}
+ul.model-top-ul li a:hover {
+    color:#38b7ea; text-decoration:none;
+}
+
+.my-border {
+    border:1px #F8F8F8 solid; background:#FFF;
+    -moz-box-shadow: 0px 1px 2px #ddd; /* 老的 Firefox */
+    box-shadow: 0px 1px 2px #ddd;
+}
+
+
+
+.model-bottom-div {
+    height:50px; border-top:1px #ddd solid;
+    background:#F7f7f7;
+    box-shadow: 0px 0px 10px #aaa;
+    line-height:50px; color:#555;
+}
+
+span.read-count {
+    color:#999;
+}

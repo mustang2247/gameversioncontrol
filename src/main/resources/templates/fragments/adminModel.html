@@ -1,0 +1,175 @@
+<!DOCTYPE html >
+<html lang="zh-CN"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:fragment="mymodel">
+
+<head th:fragment="head">
+    <title>后台首页</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="icon" type="image/x-icon" href="/favicon.png"/>
+    <!-- 默认360 兼容模式 -->
+    <meta name="renderer" content="webkit|ie-comp|ie-stand"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <script type="text/javascript" src="/js-lib/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="/bootstrap3/js/bootstrap.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/bootstrap3/css/bootstrap.min.css"/>
+
+    <script type="text/javascript" src="/admin/myself/public.js"></script>
+
+    <!-- Font Awesome-->
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" />
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome-ie7.min.css" />
+    <![endif]-->
+
+    <link rel="stylesheet" href="/assets/css/jquery-ui-1.10.3.custom.min.css" />
+    <link rel="stylesheet" href="/assets/css/jquery.gritter.css" />
+
+    <!-- fonts,字体，需要下载到本地 -->
+    <link rel="stylesheet" href="/assets/css/family.css" />
+
+    <!-- ace styles -->
+    <link rel="stylesheet" href="/assets/css/ace.min.css" />
+
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/assets/css/ace-ie.min.css" />
+    <![endif]-->
+
+    <!-- 折叠js -->
+    <script src="/assets/js/ace-extra.min.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="/assets/js/html5shiv.js"></script>
+    <script src="/assets/js/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="/admin/myself/delete.js"></script>
+    <script type="text/javascript" src="/admin/myself/auth.js"></script>
+    <script type="text/javascript" src="/admin/myself/cms.admin.js"></script>
+    <script type="text/javascript" src="/admin/myself/my_filter.js"></script>
+    <link type="text/css" rel="stylesheet" href="/admin/css/style.css"/>
+    <script type="text/javascript">
+        $(function() {
+            $(".logout-href").deleteFun({title:'退出提示',msg:'确定退出系统吗？'});
+        });
+    </script>
+</head>
+<body>
+<div class="container-fluid" style="padding:0px; ">
+    <div class="navbar navbar-default1" id="navbar">
+        <div class="navbar-container" id="navbar-container">
+            <div class="navbar-header pull-left">
+                <a href="/admin/" class="navbar-brand">
+                    <i class="icon-globe bigger-140"></i>
+                    <span class="bigger-100" style="font-weight: bold;"><b th:text="${session.appConfig.appName}" th:remove="tag">系统名称</b><small th:text="'&nbsp;('+${session.appConfig.appVersion}+')'">版本号</small></span>
+                </a><!-- /.brand -->
+            </div><!-- /.navbar-header -->
+
+            <div class="navbar-header pull-right" role="navigation">
+                <ul class="nav ace-nav">
+                    <li class="light-blue">
+                        <a data-toggle="dropdown" href="javascript:" class="dropdown-toggle">
+                            <i class="icon-user icon-2x nav-user-photo"></i>
+                            <span class="user-info" th:if="${session.LOGIN_USER ne NULL}">
+                                <small style="padding-bottom:5px;">欢迎登陆：</small>
+                                <span th:text="${session.LOGIN_USER.user.nickname}" th:remove="tag">用户名称</span>
+                            </span>
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+
+                        <ul class=" pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                            <li>
+                                <a href="/" target="_blank">
+                                    <i class="glyphicon glyphicon-home">前台首页</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin">
+                                    <i class="icon-home"> 后台首页</i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/admin/updatePwd">
+                                    <i class="icon-edit"> 修改用户信息</i>
+                                </a>
+                            </li>
+
+                            <!--<li>
+                                <a href="/admin/partner/updateOwn">
+                                    <i class="fa fa-pencil"> 修改个人信息</i>
+                                </a>
+                            </li>-->
+
+                            <li class="divider"></li>
+
+                            <li>
+                                <a href="/logout" title="退出系统" class="logout-href">
+                                    <i class="icon-power-off"></i>
+                                    退出系统
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul><!-- /.ace-nav -->
+            </div><!-- /.navbar-header -->
+
+        </div><!-- /.container -->
+    </div>
+</div>
+
+<div class="main-container" id="main-container">
+
+    <div class="main-container-inner">
+        <a class="menu-toggler" id="menu-toggler" href="#">
+            <span class="menu-text"></span>
+        </a>
+
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-collapse" id="sidebar-collapse">
+                <i class="icon-double-angle-left fa fa-angle-double-left" data-icon1="icon-double-angle-left fa fa-angle-double-left" data-icon2="icon-double-angle-right fa fa-angle-double-right"></i>
+            </div>
+            <!--<jsp:include page="nav.jsp"/>-->
+            <div th:replace="fragments/nav :: content"></div>
+        </div>
+
+        <div class="main-content">
+            <div class="container-fluid" style="padding-bottom:15px;">
+                <!-- 这里引用子页面的body内容 -->
+                <div th:include="this :: content" style="margin:10px;"></div>
+            </div>
+
+        </div><!-- /.main-content -->
+
+
+    </div><!-- /.main-container-inner -->
+
+    <a href="javascript:" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="icon-double-angle-up icon-only bigger-110"></i>
+    </a>
+</div><!-- /.main-container -->
+
+<script src="/assets/js/typeahead-bs2.min.js"></script>
+<!-- page specific plugin scripts -->
+<!--[if lte IE 8]>
+<script src="/assets/js/excanvas.min.js"></script>
+<![endif]-->
+
+<!-- ace scripts -->
+<script src="/assets/js/ace.min.js"></script>
+
+<input type="hidden" id="ctx" value=""/>
+<div id="userAuthHref" style="display: none;" th:if="${session.LOGIN_USER ne NULL}">
+    <div th:each="authTmp : ${session.LOGIN_USER.authList}" th:remove="tag">
+        <span th:text="'('+${authTmp}+')'" th:remove="tag"></span>
+    </div>
+</div>
+<div th:each="arg : ${args}" class="search-filter-div">
+    <input th:value="${arg.value}" type="hidden" th:attr="targetId=${arg.key}"/>
+</div>
+</body>
+</html>

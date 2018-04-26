@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="fragments/webModel">
+
+<head>
+    <title th:text="${category eq null ? session.appConfig.appName:category.name}+' - '+${session.appConfig.appName}">
+        网站首页</title>
+    <link rel="stylesheet" type="text/css" href="/web/article.css"/>
+    <script type="text/javascript" src="/web/article.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/web/cate.css"/>
+    <link rel="stylesheet" type="text/css" href="/web/tags.css"/>
+    <link rel="stylesheet" type="text/css" href="/web/hot-article.css"/>
+    <!--<script type="text/javascript" src="/web/cate.js"></script>-->
+    <!--<script type="text/javascript" src="/web/tags.js"></script>-->
+    <script type="text/javascript" src="/web/hot-article.js"></script>
+    <!--<script type="text/javascript" src="/web/new-article.js"></script>-->
+    <!--<script type="text/javascript" src="/web/new-comment.js"></script>-->
+    <!--<link rel="stylesheet" type="text/css" href="/web/notice.css"/>-->
+    <script type="text/javascript" src="/web/notice.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="/web/slide-pic/swipeslider.css"/>
+    <script type="text/javascript" src="/web/slide-pic/swipeslider.min.js"></script>
+
+    <script type="text/javascript" src="/web/no-pic.js"></script>
+    <script type="text/javascript" src="/web/set-top-pic.js"></script>
+</head>
+<body>
+<div th:fragment="content">
+    <div class="col-md-9 col-sm-12 col-xs-12" style="padding-top:15px;">
+
+        <article class="container-fluid" style="padding:0px;">
+            <figure id="responsiveness" class="swipslider" style="padding:0px;">
+                <ul class="sw-slides">
+                    <li class="sw-slide" th:each="tp : ${topPics}">
+                        <a th:href="${tp.url}" th:target="${tp.urlTarget eq '1'?'_blank':''}">
+                            <img th:src="${tp.picPath}" style="width:100%; height:500px" th:alt="${tp.title}"/>
+                        </a>
+                    </li>
+                </ul>
+            </figure>
+        </article>
+
+        <div th:if="${category ne null}" class="my-border container-fluid">
+            <div class="page-header">
+                所在分类：<b th:text="${category.name}">分类名称</b>
+                <small th:text="'  ('+${datas.totalElements}+')'"></small>
+            </div>
+            <p th:utext="${category.remark}"></p>
+        </div>
+
+        <div th:each="obj : ${datas}" class="single-article my-border container-fluid">
+            <div th:class="${obj.picPath eq NULL || obj.picPath eq ''?'col-md-12':'col-md-9'}">
+                <a th:title="${obj.title}" class="title-href" th:href="'/web/article/detail/'+${obj.id}"
+                   th:text="${obj.title}"></a>
+                <p class="info"><span title="发布日期" th:text="${#dates.format(obj.createDate, '&nbsp;yyyy-MM-dd')}"
+                                      class="fa fa-clock-o"> </span>
+                    <a title="作者" th:if="${obj.userId ne NULL}" th:href="@{/(userId=${obj.userId})}" class="fa fa-user"
+                       th:text="' '+${obj.realName}"></a>
+                    &nbsp;<span title="访问量" class="fa fa-eye" th:text="'&nbsp;'+${obj.readCount}"></span>
+                    <a title="所在分类" th:href="@{/(cateId=${obj.cateId})}" class="fa fa-tasks"
+                       th:text="' '+${obj.cateName}"></a>
+                </p>
+                <p th:utext="${obj.guide}" class="guide"></p>
+                <p class="info">
+                    <span class="fa fa-tags article-tags" th:text="' '+${obj.tags}"></span>
+                    <span style="float:right" class="fa fa-comments-o"><a
+                            th:href="'/web/article/detail/'+${obj.id}+'#comment-div'"
+                            th:text="' '+${obj.commentCount}"></a></span>
+                </p>
+            </div>
+            <div th:unless="${obj.picPath eq NULL || obj.picPath eq ''}" class="col-md-3 hidden-sm hidden-xs">
+                <div th:if="${obj.picPath eq NULL || obj.picPath eq ''}" class="no-pic"></div>
+                <div th:unless="${obj.picPath eq NULL || obj.picPath eq ''}" class="has-pic">
+                    <a th:href="'/web/article/detail/'+${obj.id}" th:title="${obj.title}"
+                       th:attr="picPath=${obj.picPath}"></a>
+                </div>
+            </div>
+        </div>
+        <div th:include="fragments/page :: pager" style="margin-top:18px; "></div>
+    </div>
+    <div class="col-md-3 col-sm-12 col-xs-12">
+        <div class="container-fluid show-notice"></div>
+        <div class="container-fluid show-cate"></div>
+        <div class="container-fluid hot-article" showLength="12"></div>
+        <div class="container-fluid new-article" showLength="12"></div>
+        <div class="container-fluid show-tags"></div>
+        <div class="container-fluid new-comment" showLength="15"></div>
+    </div>
+</div>
+</body>
+</html>
