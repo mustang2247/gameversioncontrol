@@ -23,6 +23,8 @@ build/
 *.ipr
 *.iws
 *.idea
+.mvn
+upload
 
 # Spring Bootstrap artifacts
 
